@@ -6,71 +6,53 @@ var salt_value = 10;
 const UserSchema = new Schema({
     name: { type: String, required: [true, 'Inserisci il tuo nome'] },
     surname: { type: String, required: [true, 'Inserisci il tuo cognome'] },
-    email: { type: String, default: '', index: { unique = true }, required: [true, 'Inserisci la tua email Unicam'] },
+    email: { type: String, unique: true, required: [true, 'Inserisci la tua email Unicam'] },
     hashed_password: { type: String, required: [true, 'Inserisci una password'] },
 });
 
 
-//Virtuals
+// Virtuals, parametri che non vengono salvati nel db ma che possono essere richiamati
 
 UserSchema.virtual('fullName').get(() => {
     return this.name + ' ' + this.surname;
 });
 
 
-//pre
+// Pre, avvengono in automatico prima di save
 
-UserSchema.pre('save', (next) => {
+UserSchema.pre('save', function(next)  {
     // aggiorna la password solo se è appena modificato o è nuovo 
-    if (!this.isNew || !this.isModified('hashed_password')) return next();
-    // generate a salt
-    bcrypt.genSalt(salt_value, function(err, salt) {
-        if (err) return next(err);
-
-        // hash the password using our new salt
-        bcrypt.hash(this.hashed_password, salt, function(err, hash) {
-            if (err) return next(err);
-
+    if (this.isNew || this.isModified('hashed_password')) {
+        // hash the password using our new salt*/
+        bcrypt.hash(this.hashed_password, salt_value, function(err, hash) {
+            if (err)  console.log(err);
+            //return next(err);
             // override the cleartext password with the hashed one
             this.hashed_password = hash;
-            next();
         });
-    });
+    } 
+    next();
 });
 
 
 // Validatori custom
 
 UserSchema.path('name').validate((name) => {
-    return name.length;
-}, 'Il nome non può essere vuoto');
+    var regexp = /[a-z]+$/;
+    return name.match(regexp);
+}, 'Il nome non è valido');
+
+UserSchema.path('surname').validate((surname) => {
+    var regexp = /[a-z]+$/;
+    return surname.match(regexp);
+}, 'Il cognome non è valido');
 
 // controlla se l'email è formata da nome, punto, cognome, eventualmente un numero e @studenti.unicam.it
 UserSchema.path('email').validate((email) => {
-    var regexp = /([a-z]+).([a-z]+)[0-9]*@studenti.unicam.it/;
+    var regexp = /[a-z]+\.[a-z]+[0-9]*@studenti\.unicam\.it$/;
     // null se non corrisponde, altrimenti un array in cui al primo posto è presente la stringa, e negli altri gli elementi indicati dalle parentesi
-    var results = email.match(regexp);
-    // la mail non è valida
-    if (!results) return false;
-    else {
-        var name = results[1];
-        var surname = results[2];
-        // il nome e il cognome della mail devono essere uguali al nome e al cognome inserito
-        return this.name === name && this.surname === surname;
-
-    }
+    return email.match(regexp);
 }, "L'email inserita non è valida" );
-
-UserSchema.path('email').validate((email) => {
-    const User = mongoose.model('User');
-    // controllo solo se l'utente è nuovo 
-    if (this.isNew) {
-        User.find({email: email}).exec((err, users) => {
-            // la query deve ritornare 0 se non c'è nessun utente con quella email
-            return !err && users.length === 0;
-        });
-    } else return true;
-}, "Uno studente registrato con l'email inserita è già presente");
 
 UserSchema.path('hashed_password').validate((hashed_password) => {
     return hashed_password.length;

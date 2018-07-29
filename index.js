@@ -1,18 +1,53 @@
 const express = require('express');
-//middleware che permette di accedere al body della request sotto forma di oggetto javascript, tramite req.body
-const bodyParser= require('body-parser');
+const mongoose = require('mongoose');
+const ejs = require('ejs');
+require('./app/models/user');
+
 const app = express();
-//import di tutte le routes di routes.js
-var router = require('./config/routes.js');
 
-//Parses the text as URL encoded data (which is how browsers tend to send form data from regular forms set to POST) 
-//and exposes the resulting object (containing the keys and values) on req.body
-app.use(bodyParser.urlencoded({extended: true}));
+// import dei setting di express
+require('./config/express')(app);
+// import di tutte le routes di routes.js
+require('./config/routes')(app);
 
-//collega le routes all'app
-app.use(router);
+module.exports = app;
 
-//apre il server e lo fa ascoltare sulla porta 3000
-app.listen(3000, () => {
+// richiama la connessione al db e l'apertura del server
+connectToDb()
+  .on('error', console.log)
+  .on('disconnected', connectToDb)
+  .once('open', listen);
+
+function connectToDb() {
+    // connessione al db remoto 
+    mongoose.connect('mongodb://unicamadmin:unicamadmin123@ds020228.mlab.com:20228/unicamaulestudio', { useNewUrlParser: true });
+    // return dello stato della connessione
+    return mongoose.connection;
+}
+
+function listen() {
+    //apre il server e lo fa ascoltare sulla porta 3000
+    app.listen(3000);
     console.log('fatece vedè er pupone');
-});
+}
+
+
+
+
+/*
+// TEST 
+require('./app/models/user');
+mongoose.connect('mongodb://unicamadmin:unicamadmin123@ds020228.mlab.com:20228/unicamaulestudio', { useNewUrlParser: true });
+app.listen(3000);
+const User = mongoose.model('User');
+//User.collection.drop();
+var user2 = new User();
+user2.name = "leonardo"; 
+user2.surname = "nooooooo";
+user2.email = "macristooooooaaa.noooooa@studenti.unicam.it";
+user2.hashed_password = "asdaaaaaaaaaaaa";
+user2.save();
+User.find({}).exec((err, users) => {
+    console.log(users);
+}); */
+// TEST

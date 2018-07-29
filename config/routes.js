@@ -1,10 +1,9 @@
-var express = require('express');
-var router = express.Router();
+const users = require('../app/controllers/users');
 
-//route di prova
-router.get('/', (req, res) => {
-    console.log('homepage');
-});
-
-
-module.exports = router;
+module.exports = function(app) {
+    //route di prova
+    app.get('/', (req, res) => {
+        console.log('homepage');
+        res.render('homepage.ejs');
+    });
+}
