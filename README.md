@@ -11,5 +11,9 @@ index.js è l'entry point dell'applicazione, quindi se la si volesse runnare tra
 
 Link di riferimento:
 -https://www.sitepoint.com/node-js-mvc-application/
+
 -https://zellwk.com/blog/crud-express-mongodb/
+
 -https://github.com/madhums/node-express-mongoose-demo
+
+-http://masteringionic.com/blog/2017-12-22-node-development-for-an-ionic-application/
