@@ -4,9 +4,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { MainPage} from '../pages/main/main';
-import { ProfilePage} from '../pages/profile/profile';
-import { LoginPage} from '../pages/login/login';
+import { MainPage } from '../pages/main/main';
+import { ProfilePage } from '../pages/profile/profile';
+import { LoginPage } from '../pages/login/login';
+import { SearchPage } from '../pages/search/search';
 
 @Component({
   templateUrl: 'app.html'
@@ -28,6 +29,11 @@ export class MyApp {
     this.menuCtrl.close();
     this.app.getActiveNav().push(HomePage);
     this.app.getActiveNav().setRoot(HomePage); 
+  }
+
+  search(){
+    this.menuCtrl.close();
+    this.app.getActiveNav().push(SearchPage);
   }
 }
 
