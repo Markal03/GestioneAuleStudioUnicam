@@ -230,6 +230,7 @@ var ReservePage = /** @class */ (function () {
     function ReservePage(navCtrl, navParams) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.immagine = new Image();
         this.id = navParams.get('data');
         this.getId();
     }
@@ -239,9 +240,58 @@ var ReservePage = /** @class */ (function () {
     ReservePage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad ReservePage');
     };
+    ReservePage.prototype.ionViewWillEnter = function () {
+        switch (this.id) {
+            case 0: {
+                this.titolo = "Polo Informatico Lodovici";
+                //Interrogare il database per tirare fuori il numero di posti disponibili
+                this.numeroPosti = "13/30";
+                this.immagine.src = '../../assets/imgs/PoloLodovici.png';
+                //Inserisco l'immagine nell'HTML
+                document.getElementById("img").appendChild(this.immagine);
+                break;
+            }
+            case 1: {
+                this.titolo = "Campus Universitario";
+                //Interrogare il database per tirare fuori il numero di posti disponibili
+                this.numeroPosti = "24/50";
+                this.immagine.src = '../../assets/imgs/CampusUniversitario.jpg';
+                //Inserisco l'immagine nell'HTML
+                document.getElementById("img").appendChild(this.immagine);
+                break;
+            }
+            case 2: {
+                this.titolo = "Polo Geologia";
+                //Interrogare il database per tirare fuori il numero di posti disponibili
+                this.numeroPosti = "12/25";
+                this.immagine.src = '../../assets/imgs/PoloGeologia.jpg';
+                //Inserisco l'immagine nell'HTML
+                document.getElementById("img").appendChild(this.immagine);
+                break;
+            }
+            case 3: {
+                this.titolo = "Polo El Fuego";
+                //Interrogare il database per tirare fuori il numero di posti disponibili
+                this.numeroPosti = "3/2";
+                this.immagine.src = '../../assets/imgs/ElFuego.jpg';
+                //Inserisco l'immagine nell'HTML
+                document.getElementById("img").appendChild(this.immagine);
+                break;
+            }
+            case 4: {
+                this.titolo = "Polo Gyros Pita";
+                //Interrogare il database per tirare fuori il numero di posti disponibili
+                this.numeroPosti = "1/20";
+                this.immagine.src = '../../assets/imgs/GyrosPita.jpg';
+                //Inserisco l'immagine nell'HTML
+                document.getElementById("img").appendChild(this.immagine);
+                break;
+            }
+        }
+    };
     ReservePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-reserve',template:/*ion-inline-start:"C:\Users\Marco03\Desktop\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\reserve\reserve.html"*/'\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Prenotazione</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n  <div>\n\n    ID Aula selezionato: {{id}}\n\n  </div>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\reserve\reserve.html"*/,
+            selector: 'page-reserve',template:/*ion-inline-start:"C:\Users\Marco03\Desktop\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\reserve\reserve.html"*/'\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title><div id="title" [innerHtml]="titolo"></div></ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n<ion-content padding>\n\n  <ion-card>\n\n    <div id="img"></div>\n\n    <ion-card-content>\n\n          <ion-card-title>\n\n          </ion-card-title>\n\n        <div id="container">\n\n          <div id="postiDisponibili"> Posti Disponibili:  </div>        \n\n          <div id="posti" [innerHtml]="numeroPosti"> </div>\n\n        </div>\n\n        <button ion-button>\n\n          Prenota\n\n        </button>\n\n      </ion-card-content>\n\n    </ion-card>\n\n<!--     <div id="id">\n\n      ID Aula selezionato: {{id}}\n\n    </div> -->\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\reserve\reserve.html"*/,
         }),
         __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object])
     ], ReservePage);
@@ -314,10 +364,9 @@ var SearchPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-search',template:/*ion-inline-start:"C:\Users\Marco03\Desktop\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\search\search.html"*/'\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Ricerca Aula Studio</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>\n\n  <ion-list>\n\n      <button ion-item *ngFor="let item of items" (click)="reserve(items.indexOf(item))" >\n\n      {{ item }}\n\n    </button>\n\n  </ion-list>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\search\search.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
     ], SearchPage);
     return SearchPage;
-    var _a, _b;
 }());
 
 //# sourceMappingURL=search.js.map
@@ -350,23 +399,23 @@ var map = {
 		5
 	],
 	"../pages/main/main.module": [
-		277,
+		275,
 		4
 	],
 	"../pages/profile/profile.module": [
-		275,
+		276,
 		3
 	],
 	"../pages/register/register.module": [
-		279,
+		277,
 		2
 	],
 	"../pages/reserve/reserve.module": [
-		276,
+		278,
 		1
 	],
 	"../pages/search/search.module": [
-		278,
+		279,
 		0
 	]
 };
@@ -457,11 +506,11 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */], {}, {
                     links: [
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/reserve/reserve.module#ReservePageModule', name: 'ReservePage', segment: 'reserve', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/main/main.module#MainPageModule', name: 'MainPage', segment: 'main', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/search/search.module#SearchPageModule', name: 'SearchPage', segment: 'search', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/reserve/reserve.module#ReservePageModule', name: 'ReservePage', segment: 'reserve', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/search/search.module#SearchPageModule', name: 'SearchPage', segment: 'search', priority: 'low', defaultHistory: [] }
                     ]
                 })
             ],
