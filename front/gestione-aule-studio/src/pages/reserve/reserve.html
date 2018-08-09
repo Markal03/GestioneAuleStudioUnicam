@@ -2,15 +2,26 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Prenotazione</ion-title>
+    <ion-title><div id="title" [innerHtml]="titolo"></div></ion-title>
   </ion-navbar>
 
 </ion-header>
-
-
 <ion-content padding>
-  <div>
-    ID Aula selezionato: {{id}}
-  </div>
-
+  <ion-card>
+    <div id="img"></div>
+    <ion-card-content>
+          <ion-card-title>
+          </ion-card-title>
+        <div id="container">
+          <div id="postiDisponibili"> Posti Disponibili:  </div>        
+          <div id="posti" [innerHtml]="numeroPosti"> </div>
+        </div>
+        <button ion-button>
+          Prenota
+        </button>
+      </ion-card-content>
+    </ion-card>
+<!--     <div id="id">
+      ID Aula selezionato: {{id}}
+    </div> -->
 </ion-content>
