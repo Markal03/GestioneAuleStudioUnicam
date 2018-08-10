@@ -41,6 +41,8 @@ export class RegisterPage {
       });
       alert.present();
     }
-
   }
+
+  //Controllare che l'email non sia già presente nel database
+  //Inserire l'account registrato nel database
 }

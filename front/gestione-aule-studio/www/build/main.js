@@ -92,7 +92,7 @@ var MainPage = /** @class */ (function () {
     };
     MainPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-main',template:/*ion-inline-start:"C:\Users\Marco03\Desktop\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\main\main.html"*/'\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    \n\n    <button ion-button menuToggle icon-only>\n\n      <ion-icon name=\'menu\'></ion-icon>\n\n    </button>\n\n  \n\n    <ion-title>\n\n      Gestione Aule Studio Unicam\n\n    </ion-title>\n\n  <ion-buttons end>\n\n    <button ion-button icon-only (click)="profile()" >\n\n      <ion-icon name="person" end></ion-icon>\n\n    </button>\n\n  </ion-buttons> \n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n  <H2>Prenotazione da visualizzare qui</H2>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\main\main.html"*/,
+            selector: 'page-main',template:/*ion-inline-start:"C:\Users\Marco03\Desktop\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\main\main.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    \n\n    <button ion-button menuToggle icon-only>\n\n      <ion-icon name=\'menu\'></ion-icon>\n\n    </button>\n\n  \n\n    <ion-title>\n\n      Gestione Aule Studio Unicam\n\n    </ion-title>\n\n  <ion-buttons end>\n\n    <button ion-button icon-only (click)="profile()" >\n\n      <ion-icon name="person" end></ion-icon>\n\n    </button>\n\n  </ion-buttons> \n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n<div id="prenotazione"></div>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\main\main.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
     ], MainPage);
@@ -139,9 +139,10 @@ var ProfilePage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-profile',template:/*ion-inline-start:"C:\Users\Marco03\Desktop\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\profile\profile.html"*/'\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Gestione Profilo</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n  <h4>\n\n  Nome: <br>\n\n  Cognome: <br>\n\n  E-mail: <br>\n\n  Facoltà:\n\n  </h4>\n\n  <button ion-button>Modifica Profilo</button>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\profile\profile.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object])
     ], ProfilePage);
     return ProfilePage;
+    var _a, _b;
 }());
 
 //# sourceMappingURL=profile.js.map
@@ -187,21 +188,22 @@ var RegisterPage = /** @class */ (function () {
         console.log("Password Conferma: " + this.passwordConferma);
         if (this.password != this.passwordConferma) {
             //Creo l'alert se le due password non corrispondono
-            var alert_1 = this.alertCtrl.create({
+            var alert = this.alertCtrl.create({
                 title: 'Errore',
                 message: 'Le password inserite non corrispondono!',
                 buttons: ['Ok']
             });
-            alert_1.present();
+            alert.present();
         }
     };
     RegisterPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-register',template:/*ion-inline-start:"C:\Users\Marco03\Desktop\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\register\register.html"*/'\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Registrazione</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n  <ion-item>\n\n    <ion-input placeholder="Username" [(ngModel)]="username"></ion-input>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n    <ion-input placeholder="Password" type="password" [(ngModel)]="password"></ion-input>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n    <ion-input placeholder="Conferma Password" type="password" [(ngModel)]="passwordConferma"></ion-input>\n\n  </ion-item>\n\n\n\n  <button ion-button full (click)="register()"> Registrati </button>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\register\register.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _c || Object])
     ], RegisterPage);
     return RegisterPage;
+    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=register.js.map
@@ -227,25 +229,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var ReservePage = /** @class */ (function () {
-    function ReservePage(navCtrl, navParams) {
+    function ReservePage(navCtrl, navParams, alertCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.alertCtrl = alertCtrl;
+        this.isEnabled = true;
         this.immagine = new Image();
         this.id = navParams.get('data');
-        this.getId();
     }
-    ReservePage.prototype.getId = function () {
-        console.log(this.id);
+    //Funzione di creazione di un messaggio d'alert per l'utente
+    ReservePage.prototype.confirmationAlert = function () {
+        var alert = this.alertCtrl.create({
+            title: 'Prenotazione Effettuata!',
+            subTitle: 'Puoi modificare o cancellare la tua prenotazione in qualsiasi momento',
+            buttons: ['OK']
+        });
+        alert.present();
     };
-    ReservePage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad ReservePage');
+    //Funzione per la conferma della prenotazione da parte dell'utente
+    ReservePage.prototype.createReservation = function () {
+        //Comunico all'utente l'avvenuta prenotazione
+        this.confirmationAlert();
+        //Riduco i posti disponibili di 1
+        //Da sistemare inserendo un'interazione con il database per il numero dei posti
+        this.numeroPostiDisponibili--;
+        //Ritorno al menù principale
+        this.navCtrl.popToRoot();
     };
-    ReservePage.prototype.ionViewWillEnter = function () {
+    //Funzione di load dell'aula in base a quella selezionata dall'utente
+    ReservePage.prototype.selectClass = function () {
         switch (this.id) {
             case 0: {
                 this.titolo = "Polo Informatico Lodovici";
-                //Interrogare il database per tirare fuori il numero di posti disponibili
-                this.numeroPosti = "13/30";
+                //Interrogare il database per estrarre il numero di posti disponibili
+                this.numeroPostiDisponibili = 16;
+                this.numeroPosti = 30;
                 this.immagine.src = '../../assets/imgs/PoloLodovici.png';
                 //Inserisco l'immagine nell'HTML
                 document.getElementById("img").appendChild(this.immagine);
@@ -253,8 +271,9 @@ var ReservePage = /** @class */ (function () {
             }
             case 1: {
                 this.titolo = "Campus Universitario";
-                //Interrogare il database per tirare fuori il numero di posti disponibili
-                this.numeroPosti = "24/50";
+                //Interrogare il database per estrarre il numero di posti disponibili
+                this.numeroPostiDisponibili = 5;
+                this.numeroPosti = 40;
                 this.immagine.src = '../../assets/imgs/CampusUniversitario.jpg';
                 //Inserisco l'immagine nell'HTML
                 document.getElementById("img").appendChild(this.immagine);
@@ -262,8 +281,9 @@ var ReservePage = /** @class */ (function () {
             }
             case 2: {
                 this.titolo = "Polo Geologia";
-                //Interrogare il database per tirare fuori il numero di posti disponibili
-                this.numeroPosti = "12/25";
+                //Interrogare il database per estrarre il numero di posti disponibili
+                this.numeroPostiDisponibili = 12;
+                this.numeroPosti = 25;
                 this.immagine.src = '../../assets/imgs/PoloGeologia.jpg';
                 //Inserisco l'immagine nell'HTML
                 document.getElementById("img").appendChild(this.immagine);
@@ -271,8 +291,9 @@ var ReservePage = /** @class */ (function () {
             }
             case 3: {
                 this.titolo = "Polo El Fuego";
-                //Interrogare il database per tirare fuori il numero di posti disponibili
-                this.numeroPosti = "3/2";
+                //Interrogare il database per estrarre il numero di posti disponibili
+                this.numeroPostiDisponibili = 0;
+                this.numeroPosti = 15;
                 this.immagine.src = '../../assets/imgs/ElFuego.jpg';
                 //Inserisco l'immagine nell'HTML
                 document.getElementById("img").appendChild(this.immagine);
@@ -280,8 +301,9 @@ var ReservePage = /** @class */ (function () {
             }
             case 4: {
                 this.titolo = "Polo Gyros Pita";
-                //Interrogare il database per tirare fuori il numero di posti disponibili
-                this.numeroPosti = "1/20";
+                //Interrogare il database per estrarre il numero di posti disponibili
+                this.numeroPostiDisponibili = 4;
+                this.numeroPosti = 20;
                 this.immagine.src = '../../assets/imgs/GyrosPita.jpg';
                 //Inserisco l'immagine nell'HTML
                 document.getElementById("img").appendChild(this.immagine);
@@ -289,14 +311,28 @@ var ReservePage = /** @class */ (function () {
             }
         }
     };
+    //Funzione che controlla se ci sono posti disponibili, altrimenti disabilita il tasto della prenotazione
+    ReservePage.prototype.checkAvailability = function () {
+        console.log(this.numeroPostiDisponibili);
+        if (this.numeroPostiDisponibili == 0) {
+            this.isEnabled = false;
+        }
+    };
+    ReservePage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad ReservePage');
+    };
+    ReservePage.prototype.ionViewWillEnter = function () {
+        this.selectClass();
+        this.checkAvailability();
+    };
     ReservePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-reserve',template:/*ion-inline-start:"C:\Users\Marco03\Desktop\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\reserve\reserve.html"*/'\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title><div id="title" [innerHtml]="titolo"></div></ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n<ion-content padding>\n\n  <ion-card>\n\n    <div id="img"></div>\n\n    <ion-card-content>\n\n          <ion-card-title>\n\n          </ion-card-title>\n\n        <div id="container">\n\n          <div id="postiDisponibili"> Posti Disponibili:  </div>        \n\n          <div id="posti" [innerHtml]="numeroPosti"> </div>\n\n        </div>\n\n        <button ion-button>\n\n          Prenota\n\n        </button>\n\n      </ion-card-content>\n\n    </ion-card>\n\n<!--     <div id="id">\n\n      ID Aula selezionato: {{id}}\n\n    </div> -->\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\reserve\reserve.html"*/,
+            selector: 'page-reserve',template:/*ion-inline-start:"C:\Users\Marco03\Desktop\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\reserve\reserve.html"*/'\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title><div id="title" [innerHtml]="titolo"></div></ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n<ion-content padding>\n\n  <ion-card>\n\n    <div id="img"></div>\n\n    <ion-card-content>\n\n          <ion-card-title>\n\n          </ion-card-title>\n\n        <div id="container">\n\n          <table>\n\n            <tr>\n\n              <td id="postiDisponibili">Posti Disponibili: </td>\n\n              <td id="postiD" [innerHtml]="numeroPostiDisponibili"></td>\n\n              <td>/</td>\n\n              <td id="posti" [innerHtml]="numeroPosti"></td>\n\n            </tr>\n\n          </table>\n\n        </div>\n\n        <button ion-button (click)="createReservation()" [disabled]="!isEnabled">\n\n          Prenota\n\n        </button>\n\n      </ion-card-content>\n\n    </ion-card>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\reserve\reserve.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _c || Object])
     ], ReservePage);
     return ReservePage;
-    var _a, _b;
+    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=reserve.js.map

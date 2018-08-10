@@ -23,6 +23,10 @@ export class LoginPage {
     console.log("Username: " + this.username);
     console.log("Password: " + this.password);
 
+    //TODO
+    //Controllo se l'Username e la Password sono presenti nel database e sono corretti
+    //Controllo se l'account inserito è un account Amministratore o Utente
+
     //Pusho MainPage sulla pila delle pagine e la setto come root in modo da non poter tornare indietro
     this.navCtrl.push(MainPage);
     this.navCtrl.setRoot(MainPage);
