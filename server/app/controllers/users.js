@@ -10,8 +10,7 @@ exports.create = (req, res) => {
         user.name = req.body.name; 
         user.surname = req.body.surname;
         user.email = req.body.email;
-        user.hashed_password = CryptoJS.MD5("password");
-        user.save();
+        user.hashed_password = password;
         if (user.save()) {
             return res.redirect ("/");
         }

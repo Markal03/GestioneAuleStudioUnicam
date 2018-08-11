@@ -24,7 +24,7 @@ module.exports = function(app) {
 
     app.post('/registraUtente', (req,res) => {
         console.log ('registra utente');
-        users.create;
+        users.create(req, res);
     });
 
     app.post('/loginUtente', (req,res)=>{

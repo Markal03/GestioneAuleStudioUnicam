@@ -12,6 +12,7 @@ require('./config/routes')(app);
 
 module.exports = app;
 
+
 // richiama la connessione al db e l'apertura del server
 connectToDb()
   .on('error', console.log)
@@ -49,5 +50,5 @@ user2.hashed_password = "asdaaaaaaaaaaaa";
 user2.save();
 User.find({}).exec((err, users) => {
     console.log(users);
-}); */
+}); */ 
 // TEST
