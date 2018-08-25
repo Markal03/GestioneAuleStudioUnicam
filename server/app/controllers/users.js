@@ -14,6 +14,9 @@ exports.create = (req, res) => {
         if (user.save()) {
             return res.redirect ("/");
         }
+    }else{
+        console.log("Password non coincidono");
+        return res.redirect("/register");
     }
     
 };
@@ -22,6 +25,6 @@ exports.delete=(req,res) =>{
 
 };
 
-exports.find= (req,res) =>{
-
+exports.findOne= (req,res) =>{
+    
 };

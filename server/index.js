@@ -32,6 +32,14 @@ function listen() {
     console.log('fatece vedè er pupone');
 }
 
+function startSession(){
+    app.use(session({
+        secret: 'New User',
+        resave: true,
+        saveUninitialized: false
+      }));
+}
+
 
 
 

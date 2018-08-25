@@ -29,7 +29,7 @@ module.exports = function(app) {
 
     app.post('/loginUtente', (req,res)=>{
         console.log('login utente');
-        users.find;
+        users.findOne(req, res);
     });
     
 }
