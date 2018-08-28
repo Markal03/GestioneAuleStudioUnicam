@@ -26,5 +26,22 @@ exports.delete=(req,res) =>{
 };
 
 exports.findOne= (req,res) =>{
-    
+    var email = req.body.email;
+    var password = req.body.password;
+
+    UserSchema.statics.authenticate = function (email, password, callback) {
+        User.findOne({email:email})
+        .exec(function (err, user){
+            if(err){
+                return callback(err)
+            }else if (!user){
+                var err = new Error ('Utente non trovato');
+                err.status = 401;
+                return callback(err);
+            }
+
+            UserSchema.comparePasswords(password, callback);
+        })
+        
+    }
 };
