@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const UserSchema =
 
 exports.create = (req, res) => {
     var password = req.body.password;
@@ -29,7 +30,8 @@ exports.findOne= (req,res) =>{
     var email = req.body.email;
     var password = req.body.password;
 
-    UserSchema.statics.authenticate = function (email, password, callback) {
+    var userschema = new UserSchema();
+    userschema.statics.authenticate = function (email, password, callback) {
         User.findOne({email:email})
         .exec(function (err, user){
             if(err){
@@ -40,7 +42,11 @@ exports.findOne= (req,res) =>{
                 return callback(err);
             }
 
-            UserSchema.comparePasswords(password, callback);
+            if ( userschema.comparePasswords(password, callback)) {
+                console.log("Trovato");
+                return res.redirect('/');
+            }
+           ;
         })
         
     }
