@@ -1,0 +1,19 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Ricerca Aula Studio</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-list>
+      <button ion-item *ngFor="let item of items" (click)="reserve(items.indexOf(item))" >
+      {{ item }}
+    </button>
+  </ion-list>
+
+
+</ion-content>

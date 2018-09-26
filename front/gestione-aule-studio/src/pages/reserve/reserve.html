@@ -1,0 +1,30 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title><div id="title" [innerHtml]="titolo"></div></ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding>
+  <ion-card>
+    <div id="img"></div>
+    <ion-card-content>
+          <ion-card-title>
+          </ion-card-title>
+        <div id="container">
+          <table>
+            <tr>
+              <td id="postiDisponibili">Posti Disponibili: </td>
+              <td id="postiD" [innerHtml]="numeroPostiDisponibili"></td>
+              <td>/</td>
+              <td id="posti" [innerHtml]="numeroPosti"></td>
+            </tr>
+          </table>
+        </div>
+        <button ion-button (click)="createReservation()" [disabled]="!isEnabled">
+          Prenota
+        </button>
+      </ion-card-content>
+    </ion-card>
+</ion-content>

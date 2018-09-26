@@ -1,0 +1,31 @@
+{
+  "name": "aulestudiounicam",
+  "version": "1.0.0",
+  "description": "Gestione delle Aule Studio ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeoCal4/GestioneAuleStudioUnicam.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeoCal4/GestioneAuleStudioUnicam/issues"
+  },
+  "homepage": "https://github.com/LeoCal4/GestioneAuleStudioUnicam#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.0",
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.5",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  }
+}
