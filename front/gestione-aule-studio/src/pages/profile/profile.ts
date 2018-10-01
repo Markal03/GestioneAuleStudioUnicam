@@ -22,5 +22,5 @@ export class ProfilePage {
     console.log('ionViewDidLoad ProfilePage');
   }
 
-  //CRUD dati utenteaaaaaa
+  //CRUD dati utente
 }

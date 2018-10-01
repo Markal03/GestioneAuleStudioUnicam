@@ -4,7 +4,8 @@ module.exports = function(app) {
     //route di prova
     app.get('/', (req, res) => {
         console.log('homepage');
-        res.render('homepage.ejs');
+        //res.render('homepage.ejs');
+        res.json({error: 'ciao'});
     });
 
     app.get('/login', (req, res) => {
