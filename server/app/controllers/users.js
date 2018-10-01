@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+const express = require('express');
+const passport = require('passport');
 const User = mongoose.model('User');
-const UserSchema =
+
 
 exports.create = (req, res) => {
     var password = req.body.password;
@@ -29,7 +31,24 @@ exports.delete=(req,res) =>{
 exports.findOne= (req,res) =>{
     var email = req.body.email;
     var password = req.body.password;
+    var user = new User();
 
+    User.findOne({"username":email}, function (err, user) {
+        if (err){
+            console.log(err);
+            res.redirect ("/login");
+        }
+
+        if (!user){
+            console.log ("Errore nel login");
+            res.redirect("/login");
+        }else{
+            passport.authenticate("local")(req, res, function(){
+                res.redirect("/");
+            });
+        }
+    })
+/*
     var userschema = new UserSchema();
     userschema.statics.authenticate = function (email, password, callback) {
         User.findOne({email:email})
@@ -49,5 +68,5 @@ exports.findOne= (req,res) =>{
            ;
         })
         
-    }
+    }*/
 };
