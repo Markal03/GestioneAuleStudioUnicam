@@ -25678,6 +25678,13 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+page-profile img {
+  height: 70vh;
+  width: auto;
+  margin: auto;
+  display: block;
+}
+
 page-reserve #postiDisponibili {
   float: left;
 }
