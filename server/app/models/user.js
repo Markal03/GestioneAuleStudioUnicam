@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
+const express = require('express');
 const Schema = mongoose.Schema;
 var salt_value = 10;
 
@@ -68,6 +69,10 @@ UserSchema.methods = {
             if (err) return cb(err);
             cb(null, matched);
         });
+    },
+
+    authenticate: (possibleEmail, possiblePassword, cb) =>{
+        
     }
 };
 
