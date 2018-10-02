@@ -15,7 +15,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 })
 export class RegisterPage {
 
-  username:string;
+  email:string;
   password:string;
   passwordConferma:string;
 
@@ -28,7 +28,7 @@ export class RegisterPage {
   
   register() {
 
-    console.log("Username: " + this.username);
+    console.log("Email: " + this.email);
     console.log("Password: " + this.password);
     console.log("Password Conferma: " + this.passwordConferma);
 
