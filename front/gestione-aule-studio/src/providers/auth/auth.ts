@@ -31,7 +31,7 @@ export class AuthProvider {
             let headers = new Headers();
             headers.append('Authorization', this.token);
  
-            this.http.get('https://YOUR_HEROKU_APP.herokuapp.com/api/auth/protected', {headers: headers})
+            this.http.get('http://localhost:3000/login', {headers: headers})
                 .subscribe(res => {
                     resolve(res);
                 }, (err) => {
