@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
-import { AuthProvider} from '../../providers'
+import { AuthProvider} from '../../providers/auth/auth';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the RegisterPage page.
@@ -33,6 +34,7 @@ export class RegisterPage {
   
   register() {
 
+    this.showLoader();
     console.log("Email: " + this.email);
     console.log("Password: " + this.password);
     console.log("Password Conferma: " + this.passwordConferma);
@@ -48,17 +50,35 @@ export class RegisterPage {
     }
 
     let details = {
-      nome: this.nome,
-      cognome: this.cognome,
+      name: this.nome,
+      surname: this.cognome,
       email: this.email,
       password: this.password,
       passwordConferma: this.passwordConferma
     };
      
-  this.authService.createAccount(details).then ((result) => {
-
-  })
-
+    this.authService.createAccount(details).then ((result) => {
+      this.loading.dismiss();
+      let confirm =  this.alertCtrl.create({
+        title: 'Registrazione effettuata!',
+        message: 'Registrazione avvenuta con successo, puoi effettuare il login',
+        buttons: [
+          {
+            text: 'Vai al login',
+            handler: () => {this.navCtrl.push(LoginPage);}
+          }
+        ]
+      });
+      confirm.present();
+      }, (err) => {
+        this.loading.dismiss();
+        let alert = this.alertCtrl.create({
+          title: 'Oooops!',
+          message: 'C\'è stato un errore, registrazione non effettuata',
+          buttons: ['Ok']
+        });
+        alert.present();
+      });
   }
 
   showLoader() {
@@ -67,6 +87,7 @@ export class RegisterPage {
     });
 
     this.loading.present();
-    }
   }
+
+}
 
