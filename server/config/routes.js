@@ -16,7 +16,7 @@ module.exports = function(app) {
 
     app.get('/login', requireLogin, AuthenticationController.login);
 
-    app.get('/register', requireAuth, AuthenticationController.register);
+    app.get('/register', AuthenticationController.register);
     
     app.get('/profile', (req, res) => {
         console.log ('profile');
