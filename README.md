@@ -17,5 +17,3 @@ Link di riferimento:
 -https://github.com/madhums/node-express-mongoose-demo
 
 -http://masteringionic.com/blog/2017-12-22-node-development-for-an-ionic-application/
-
-Prova commit

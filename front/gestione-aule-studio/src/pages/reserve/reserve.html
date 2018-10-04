@@ -15,15 +15,44 @@
         <div id="container">
           <table>
             <tr>
-              <td id="postiDisponibili">Posti Disponibili: </td>
+              <td id="postiDisponibili">Posti Disponibili:  </td>
               <td id="postiD" [innerHtml]="numeroPostiDisponibili"></td>
               <td>/</td>
               <td id="posti" [innerHtml]="numeroPosti"></td>
             </tr>
           </table>
         </div>
+        <table>
+          <tr>
+            <td id="ora">
+              Ora:
+            </td>
+            <td>
+                <ion-item>
+                    <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="startTime" placeholder="00:00"></ion-datetime>
+                </ion-item>
+            </td>
+            <td>
+                <ion-item>
+                    <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="endTime" placeholder="01:00"></ion-datetime>
+                </ion-item>
+            </td>
+          </tr>
+          <tr>
+            <td id="giorno">
+              Giorno:
+            </td>
+            <td>
+              <ion-item>
+                <ion-datetime displayFormat="DD-MM" pickerFormat ="DD MM" [(ngModel)]="date" placeholder="01-01"></ion-datetime>
+              </ion-item>
+            </td>
+          </tr>
+        </table>
+
+        
         <button ion-button (click)="createReservation()" [disabled]="!isEnabled">
-          Prenota
+          Prenota 
         </button>
       </ion-card-content>
     </ion-card>

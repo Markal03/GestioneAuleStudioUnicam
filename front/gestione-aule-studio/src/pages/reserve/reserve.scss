@@ -1,5 +1,9 @@
 page-reserve {
-    #postiDisponibili{
-        float:left;
+    #postiDisponibili, #ora, #giorno {
+        text-align:left;
+    }
+
+    table, td {
+       border: 0px solid black;
     }
 }
