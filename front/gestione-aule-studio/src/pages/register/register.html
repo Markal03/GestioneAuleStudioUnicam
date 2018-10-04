@@ -9,16 +9,25 @@
 
 
 <ion-content padding>
+  
   <ion-item>
-    <ion-input placeholder="Email" [(ngModel)]="Email"></ion-input>
+     <ion-input placeholder="Nome" [(ngModel)]="nome"></ion-input>
   </ion-item>
 
-  <ion-item>    <ion-input placeholder="Password" type="password" [(ngModel)]="password"></ion-input>
-  </ion-item>
+   <ion-item>
+       <ion-input placeholder="Cognome" [(ngModel)]="cognome"></ion-input>
+   </ion-item>
+     
+   <ion-item>
+     <ion-input placeholder="Email" [(ngModel)]="email"></ion-input>
+   </ion-item>
 
-  <ion-item>
-    <ion-input placeholder="Conferma Password" type="password" [(ngModel)]="passwordConferma"></ion-input>
-  </ion-item>
+   <ion-item>    <ion-input placeholder="Password" type="password" [(ngModel)]="password"></ion-input>
+   </ion-item>
+
+   <ion-item>
+     <ion-input placeholder="Conferma Password" type="password" [(ngModel)]="passwordConferma"></ion-input>
+   </ion-item>
 
   <button ion-button full (click)="register()"> Registrati </button>
 </ion-content>

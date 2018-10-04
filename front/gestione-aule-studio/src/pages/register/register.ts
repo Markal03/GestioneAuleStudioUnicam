@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { AuthProvider} from '../../providers'
 
 /**
  * Generated class for the RegisterPage page.
@@ -15,11 +16,15 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 })
 export class RegisterPage {
 
-  email:string;
-  password:string;
-  passwordConferma:string;
+  nome: string;
+  cognome: string;
+  email: string;
+  password: string;
+  passwordConferma: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  loading: any;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public authService: AuthProvider, public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -41,8 +46,27 @@ export class RegisterPage {
       });
       alert.present();
     }
+
+    let details = {
+      nome: this.nome,
+      cognome: this.cognome,
+      email: this.email,
+      password: this.password,
+      passwordConferma: this.passwordConferma
+    };
+     
+  this.authService.createAccount(details).then ((result) => {
+
+  })
+
   }
 
-  //Controllare che l'email non sia già presente nel database
-  //Inserire l'account registrato nel database
-}
+  showLoader() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Creazione account in corso...'
+    });
+
+    this.loading.present();
+    }
+  }
+
