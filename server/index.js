@@ -14,12 +14,11 @@ module.exports = app;
 
 
 // richiama la connessione al db e l'apertura del server
-/* connectToDb()
+ connectToDb()
   .on('error', console.log)
   .on('disconnected', connectToDb)
   .once('open', listen);
- */
-listen();
+
 
 function connectToDb() {
     // connessione al db remoto 
