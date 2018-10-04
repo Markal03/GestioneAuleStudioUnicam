@@ -53,7 +53,6 @@ export class AuthProvider {
  
         this.http.post('http://localhost:3000/register', JSON.stringify(details), {headers: headers})
           .subscribe(res => {
- 
             let data = res.json();
             this.token = data.token;
             this.storage.set('token', data.token);
@@ -62,7 +61,7 @@ export class AuthProvider {
           }, (err) => {
             reject(err);
           });
- 
+          console.log(details);
     });
  
   }
@@ -81,7 +80,7 @@ export class AuthProvider {
             this.token = data.token;
             this.storage.set('token', data.token);
             resolve(data);
- 
+            
             resolve(res.json());
           }, (err) => {
             reject(err);

@@ -30,6 +30,10 @@ exports.register = function(req, res, next){
     var email = req.body.email;
     var password = req.body.password;
     var passwordConfirm = req.body.passwordConfirm;
+    console.log(req.body);
+    /*if (!name) {
+        return res.status(422).send({error: 'Campo nome necessario'});
+    }
     if(!email){
         return res.status(422).send({error: 'Campo email necessario'});
     }
@@ -38,7 +42,7 @@ exports.register = function(req, res, next){
     }
     if(!(password===passwordConfirm)) {
         return res.status(422).send({error: 'Le password inserite non coincidono'});
-    }
+    }*/
     User.findOne({email: email}, function(err, existingUser){
         if(err) {
             return next(err);

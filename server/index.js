@@ -14,7 +14,11 @@ module.exports = app;
 
 
 // richiama la connessione al db e l'apertura del server
+<<<<<<< HEAD
  connectToDb()
+=======
+connectToDb()
+>>>>>>> 02bcc44fbc428f92ba7658fdeffe31aa4039aae1
   .on('error', console.log)
   .on('disconnected', connectToDb)
   .once('open', listen);
