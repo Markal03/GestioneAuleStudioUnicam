@@ -47,10 +47,15 @@ import { IonicStorageModule } from '@ionic/storage';
     ReservePage
   ],
   providers: [
+    AuthProvider,
     StatusBar,
     SplashScreen,
+<<<<<<< HEAD
     AuthProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+=======
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
+>>>>>>> a0469e737bdac9ca38505374fabfa14b8e19564a
   ]
 })
 export class AppModule {}

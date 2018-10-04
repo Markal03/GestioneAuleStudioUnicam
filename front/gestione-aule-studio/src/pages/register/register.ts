@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+<<<<<<< HEAD
 import { AuthProvider} from '../../providers/auth/auth';
 import { LoginPage } from '../login/login';
+=======
+import { AuthProvider} from '../../providers/auth/auth'
+>>>>>>> a0469e737bdac9ca38505374fabfa14b8e19564a
 
 /**
  * Generated class for the RegisterPage page.

@@ -23,14 +23,14 @@ export class LoginPage {
     this.showLoader();
  
     //Check if already authenticated
-/*     this.authService.checkAuthentication().then((res) => {
+     this.authService.checkAuthentication().then((res) => {
         console.log("Already authorized");
         this.loading.dismiss();
         this.navCtrl.setRoot(MainPage);
     }, (err) => {
         console.log("Not already authorized");
         this.loading.dismiss();
-    });  */
+    });  
   }
 
   login(){
@@ -42,24 +42,20 @@ export class LoginPage {
       password: this.password
   };
 
-/*   this.authService.login(credentials).then((result) => {
+   this.authService.login(credentials).then((result) => {
       this.loading.dismiss();
       console.log(result);
       this.navCtrl.setRoot(MainPage);
   }, (err) => {
       this.loading.dismiss();
       console.log(err);
-  }); */
-
-    //Pusho MainPage sulla pila delle pagine e la setto come root in modo da non poter tornare indietro
-    this.navCtrl.push(MainPage);
-    this.navCtrl.setRoot(MainPage);
+  }); 
 
   }
 
   showLoader(){
     this.loading = this.loadingCtrl.create({
-      content: 'Authenticating...'
+      content: 'Autenticazione in corso...'
     });
 
     this.loading.present();
