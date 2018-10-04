@@ -24,7 +24,7 @@ UserSchema.virtual('fullName').get(() => {
 UserSchema.pre('save', function(next)  {
     // aggiorna la password solo se è appena modificato o è nuovo 
     if (this.isNew || this.isModified('hashed_password')) {
-        // hash the password using our new salt*/
+        // hash the password using our new salt
         bcrypt.hash(this.hashed_password, salt_value, function(err, hash) {
             if (err)  console.log(err);
             //return next(err);

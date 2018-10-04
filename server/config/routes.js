@@ -1,4 +1,10 @@
-const users = require('../app/controllers/users');
+var AuthenticationController = require('../app/controllers/authentication'), 
+    express = require('express'),
+    passportService = require('../config/passport'),
+    passport = require('passport');
+ 
+var requireAuth = passport.authenticate('jwt', {session: false}),
+    requireLogin = passport.authenticate('local', {session: false});
 
 module.exports = function(app) {
     //route di prova
@@ -8,15 +14,9 @@ module.exports = function(app) {
         res.json({error: 'ciao'});
     });
 
-    app.get('/login', (req, res) => {
-        console.log ('login');
-        res.render('login.ejs');
-    });
+    app.get('/login', requireLogin, AuthenticationController.login);
 
-    app.get('/register', (req, res) => {
-        console.log ('register');
-        res.render('register.ejs');
-    });
+    app.get('/register', requireAuth, AuthenticationController.register);
     
     app.get('/profile', (req, res) => {
         console.log ('profile');

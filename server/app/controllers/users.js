@@ -4,7 +4,7 @@ const passport = require('passport');
 const User = mongoose.model('User');
 
 
-exports.create = (req, res) => {
+/*exports.create = (req, res) => {
     var password = req.body.password;
     var passwordConfirm = req.body.passwordConfirm;
 
@@ -22,13 +22,13 @@ exports.create = (req, res) => {
         return res.redirect("/register");
     }
     
-};
+};*/
 
 exports.delete=(req,res) =>{
 
 };
 
-exports.findOne= (req,res) =>{
+/*exports.findOne= (req,res) =>{
     var email = req.body.email;
     var password = req.body.password;
     var user = new User();
@@ -68,5 +68,5 @@ exports.findOne= (req,res) =>{
            ;
         })
         
-    }*/
-};
+    }
+};*/
