@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, LoadingController, AlertController } from 'ionic-angular';
 import { MainPage } from '../main/main';
 import { AuthProvider } from '../../providers/auth/auth';
 
@@ -14,7 +14,7 @@ export class LoginPage {
   password: string;
   loading: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController, public authService: AuthProvider, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController, public authService: AuthProvider, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -47,6 +47,12 @@ export class LoginPage {
       console.log(result);
       this.navCtrl.setRoot(MainPage);
   }, (err) => {
+    let alert = this.alertCtrl.create({
+      title: 'Errore',
+      message: 'Username o password errati!',
+      buttons: ['Ok']
+    });
+    alert.present();
       this.loading.dismiss();
       console.log(err);
   }); 

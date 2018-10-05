@@ -779,12 +779,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var LoginPage = /** @class */ (function () {
-    function LoginPage(navCtrl, navParams, menuCtrl, authService, loadingCtrl) {
+    function LoginPage(navCtrl, navParams, menuCtrl, authService, loadingCtrl, alertCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.menuCtrl = menuCtrl;
         this.authService = authService;
         this.loadingCtrl = loadingCtrl;
+        this.alertCtrl = alertCtrl;
     }
     LoginPage.prototype.ionViewDidLoad = function () {
         var _this = this;
