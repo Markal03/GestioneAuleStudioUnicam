@@ -14,6 +14,8 @@ module.exports = function(app) {
         res.json({error: 'ciao'});
     });
 
+    //LOGIN AND REGISTRATION ROUTES
+
     app.get('/login', requireLogin, AuthenticationController.login);
 
     app.get('/register', requireAuth, AuthenticationController.register);
@@ -22,6 +24,35 @@ module.exports = function(app) {
         console.log ('profile');
         res.render(/*nome pagina profilo*/);
     });
+
+
+    //USER ROUTES
+
+    app.get('/profile', (req,res) =>{
+
+    });
+
+    app.get('/modifyProfile', (req,res) =>{
+
+    });
+
+    app.get('/removeProfile', (req, res) => {
+
+    });
+
+    app.get('/reportUser', (req,res) => {
+
+    });
+
+    //NEWS FEED ROUTES
+
+    app.get('/newsfeed', (req,res) => {
+
+    });
+
+    //STUDY ROOM ROUTES
+
+    app.get('/')
 
     app.post('/registraUtente', (req,res) => {
         console.log ('registra utente');
