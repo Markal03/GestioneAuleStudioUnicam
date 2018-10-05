@@ -23,6 +23,7 @@ connectToDb()
 function connectToDb() {
     // connessione al db remoto 
     mongoose.connect('mongodb://unicamadmin:unicamadmin123@ds020228.mlab.com:20228/unicamaulestudio', { useNewUrlParser: true });
+    console.log("Connesso al db");
     // return dello stato della connessione
     return mongoose.connection;
 }

@@ -22,16 +22,18 @@ export class AuthProvider {
   checkAuthentication(){
  
     return new Promise((resolve, reject) => {
- 
+        console.log('token: \n');
+        console.log(this.storage.get('token'));
         //Load token if exists
         this.storage.get('token').then((value) => {
- 
+            //TODO il token qui è null ma segna che si è comunque loggati
             this.token = value;
- 
+            console.log("this token: ");
+            console.log(this.token);
             let headers = new Headers();
             headers.append('Authorization', this.token);
- 
-            this.http.get('http://localhost:3000/login', {headers: headers})
+
+            this.http.get('http://localhost:3000/protected', {headers: headers})
                 .subscribe(res => {
                     resolve(res);
                 }, (err) => {
@@ -49,10 +51,14 @@ export class AuthProvider {
     return new Promise((resolve, reject) => {
  
         let headers = new Headers();
+        var body =  JSON.stringify(details);
+        var url = 'http://localhost:3000/register';
         headers.append('Content-Type', 'application/json');
- 
-        this.http.post('http://localhost:3000/register', JSON.stringify(details), {headers: headers})
+        //headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        this.http.post(url, body, {headers: headers})
+        //this.http.post('http://localhost:3000/register', details, {headers: headers})
           .subscribe(res => {
+
             let data = res.json();
             this.token = data.token;
             this.storage.set('token', data.token);
@@ -61,7 +67,6 @@ export class AuthProvider {
           }, (err) => {
             reject(err);
           });
-          console.log(details);
     });
  
   }

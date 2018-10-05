@@ -6,7 +6,8 @@ var ExtractJwt = require('passport-jwt').ExtractJwt;
 var LocalStrategy = require('passport-local').Strategy;
 
 var localOptions = {
-    usernameField: 'email'
+    usernameField: 'email',
+    passwordField: 'password'
 };
  
 var localLogin = new LocalStrategy(localOptions, function(email, password, done){
@@ -18,8 +19,9 @@ var localLogin = new LocalStrategy(localOptions, function(email, password, done)
             return done(null, false, {error: 'Login fallito. Prova di nuovo.'});
         }
  
-        user.comparePassword(password, function(err, isMatch){
+        user.comparePasswords(password, function(err, isMatch){
             if(err){
+                console.log("hey compare passwords");
                 return done(err);
             }
  

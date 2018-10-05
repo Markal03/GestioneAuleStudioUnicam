@@ -14,23 +14,17 @@ module.exports = function(app) {
         res.json({error: 'ciao'});
     });
 
-    app.get('/login', requireLogin, AuthenticationController.login);
+    app.post('/login', requireLogin, AuthenticationController.login);
 
-    app.get('/register', AuthenticationController.register);
+    app.post('/register', AuthenticationController.register);
+
+    app.get('/protected', requireAuth, function(req, res){
+        res.send({ content: 'Success'});
+    });
     
     app.get('/profile', (req, res) => {
         console.log ('profile');
         res.render(/*nome pagina profilo*/);
-    });
-
-    app.post('/registraUtente', (req,res) => {
-        console.log ('registra utente');
-        users.create(req, res);
-    });
-
-    app.post('/loginUtente', (req,res)=>{
-        console.log('login utente');
-        users.findOne(req, res);
     });
     
 }

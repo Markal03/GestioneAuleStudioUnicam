@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
-<<<<<<< HEAD
 import { AuthProvider} from '../../providers/auth/auth';
 import { LoginPage } from '../login/login';
-=======
-import { AuthProvider} from '../../providers/auth/auth'
->>>>>>> a0469e737bdac9ca38505374fabfa14b8e19564a
 
 /**
  * Generated class for the RegisterPage page.
@@ -25,7 +21,7 @@ export class RegisterPage {
   cognome: string;
   email: string;
   password: string;
-  passwordConferma: string;
+  passwordConfirm: string;
 
   loading: any;
 
@@ -41,9 +37,9 @@ export class RegisterPage {
     this.showLoader();
     console.log("Email: " + this.email);
     console.log("Password: " + this.password);
-    console.log("Password Conferma: " + this.passwordConferma);
+    console.log("Password Conferma: " + this.passwordConfirm);
 
-    if (this.password != this.passwordConferma) {
+    if (this.password != this.passwordConfirm) {
       //Creo l'alert se le due password non corrispondono
       let alert = this.alertCtrl.create({
         title: 'Errore',
@@ -58,7 +54,7 @@ export class RegisterPage {
       surname: this.cognome,
       email: this.email,
       password: this.password,
-      passwordConferma: this.passwordConferma
+      passwordConfirm: this.passwordConfirm
     };
      
     this.authService.createAccount(details).then ((result) => {
@@ -81,6 +77,7 @@ export class RegisterPage {
           message: 'C\'è stato un errore, registrazione non effettuata',
           buttons: ['Ok']
         });
+        console.log(err);
         alert.present();
       });
   }
