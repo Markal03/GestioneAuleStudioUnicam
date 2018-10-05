@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { AuthProvider} from '../../providers/auth/auth';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the RegisterPage page.
@@ -15,11 +17,15 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 })
 export class RegisterPage {
 
-  email:string;
-  password:string;
-  passwordConferma:string;
+  nome: string;
+  cognome: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  loading: any;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public authService: AuthProvider, public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -28,11 +34,12 @@ export class RegisterPage {
   
   register() {
 
+    this.showLoader();
     console.log("Email: " + this.email);
     console.log("Password: " + this.password);
-    console.log("Password Conferma: " + this.passwordConferma);
+    console.log("Password Conferma: " + this.passwordConfirm);
 
-    if (this.password != this.passwordConferma) {
+    if (this.password != this.passwordConfirm) {
       //Creo l'alert se le due password non corrispondono
       let alert = this.alertCtrl.create({
         title: 'Errore',
@@ -41,8 +48,47 @@ export class RegisterPage {
       });
       alert.present();
     }
+
+    let details = {
+      name: this.nome,
+      surname: this.cognome,
+      email: this.email,
+      password: this.password,
+      passwordConfirm: this.passwordConfirm
+    };
+     
+    this.authService.createAccount(details).then ((result) => {
+      this.loading.dismiss();
+      let confirm =  this.alertCtrl.create({
+        title: 'Registrazione effettuata!',
+        message: 'Registrazione avvenuta con successo, puoi effettuare il login',
+        buttons: [
+          {
+            text: 'Vai al login',
+            handler: () => {this.navCtrl.push(LoginPage);}
+          }
+        ]
+      });
+      confirm.present();
+      }, (err) => {
+        this.loading.dismiss();
+        let alert = this.alertCtrl.create({
+          title: 'Oooops!',
+          message: 'C\'è stato un errore, registrazione non effettuata',
+          buttons: ['Ok']
+        });
+        console.log(err);
+        alert.present();
+      });
   }
 
-  //Controllare che l'email non sia già presente nel database
-  //Inserire l'account registrato nel database
+  showLoader() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Creazione account in corso...'
+    });
+
+    this.loading.present();
+  }
+
 }
+

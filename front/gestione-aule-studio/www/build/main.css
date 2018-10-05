@@ -25685,6 +25685,10 @@ page-profile img {
   display: block;
 }
 
-page-reserve #postiDisponibili {
-  float: left;
+page-reserve #postiDisponibili, page-reserve #ora, page-reserve #giorno {
+  text-align: left;
+}
+
+page-reserve table, page-reserve td {
+  border: 0px solid black;
 }

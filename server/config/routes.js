@@ -14,16 +14,25 @@ module.exports = function(app) {
         res.json({error: 'ciao'});
     });
 
+<<<<<<< HEAD
     //LOGIN AND REGISTRATION ROUTES
 
     app.get('/login', requireLogin, AuthenticationController.login);
+=======
+    app.post('/login', requireLogin, AuthenticationController.login);
+>>>>>>> 88406cdc975fdc34a24d0cd758e75375614841be
 
-    app.get('/register', requireAuth, AuthenticationController.register);
+    app.post('/register', AuthenticationController.register);
+
+    app.get('/protected', requireAuth, function(req, res){
+        res.send({ content: 'Success'});
+    });
     
     app.get('/profile', (req, res) => {
         console.log ('profile');
         res.render(/*nome pagina profilo*/);
     });
+<<<<<<< HEAD
 
 
     //USER ROUTES
@@ -63,5 +72,7 @@ module.exports = function(app) {
         console.log('login utente');
         users.findOne(req, res);
     });
+=======
+>>>>>>> 88406cdc975fdc34a24d0cd758e75375614841be
     
 }

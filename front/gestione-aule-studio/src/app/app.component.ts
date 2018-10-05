@@ -8,6 +8,7 @@ import { MainPage } from '../pages/main/main';
 import { ProfilePage } from '../pages/profile/profile';
 import { LoginPage } from '../pages/login/login';
 import { SearchPage } from '../pages/search/search';
+import { AuthProvider } from '../providers/auth/auth';
 
 @Component({
   templateUrl: 'app.html'
@@ -15,7 +16,7 @@ import { SearchPage } from '../pages/search/search';
 export class MyApp {
   rootPage:any = HomePage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public app: App, private menuCtrl: MenuController) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public app: App, private menuCtrl: MenuController, public authService: AuthProvider) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -27,6 +28,7 @@ export class MyApp {
     
   logout(){
     this.menuCtrl.close();
+    this.authService.logout();
     this.app.getActiveNav().push(HomePage);
     this.app.getActiveNav().setRoot(HomePage); 
   }
