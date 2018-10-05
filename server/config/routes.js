@@ -34,11 +34,11 @@ module.exports = function(app) {
 
     });
 
-    app.get('/modifyProfile', (req,res) =>{
+    app.post('/modifyProfile', (req,res) =>{
 
     });
 
-    app.get('/removeProfile', (req, res) => {
+    app.post('/removeProfile', (req, res) => {
 
     });
 
@@ -51,5 +51,49 @@ module.exports = function(app) {
     app.get('/newsfeed', (req,res) => {
 
     });
+
+    //STUDY ROOM ROUTES FOR ADMIN
+
     
+    app.get('/adminSection', (req, res) =>{
+
+    });
+
+    app.post('/addStudyRoom', (req, res) =>{
+
+    });
+
+    app.post('/modifyStudyRoom', (req, res) =>{
+
+    });
+
+    app.post('/deleteStudyRoom', (req, res) =>{
+
+    });
+
+    //STUDY ROOM ROUTES FOR STUDENTS
+
+    app.get('/studyRooms', (req, res) =>{
+
+    });
+    
+    app.post('/bookStudyRoom', (req, res) =>{
+
+    });
+
+    
+    /*
+
+    DA TOGLIERE
+
+    app.post('/registraUtente', (req,res) => {
+        console.log ('registra utente');
+        users.create(req, res);
+    });
+
+    app.post('/loginUtente', (req,res)=>{
+        console.log('login utente');
+        users.findOne(req, res);
+    });
+    */
 }
