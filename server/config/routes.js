@@ -51,19 +51,5 @@ module.exports = function(app) {
     app.get('/newsfeed', (req,res) => {
 
     });
-
-    //STUDY ROOM ROUTES
-
-    app.get('/')
-
-    app.post('/registraUtente', (req,res) => {
-        console.log ('registra utente');
-        users.create(req, res);
-    });
-
-    app.post('/loginUtente', (req,res)=>{
-        console.log('login utente');
-        users.findOne(req, res);
-    });
     
 }

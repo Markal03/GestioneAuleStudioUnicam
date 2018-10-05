@@ -22,17 +22,18 @@ UserSchema.virtual('fullName').get(() => {
 // Pre, avvengono in automatico prima di save
 
 UserSchema.pre('save', function(next)  {
+    console.log("quasi");
     // aggiorna la password solo se è appena modificato o è nuovo 
     if (this.isNew || this.isModified('hashed_password')) {
         // hash the password using our new salt
+        var saveThis = this;
         bcrypt.hash(this.hashed_password, salt_value, function(err, hash) {
-            if (err)  console.log(err);
-            //return next(err);
+            if (err) return next(err);
             // override the cleartext password with the hashed one
-            this.hashed_password = hash;
+            saveThis.hashed_password = hash;
+            next();
         });
     } 
-    next();
 });
 
 
@@ -62,19 +63,24 @@ UserSchema.path('hashed_password').validate((hashed_password) => {
 
 //Methods
 
-UserSchema.methods = {
-    // come callback usa "(err, matched) => {...}"
-    comparePasswords: (possiblePassword, cb) => {
-        bcrypt.compare(possiblePassword, this.hashed_password, (err, matched) => {
-            if (err) return cb(err);
+// come callback usa "(err, matched) => {...}"
+UserSchema.methods.comparePasswords = (possiblePassword, hashed_password, cb) => {
+        var user = this;
+        console.log("user in method: ");
+        console.log(user);
+        console.log(user.hashed_password);
+        console.log(this.hashed_password);
+        bcrypt.compare(possiblePassword, hashed_password, (err, matched) => {
+            if (err) {
+                console.log("poss: ");
+                console.log(possiblePassword);
+                console.log("\nhash: ");
+                console.log(user.hashed_password);
+                return cb(err);
+            }
             cb(null, matched);
         });
-    },
-
-    authenticate: (possibleEmail, possiblePassword, cb) =>{
-        
-    }
-};
+}
 
 //mongoose.model('User', UserSchema);
 module.exports = mongoose.model('User', UserSchema);
