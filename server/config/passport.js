@@ -18,8 +18,9 @@ var localLogin = new LocalStrategy(localOptions, function(email, password, done)
         if(!user){
             return done(null, false, {error: 'Login fallito. Prova di nuovo.'});
         }
- 
-        user.comparePasswords(password, function(err, isMatch){
+        
+        console.log("user: " + user);
+        user.comparePasswords(password, user.hashed_password, function(err, isMatch){
             if(err){
                 console.log("hey compare passwords");
                 return done(err);
