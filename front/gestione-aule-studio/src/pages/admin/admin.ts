@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ItemSliding } from 'ionic-angular';
+import { StudyRoomPage } from '../study-room/study-room';
 
 /**
  * Generated class for the AdminPage page.
@@ -36,7 +37,7 @@ export class AdminPage {
   }
 
   addItem(item){
-    //TODO
+    this.navCtrl.push(StudyRoomPage);
   }
 
   removeItem(item){

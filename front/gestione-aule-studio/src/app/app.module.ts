@@ -17,6 +17,7 @@ import { ReservePage } from '../pages/reserve/reserve';
 import { AuthProvider } from '../providers/auth/auth';
 import { IonicStorageModule } from '@ionic/storage';
 import { AdminPage } from '../pages/admin/admin';
+import { StudyRoomPage } from '../pages/study-room/study-room';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AdminPage } from '../pages/admin/admin';
     ProfilePage,
     SearchPage,
     ReservePage,
-    AdminPage
+    AdminPage,
+    StudyRoomPage
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,8 @@ import { AdminPage } from '../pages/admin/admin';
     ProfilePage,
     SearchPage,
     ReservePage,
-    AdminPage
+    AdminPage,
+    StudyRoomPage
   ],
   providers: [
     AuthProvider,
