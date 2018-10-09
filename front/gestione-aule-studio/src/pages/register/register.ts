@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { AuthProvider} from '../../providers/auth/auth';
 import { LoginPage } from '../login/login';
+import { HomePage } from '../home/home';
+import { MainPage } from '../main/main';
 
 /**
  * Generated class for the RegisterPage page.
@@ -61,11 +63,11 @@ export class RegisterPage {
       this.loading.dismiss();
       let confirm =  this.alertCtrl.create({
         title: 'Registrazione effettuata!',
-        message: 'Registrazione avvenuta con successo, puoi effettuare il login',
+        message: 'Registrazione avvenuta con successo!',
         buttons: [
           {
-            text: 'Vai al login',
-            handler: () => {this.navCtrl.push(LoginPage);}
+            text: 'Vai alla pagina principale',
+            handler: () => {this.navCtrl.push(MainPage);}
           }
         ]
       });
