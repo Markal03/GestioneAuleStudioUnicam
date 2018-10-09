@@ -17,6 +17,7 @@ import { ReservePage } from '../pages/reserve/reserve';
 import { AuthProvider } from '../providers/auth/auth';
 import { IonicStorageModule } from '@ionic/storage';
 import { AdminPage } from '../pages/admin/admin';
+import { ProfileProvider } from '../providers/profile/profile';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { AdminPage } from '../pages/admin/admin';
     SplashScreen,
     AuthProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ProfileProvider,
   ]
 })
 export class AppModule {}
