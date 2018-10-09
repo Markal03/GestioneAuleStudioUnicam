@@ -9,6 +9,7 @@ import { ProfilePage } from '../pages/profile/profile';
 import { LoginPage } from '../pages/login/login';
 import { SearchPage } from '../pages/search/search';
 import { AuthProvider } from '../providers/auth/auth';
+import { AdminPage } from '../pages/admin/admin';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,8 +19,6 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public app: App, private menuCtrl: MenuController, public authService: AuthProvider) {
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
       this.menuCtrl.swipeEnable(false);
@@ -36,6 +35,10 @@ export class MyApp {
   search(){
     this.menuCtrl.close();
     this.app.getActiveNav().push(SearchPage);
+  }
+  admin(){
+    this.menuCtrl.close();
+    this.app.getActiveNav().push(AdminPage);
   }
 }
 

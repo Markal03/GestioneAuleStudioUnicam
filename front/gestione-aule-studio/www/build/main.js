@@ -4,11 +4,11 @@ webpackJsonp([6],{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MainPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profile_profile__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__main_main__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_auth__ = __webpack_require__(46);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -21,38 +21,68 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-/* import { LoginPage } from '../login/login'; */
 
-var MainPage = /** @class */ (function () {
-    function MainPage(navCtrl, navParams) {
+var LoginPage = /** @class */ (function () {
+    function LoginPage(navCtrl, navParams, menuCtrl, authService, loadingCtrl, alertCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        //Setto la pagina Main come root in modo da non poter tornare indietro
-        //this.navCtrl.setRoot(MainPage);
+        this.menuCtrl = menuCtrl;
+        this.authService = authService;
+        this.loadingCtrl = loadingCtrl;
+        this.alertCtrl = alertCtrl;
     }
-    MainPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad MainPage');
+    LoginPage.prototype.ionViewDidLoad = function () {
+        var _this = this;
+        console.log('ionViewDidLoad LoginPage');
+        this.showLoader();
+        //Check if already authenticated
+        this.authService.checkAuthentication().then(function (res) {
+            console.log("Already authorized");
+            _this.loading.dismiss();
+            _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_2__main_main__["a" /* MainPage */]);
+        }, function (err) {
+            console.log("Not already authorized");
+            _this.loading.dismiss();
+        });
     };
-    MainPage.prototype.profile = function () {
-        //Vado al profilo mettendolo sulla pila
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__profile_profile__["a" /* ProfilePage */]);
+    LoginPage.prototype.login = function () {
+        var _this = this;
+        this.showLoader();
+        var credentials = {
+            email: this.email,
+            password: this.password
+        };
+        this.authService.login(credentials).then(function (result) {
+            _this.loading.dismiss();
+            console.log(result);
+            _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_2__main_main__["a" /* MainPage */]);
+        }, function (err) {
+            var alert = _this.alertCtrl.create({
+                title: 'Errore',
+                message: 'Username o password errati!',
+                buttons: ['Ok']
+            });
+            alert.present();
+            _this.loading.dismiss();
+            console.log(err);
+        });
     };
-    MainPage.prototype.logout = function () {
-        //Torno all'homepage mettendola sulla pila e la setto come Root
-        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+    LoginPage.prototype.showLoader = function () {
+        this.loading = this.loadingCtrl.create({
+            content: 'Autenticazione in corso...'
+        });
+        this.loading.present();
     };
-    MainPage = __decorate([
+    LoginPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-main',template:/*ion-inline-start:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\main\main.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    \n\n    <button ion-button menuToggle icon-only>\n\n      <ion-icon name=\'menu\'></ion-icon>\n\n    </button>\n\n  \n\n    <ion-title>\n\n      Gestione Aule Studio Unicam\n\n    </ion-title>\n\n  <ion-buttons end>\n\n    <button ion-button icon-only (click)="profile()" >\n\n      <ion-icon name="person" end></ion-icon>\n\n    </button>\n\n  </ion-buttons> \n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n<div id="prenotazione"></div>\n\n\n\n  <ion-card>\n\n    <ion-card-content>\n\n      <ion-card-title>\n\n        <h2> <b> Prenotazione </b> </h2>\n\n      </ion-card-title>\n\n      Nessuna prenotazione effettuata\n\n    </ion-card-content>\n\n  </ion-card>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\main\main.html"*/,
+            selector: 'page-login',template:/*ion-inline-start:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\login\login.html"*/'\n\n<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>Login</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n  <ion-list>\n\n\n\n    <ion-item>\n\n      <ion-input placeholder="Email" [(ngModel)]="email"></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-input placeholder="Password" type="password" [(ngModel)]="password"></ion-input>\n\n    </ion-item>\n\n\n\n</ion-list>\n\n\n\n<button ion-button full (click)="login()"> Login </button>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\login\login.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object])
-    ], MainPage);
-    return MainPage;
-    var _a, _b;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */], __WEBPACK_IMPORTED_MODULE_3__providers_auth_auth__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
+    ], LoginPage);
+    return LoginPage;
 }());
 
-//# sourceMappingURL=main.js.map
+//# sourceMappingURL=login.js.map
 
 /***/ }),
 
@@ -92,10 +122,9 @@ var ProfilePage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-profile',template:/*ion-inline-start:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\profile\profile.html"*/'\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Gestione Profilo</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n  <ion-img></ion-img>\n\n  <ion-list>\n\n      <ion-item>\n\n        <ion-label color="primary">Nome</ion-label>\n\n        <ion-input placeholder="Nome" disabled></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label color="primary">Cognome</ion-label>\n\n        <ion-input placeholder="Cognome" disabled></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label color="primary">E-mail</ion-label>\n\n        <ion-input placeholder="email@email.com" disabled></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label color="primary">Facoltà</ion-label>\n\n        <ion-input placeholder="Facoltà" disabled></ion-input>\n\n      </ion-item>\n\n  </ion-list>    \n\n  <button ion-button>Modifica Profilo</button>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\profile\profile.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
     ], ProfilePage);
     return ProfilePage;
-    var _a, _b;
 }());
 
 //# sourceMappingURL=profile.js.map
@@ -110,7 +139,7 @@ var ProfilePage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth_auth__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__main_main__ = __webpack_require__(51);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -167,11 +196,11 @@ var RegisterPage = /** @class */ (function () {
             _this.loading.dismiss();
             var confirm = _this.alertCtrl.create({
                 title: 'Registrazione effettuata!',
-                message: 'Registrazione avvenuta con successo, puoi effettuare il login',
+                message: 'Registrazione avvenuta con successo!',
                 buttons: [
                     {
-                        text: 'Vai al login',
-                        handler: function () { _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__login_login__["a" /* LoginPage */]); }
+                        text: 'Vai alla pagina principale',
+                        handler: function () { _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__main_main__["a" /* MainPage */]); }
                     }
                 ]
             });
@@ -325,10 +354,9 @@ var ReservePage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-reserve',template:/*ion-inline-start:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\reserve\reserve.html"*/'\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title><div id="title" [innerHtml]="titolo"></div></ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n<ion-content padding>\n\n  <ion-card>\n\n    <div id="img"></div>\n\n    <ion-card-content>\n\n          <ion-card-title>\n\n          </ion-card-title>\n\n        <div id="container">\n\n          <table>\n\n            <tr>\n\n              <td id="postiDisponibili">Posti Disponibili:  </td>\n\n              <td id="postiD" [innerHtml]="numeroPostiDisponibili"></td>\n\n              <td>/</td>\n\n              <td id="posti" [innerHtml]="numeroPosti"></td>\n\n            </tr>\n\n          </table>\n\n        </div>\n\n        <table>\n\n          <tr>\n\n            <td id="ora">\n\n              Ora:\n\n            </td>\n\n            <td>\n\n                <ion-item>\n\n                    <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="startTime" placeholder="00:00"></ion-datetime>\n\n                </ion-item>\n\n            </td>\n\n            <td>\n\n                <ion-item>\n\n                    <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="endTime" placeholder="01:00"></ion-datetime>\n\n                </ion-item>\n\n            </td>\n\n          </tr>\n\n          <tr>\n\n            <td id="giorno">\n\n              Giorno:\n\n            </td>\n\n            <td>\n\n              <ion-item>\n\n                <ion-datetime displayFormat="DD-MM" pickerFormat ="DD MM" [(ngModel)]="date" placeholder="01-01"></ion-datetime>\n\n              </ion-item>\n\n            </td>\n\n          </tr>\n\n        </table>\n\n\n\n        \n\n        <button ion-button (click)="createReservation()" [disabled]="!isEnabled">\n\n          Prenota \n\n        </button>\n\n      </ion-card-content>\n\n    </ion-card>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\reserve\reserve.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
     ], ReservePage);
     return ReservePage;
-    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=reserve.js.map
@@ -396,10 +424,9 @@ var SearchPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-search',template:/*ion-inline-start:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\search\search.html"*/'\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Ricerca Aula Studio</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>\n\n  <ion-list>\n\n      <button ion-item *ngFor="let item of items" (click)="reserve(items.indexOf(item))" >\n\n      {{ item }}\n\n    </button>\n\n  </ion-list>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\search\search.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
     ], SearchPage);
     return SearchPage;
-    var _a, _b;
 }());
 
 //# sourceMappingURL=search.js.map
@@ -427,29 +454,33 @@ webpackEmptyAsyncContext.id = 119;
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"../pages/admin/admin.module": [
+		293,
+		8
+	],
 	"../pages/login/login.module": [
 		287,
-		5
+		14
 	],
 	"../pages/main/main.module": [
 		288,
-		4
+		13
 	],
 	"../pages/profile/profile.module": [
 		289,
-		3
+		12
 	],
 	"../pages/register/register.module": [
 		290,
-		2
+		11
 	],
 	"../pages/reserve/reserve.module": [
 		291,
-		1
+		10
 	],
 	"../pages/search/search.module": [
 		292,
-		0
+		9
 	]
 };
 function webpackAsyncContext(req) {
@@ -496,20 +527,22 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__(161);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(286);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_home_home__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_login_login__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_login_login__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_register_register__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_main_main__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_main_main__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_profile_profile__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_search_search__ = __webpack_require__(108);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_reserve_reserve__ = __webpack_require__(107);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_auth_auth__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_storage__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_admin_admin__ = __webpack_require__(294);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -540,7 +573,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_11__pages_main_main__["a" /* MainPage */],
                 __WEBPACK_IMPORTED_MODULE_12__pages_profile_profile__["a" /* ProfilePage */],
                 __WEBPACK_IMPORTED_MODULE_13__pages_search_search__["a" /* SearchPage */],
-                __WEBPACK_IMPORTED_MODULE_14__pages_reserve_reserve__["a" /* ReservePage */]
+                __WEBPACK_IMPORTED_MODULE_14__pages_reserve_reserve__["a" /* ReservePage */],
+                __WEBPACK_IMPORTED_MODULE_17__pages_admin_admin__["a" /* AdminPage */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -553,7 +587,8 @@ var AppModule = /** @class */ (function () {
                         { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/reserve/reserve.module#ReservePageModule', name: 'ReservePage', segment: 'reserve', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/search/search.module#SearchPageModule', name: 'SearchPage', segment: 'search', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/search/search.module#SearchPageModule', name: 'SearchPage', segment: 'search', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/admin/admin.module#AdminPageModule', name: 'AdminPage', segment: 'admin', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_16__ionic_storage__["a" /* IonicStorageModule */].forRoot()
@@ -567,7 +602,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_11__pages_main_main__["a" /* MainPage */],
                 __WEBPACK_IMPORTED_MODULE_12__pages_profile_profile__["a" /* ProfilePage */],
                 __WEBPACK_IMPORTED_MODULE_13__pages_search_search__["a" /* SearchPage */],
-                __WEBPACK_IMPORTED_MODULE_14__pages_reserve_reserve__["a" /* ReservePage */]
+                __WEBPACK_IMPORTED_MODULE_14__pages_reserve_reserve__["a" /* ReservePage */],
+                __WEBPACK_IMPORTED_MODULE_17__pages_admin_admin__["a" /* AdminPage */]
             ],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_15__providers_auth_auth__["a" /* AuthProvider */],
@@ -597,6 +633,7 @@ var AppModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_search_search__ = __webpack_require__(108);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_auth_auth__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_admin_admin__ = __webpack_require__(294);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -613,6 +650,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var MyApp = /** @class */ (function () {
     function MyApp(platform, statusBar, splashScreen, app, menuCtrl, authService) {
         var _this = this;
@@ -621,8 +659,6 @@ var MyApp = /** @class */ (function () {
         this.authService = authService;
         this.rootPage = __WEBPACK_IMPORTED_MODULE_4__pages_home_home__["a" /* HomePage */];
         platform.ready().then(function () {
-            // Okay, so the platform is ready and our plugins are available.
-            // Here you can do any higher level native things you might need.
             statusBar.styleDefault();
             splashScreen.hide();
             _this.menuCtrl.swipeEnable(false);
@@ -638,15 +674,65 @@ var MyApp = /** @class */ (function () {
         this.menuCtrl.close();
         this.app.getActiveNav().push(__WEBPACK_IMPORTED_MODULE_5__pages_search_search__["a" /* SearchPage */]);
     };
+    MyApp.prototype.admin = function () {
+        this.menuCtrl.close();
+        this.app.getActiveNav().push(__WEBPACK_IMPORTED_MODULE_7__pages_admin_admin__["a" /* AdminPage */]);
+    };
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\app\app.html"*/'<ion-menu [content]="content" id="menu">\n\n    <ion-content padding>\n\n        <ion-list>\n\n            <button ion-item (click)="search()" (click)="hide">\n\n                <ion-icon name="search" end></ion-icon> Ricerca Aule Studio\n\n            </button>\n\n            <button ion-item (click)="hide">\n\n                <ion-icon name="book" end></ion-icon> Visualizza Prenotazione\n\n            </button>\n\n            <button ion-item (click)="logout()" (click)="hide">\n\n                <ion-icon name="exit" end></ion-icon> Logout\n\n            </button>\n\n          </ion-list>\n\n    </ion-content>\n\n  </ion-menu>\n\n  \n\n<ion-nav [root]="rootPage" #content></ion-nav>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\app\app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\app\app.html"*/'<ion-menu [content]="content" id="menu">\n\n    <ion-content padding>\n\n        <ion-list>\n\n            <button ion-item (click)="search()" (click)="hide">\n\n                <ion-icon name="search" end></ion-icon> Ricerca Aule Studio\n\n            </button>\n\n            <button ion-item (click)="admin()" (click)="hide">\n\n                <ion-icon name="book" end></ion-icon> Visualizza Prenotazione\n\n            </button>\n\n            <button ion-item (click)="logout()" (click)="hide">\n\n                <ion-icon name="exit" end></ion-icon> Logout\n\n            </button>\n\n          </ion-list>\n\n    </ion-content>\n\n  </ion-menu>\n\n  \n\n<ion-nav [root]="rootPage" #content></ion-nav>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\app\app.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */], __WEBPACK_IMPORTED_MODULE_6__providers_auth_auth__["a" /* AuthProvider */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_6__providers_auth_auth__["a" /* AuthProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__providers_auth_auth__["a" /* AuthProvider */]) === "function" && _f || Object])
     ], MyApp);
     return MyApp;
+    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=app.component.js.map
+
+/***/ }),
+
+/***/ 294:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+/**
+ * Generated class for the AdminPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var AdminPage = /** @class */ (function () {
+    function AdminPage(navCtrl, navParams) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+    }
+    AdminPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad AdminPage');
+    };
+    AdminPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-admin',template:/*ion-inline-start:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\admin\admin.html"*/'\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Amministratore</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\admin\admin.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
+    ], AdminPage);
+    return AdminPage;
+}());
+
+//# sourceMappingURL=admin.js.map
 
 /***/ }),
 
@@ -761,11 +847,11 @@ var AuthProvider = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MainPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__main_main__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_auth__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profile_profile__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(81);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -778,68 +864,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+/* import { LoginPage } from '../login/login'; */
 
-var LoginPage = /** @class */ (function () {
-    function LoginPage(navCtrl, navParams, menuCtrl, authService, loadingCtrl, alertCtrl) {
+var MainPage = /** @class */ (function () {
+    function MainPage(navCtrl, navParams) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.menuCtrl = menuCtrl;
-        this.authService = authService;
-        this.loadingCtrl = loadingCtrl;
-        this.alertCtrl = alertCtrl;
+        //Setto la pagina Main come root in modo da non poter tornare indietro
+        //this.navCtrl.setRoot(MainPage);
     }
-    LoginPage.prototype.ionViewDidLoad = function () {
-        var _this = this;
-        console.log('ionViewDidLoad LoginPage');
-        this.showLoader();
-        //Check if already authenticated
-        this.authService.checkAuthentication().then(function (res) {
-            console.log("Already authorized");
-            _this.loading.dismiss();
-            _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_2__main_main__["a" /* MainPage */]);
-        }, function (err) {
-            console.log("Not already authorized");
-            _this.loading.dismiss();
-        });
+    MainPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad MainPage');
     };
-    LoginPage.prototype.login = function () {
-        var _this = this;
-        this.showLoader();
-        var credentials = {
-            email: this.email,
-            password: this.password
-        };
-        this.authService.login(credentials).then(function (result) {
-            _this.loading.dismiss();
-            console.log(result);
-            _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_2__main_main__["a" /* MainPage */]);
-        }, function (err) {
-            var alert = _this.alertCtrl.create({
-                title: 'Errore',
-                message: 'Username o password errati!',
-                buttons: ['Ok']
-            });
-            alert.present();
-            _this.loading.dismiss();
-            console.log(err);
-        });
+    MainPage.prototype.profile = function () {
+        //Vado al profilo mettendolo sulla pila
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__profile_profile__["a" /* ProfilePage */]);
     };
-    LoginPage.prototype.showLoader = function () {
-        this.loading = this.loadingCtrl.create({
-            content: 'Autenticazione in corso...'
-        });
-        this.loading.present();
+    MainPage.prototype.logout = function () {
+        //Torno all'homepage mettendola sulla pila e la setto come Root
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
     };
-    LoginPage = __decorate([
+    MainPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-login',template:/*ion-inline-start:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\login\login.html"*/'\n\n<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>Login</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n  <ion-list>\n\n\n\n    <ion-item>\n\n      <ion-input placeholder="Email" [(ngModel)]="email"></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-input placeholder="Password" type="password" [(ngModel)]="password"></ion-input>\n\n    </ion-item>\n\n\n\n</ion-list>\n\n\n\n<button ion-button full (click)="login()"> Login </button>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\login\login.html"*/,
+            selector: 'page-main',template:/*ion-inline-start:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\main\main.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    \n\n    <button ion-button menuToggle icon-only>\n\n      <ion-icon name=\'menu\'></ion-icon>\n\n    </button>\n\n  \n\n    <ion-title>\n\n      Gestione Aule Studio Unicam\n\n    </ion-title>\n\n  <ion-buttons end>\n\n    <button ion-button icon-only (click)="profile()" >\n\n      <ion-icon name="person" end></ion-icon>\n\n    </button>\n\n  </ion-buttons> \n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n<div id="prenotazione"></div>\n\n\n\n  <ion-card>\n\n    <ion-card-content>\n\n      <ion-card-title>\n\n        <h2> <b> Prenotazione </b> </h2>\n\n      </ion-card-title>\n\n      Nessuna prenotazione effettuata\n\n    </ion-card-content>\n\n  </ion-card>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\main\main.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */], __WEBPACK_IMPORTED_MODULE_3__providers_auth_auth__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
-    ], LoginPage);
-    return LoginPage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
+    ], MainPage);
+    return MainPage;
 }());
 
-//# sourceMappingURL=login.js.map
+//# sourceMappingURL=main.js.map
 
 /***/ }),
 
@@ -850,7 +905,7 @@ var LoginPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_login__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_login__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__register_register__ = __webpack_require__(106);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -881,10 +936,9 @@ var HomePage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-home',template:/*ion-inline-start:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title align = "center">Gestione Aule Studio Unicam</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n<button ion-button full (click)="loginPage();">Login</button>\n\n<button ion-button full (click)="registerPage();">Registrazione</button>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Marco03\Desktop\Ingegneria del Software\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\home\home.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]) === "function" && _a || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]])
     ], HomePage);
     return HomePage;
-    var _a;
 }());
 
 //# sourceMappingURL=home.js.map
