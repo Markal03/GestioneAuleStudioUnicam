@@ -9,7 +9,10 @@
 
 
 <ion-content padding>
-  <ion-img></ion-img>
+  <div id="proPic" align="center">
+      <ion-img width="200" height="200" src="../../assets/imgs/GyrosPita.jpg"></ion-img>
+  </div>
+  <br>
   <ion-list>
       <ion-item>
         <ion-label color="primary">Nome</ion-label>
@@ -28,5 +31,12 @@
         <ion-input placeholder="Facoltà" disabled></ion-input>
       </ion-item>
   </ion-list>    
-  <button ion-button>Modifica Profilo</button>
+  <button ion-button icon-start>
+    <ion-icon name = "brush"></ion-icon>
+    Modifica Profilo
+  </button>
+  <button ion-button color = "danger" icon-start>
+    <ion-icon name = "trash"></ion-icon>
+    Elimina Profilo
+  </button>
 </ion-content>
