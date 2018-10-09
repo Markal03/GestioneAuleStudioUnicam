@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ItemSliding } from 'ionic-angular';
 
 /**
  * Generated class for the AdminPage page.
@@ -14,12 +14,36 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'admin.html',
 })
 export class AdminPage {
+ items;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.initializeItems();
+
+  }
+
+  initializeItems() {
+    this.items = [
+      {title: 'Polo Informatico Lodovici'},
+      {title: 'Campus Universitario'},
+      {title: 'Polo Scienze della Terra'},
+      {title: 'Polo El Fuego'},
+      {title: 'Polo Gyros Pita'}
+  ];
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminPage');
   }
 
+  addItem(item){
+    //TODO
+  }
+
+  removeItem(item){
+    //TODO
+  }
+
+  editItem(item){
+    //TODO
+  }
 }

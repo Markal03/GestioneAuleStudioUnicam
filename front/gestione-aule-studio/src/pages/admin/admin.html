@@ -9,5 +9,20 @@
 
 
 <ion-content padding>
-
+  <ion-list>
+  <ion-item-sliding *ngFor="let item of items">
+ 
+    <ion-item>
+    {{item.title}}
+    </ion-item>
+ 
+    <ion-item-options>
+      <button ion-button color="danger" (click)="removeItem(item)"><ion-icon name="trash"></ion-icon> Elimina </button>
+      <button ion-button (click)="editItem(item)"><ion-icon name="brush"></ion-icon> Modifica </button>
+    </ion-item-options>
+  </ion-item-sliding>
+  </ion-list>
+  <ion-fab bottom center #fab>
+  <button ion-fab (click)="addItem(item)"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>

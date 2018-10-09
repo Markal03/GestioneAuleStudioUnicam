@@ -28,7 +28,7 @@ module.exports = function(app) {
     });
 
 
-    //USER ROUTES
+    //STUDENT ROUTES
 
     app.get('/profile', (req,res) =>{
 
@@ -39,10 +39,6 @@ module.exports = function(app) {
     });
 
     app.post('/removeProfile', (req, res) => {
-
-    });
-
-    app.get('/reportUser', (req,res) => {
 
     });
 
@@ -63,7 +59,7 @@ module.exports = function(app) {
 
     });
 
-    app.post('/modifyStudyRoom', (req, res) =>{
+    app.put('/modifyStudyRoom', (req, res) =>{
 
     });
 

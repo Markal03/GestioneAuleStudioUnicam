@@ -28,17 +28,37 @@ var AdminPage = /** @class */ (function () {
     function AdminPage(navCtrl, navParams) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.initializeItems();
     }
+    AdminPage.prototype.initializeItems = function () {
+        this.items = [
+            { title: 'Polo Informatico Lodovici' },
+            { title: 'Campus Universitario' },
+            { title: 'Polo Scienze della Terra' },
+            { title: 'Polo El Fuego' },
+            { title: 'Polo Gyros Pita' }
+        ];
+    };
     AdminPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad AdminPage');
     };
+    AdminPage.prototype.addItem = function (item) {
+        //TODO
+    };
+    AdminPage.prototype.removeItem = function (item) {
+        //TODO
+    };
+    AdminPage.prototype.editItem = function (item) {
+        //TODO
+    };
     AdminPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-admin',template:/*ion-inline-start:"C:\Users\Mario\Desktop\Mario\UNICAM\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\admin\admin.html"*/'\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Amministratore</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Mario\Desktop\Mario\UNICAM\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\admin\admin.html"*/,
+            selector: 'page-admin',template:/*ion-inline-start:"C:\Users\Mario\Desktop\Mario\UNICAM\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\admin\admin.html"*/'\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Amministratore</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n  <ion-list>\n\n  <ion-item-sliding *ngFor="let item of items">\n\n \n\n    <ion-item>\n\n    {{item.title}}\n\n    </ion-item>\n\n \n\n    <ion-item-options>\n\n      <button ion-button color="danger" (click)="removeItem(item)"><ion-icon name="trash"></ion-icon> Elimina </button>\n\n      <button ion-button (click)="editItem(item)"><ion-icon name="brush"></ion-icon> Modifica </button>\n\n    </ion-item-options>\n\n  </ion-item-sliding>\n\n  </ion-list>\n\n  <ion-fab bottom center #fab>\n\n  <button ion-fab (click)="addItem(item)"><ion-icon name="add"></ion-icon></button>\n\n  </ion-fab>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Mario\Desktop\Mario\UNICAM\GestioneAuleStudioUnicam\front\gestione-aule-studio\src\pages\admin\admin.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object])
     ], AdminPage);
     return AdminPage;
+    var _a, _b;
 }());
 
 //# sourceMappingURL=admin.js.map
