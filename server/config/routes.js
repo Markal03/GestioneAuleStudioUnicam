@@ -2,6 +2,8 @@ var AuthenticationController = require('../app/controllers/authentication'),
     express = require('express'),
     passportService = require('../config/passport'),
     passport = require('passport');
+    mongoose = require('mongoose');
+    User = mongoose.model('User');
  
 var requireAuth = passport.authenticate('jwt', {session: false}),
     requireLogin = passport.authenticate('local', {session: false});
@@ -38,8 +40,17 @@ module.exports = function(app) {
 
     });
 
-    app.post('/removeProfile', (req, res) => {
-
+    app.delete('/removeProfile/:email', (req, res) => {
+        var email= req.param("email");
+        User.remove({
+            _email=email
+        }, function(err){
+            if(err){
+            console.log(err);
+        }else{
+          return  res.send("Eliminazione confermata");
+        }
+        });
     });
 
     //NEWS FEED ROUTES
