@@ -23,4 +23,17 @@ export class ProfilePage {
   }
 
   //CRUD dati utente
+
+  //Funzione per l'eliminazione del profilo utente
+  deleteProfile() {
+  }
+
+  //Funzione per la modifica dell'immagine del profilo utente
+  updateProfilePicture() {
+
+  }
+  //Funzione per la modifica password
+  updatePassword() {
+  }
+
 }

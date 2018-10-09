@@ -18,6 +18,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { IonicStorageModule } from '@ionic/storage';
 import { AdminPage } from '../pages/admin/admin';
 import { StudyRoomPage } from '../pages/study-room/study-room';
+import { ProfileProvider } from '../providers/profile/profile';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { StudyRoomPage } from '../pages/study-room/study-room';
     SplashScreen,
     AuthProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ProfileProvider,
   ]
 })
 export class AppModule {}
