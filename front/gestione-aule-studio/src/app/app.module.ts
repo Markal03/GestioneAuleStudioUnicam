@@ -17,6 +17,7 @@ import { ReservePage } from '../pages/reserve/reserve';
 import { AuthProvider } from '../providers/auth/auth';
 import { IonicStorageModule } from '@ionic/storage';
 import { AdminPage } from '../pages/admin/admin';
+import { StudyRoomPage } from '../pages/study-room/study-room';
 import { ProfileProvider } from '../providers/profile/profile';
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ProfileProvider } from '../providers/profile/profile';
     ProfilePage,
     SearchPage,
     ReservePage,
-    AdminPage
+    AdminPage,
+    StudyRoomPage
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,8 @@ import { ProfileProvider } from '../providers/profile/profile';
     ProfilePage,
     SearchPage,
     ReservePage,
-    AdminPage
+    AdminPage,
+    StudyRoomPage
   ],
   providers: [
     AuthProvider,
