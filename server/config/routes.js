@@ -43,7 +43,7 @@ module.exports = function(app) {
     app.delete('/removeProfile/:id', (req, res) => {
         var id= req.param("id");
         User.remove({
-            _id=id
+            _id:id
         }, function(err){
             if(err){
             console.log(err);
