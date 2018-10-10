@@ -40,10 +40,10 @@ module.exports = function(app) {
 
     });
 
-    app.delete('/removeProfile/:email', (req, res) => {
-        var email= req.param("email");
+    app.delete('/removeProfile/:id', (req, res) => {
+        var id= req.param("id");
         User.remove({
-            _email=email
+            _id=id
         }, function(err){
             if(err){
             console.log(err);
