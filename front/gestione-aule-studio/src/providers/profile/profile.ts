@@ -15,14 +15,19 @@ export class ProfileProvider {
   constructor(public http: Http, public authService: AuthProvider) {
   }
 
-  deleteProfile(){
-    /*return new Promise ((resolve, reject) => {
+  deleteProfile(userId){
+    var url = 'http://localhost:3000/removeProfile/'
+    return new Promise ((resolve, reject) => {
 
       let headers = new Headers();
       headers.append('Authorization', this.authService.token);
-    })*/
+      this.http.delete(url + userId, {headers: headers}).subscribe((res) => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
 
-    console.log(this.authService.token);
+    });
   }
 
 }

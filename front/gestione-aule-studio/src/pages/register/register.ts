@@ -67,7 +67,7 @@ export class RegisterPage {
         buttons: [
           {
             text: 'Vai alla pagina principale',
-            handler: () => {this.navCtrl.push(MainPage);}
+            handler: () => {this.navCtrl.setRoot(MainPage, {data: result});}
           }
         ]
       });
