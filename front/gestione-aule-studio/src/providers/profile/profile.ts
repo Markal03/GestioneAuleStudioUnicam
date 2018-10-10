@@ -1,5 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { Http, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
+import { AuthProvider } from '../auth/auth';
+import 'rxjs/add/operator/map';
 
 /*
   Generated class for the ProfileProvider provider.
@@ -10,8 +12,17 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ProfileProvider {
 
-  constructor(public http: HttpClient) {
-    console.log('Hello ProfileProvider Provider');
+  constructor(public http: Http, public authService: AuthProvider) {
+  }
+
+  deleteProfile(){
+    /*return new Promise ((resolve, reject) => {
+
+      let headers = new Headers();
+      headers.append('Authorization', this.authService.token);
+    })*/
+
+    console.log(this.authService.token);
   }
 
 }

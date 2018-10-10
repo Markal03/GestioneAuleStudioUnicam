@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ProfileProvider }  from '../../providers/profile/profile';
 
 /**
  * Generated class for the ProfilePage page.
@@ -15,7 +16,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProfilePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public profileProvider: ProfileProvider) {
   }
 
   ionViewDidLoad() {
@@ -26,6 +27,7 @@ export class ProfilePage {
 
   //Funzione per l'eliminazione del profilo utente
   deleteProfile() {
+    this.profileProvider.deleteProfile();
   }
 
   //Funzione per la modifica dell'immagine del profilo utente
