@@ -54,9 +54,7 @@ export class AuthProvider {
         var body =  JSON.stringify(details);
         var url = 'http://localhost:3000/register';
         headers.append('Content-Type', 'application/json');
-        //headers.append('Content-Type', 'application/x-www-form-urlencoded');
         this.http.post(url, body, {headers: headers})
-        //this.http.post('http://localhost:3000/register', details, {headers: headers})
           .subscribe(res => {
 
             let data = res.json();
