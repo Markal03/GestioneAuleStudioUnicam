@@ -19,6 +19,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { AdminPage } from '../pages/admin/admin';
 import { StudyRoomPage } from '../pages/study-room/study-room';
 import { ProfileProvider } from '../providers/profile/profile';
+import { StudyRoomProvider } from '../providers/study-room/study-room';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { ProfileProvider } from '../providers/profile/profile';
     AuthProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ProfileProvider,
+    StudyRoomProvider,
   ]
 })
 export class AppModule {}

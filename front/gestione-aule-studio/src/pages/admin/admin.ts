@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ItemSliding } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ItemSliding, ModalController, AlertController, LoadingController } from 'ionic-angular';
 import { StudyRoomPage } from '../study-room/study-room';
+import { StudyRoomProvider } from '../../providers/study-room/study-room';
+import { AuthProvider } from '../../providers/auth/auth';
 
 /**
  * Generated class for the AdminPage page.
@@ -16,12 +18,16 @@ import { StudyRoomPage } from '../study-room/study-room';
 })
 export class AdminPage {
  items;
+ studyRoom:any;
+ loading: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+ constructor(public navCtrl: NavController, public navParams: NavParams, public studyRoomService: StudyRoomProvider,public modalCtrl: ModalController,
+  public alertCtrl: AlertController, public authService: AuthProvider, public loadingCtrl: LoadingController) {
     this.initializeItems();
 
   }
 
+  //Provvisorio
   initializeItems() {
     this.items = [
       {title: 'Polo Informatico Lodovici'},
@@ -36,15 +42,64 @@ export class AdminPage {
     console.log('ionViewDidLoad AdminPage');
   }
 
-  addItem(item){
-    this.navCtrl.push(StudyRoomPage);
+  addStudyRoom(){
+    console.log('presenta il prompt');
+    let prompt = this.alertCtrl.create({
+      title:'Aggiungi un\'aula studio',
+      message: 'Inserisci i dati:',
+      inputs: [
+        {
+          name: 'nome',
+          placeholder: 'Nome Aula'
+        },
+        {
+          name: 'numeroPosti',
+          placeholder:'Numero posti disponibili'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Annulla'
+        },
+        {
+          text: 'Aggiungi Aula',
+          handler: studyRoom => {
+            if (studyRoom){
+               this.showLoader();
+
+               this.studyRoomService.addStudyRoom(studyRoom).then((result) => {
+                 this.loading.dismiss();
+                 this.studyRoom = result;
+                 console.log("Aula studio creata");
+               }, (err) => {
+                 this.loading.dismiss();
+                 console.log("not allowed");
+
+               
+               });
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 
-  removeItem(item){
+  removeStudyRoom(studyRoom){
     //TODO
   }
 
-  editItem(item){
+  editStudyRoom(studyRoom){
     //TODO
+  }
+
+  showLoader(){
+
+    this.loading = this.loadingCtrl.create({
+      content: 'Creazione Aula...'
+    });
+
+    this.loading.present();
+
   }
 }
