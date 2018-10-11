@@ -36,8 +36,24 @@ module.exports = function(app) {
 
     });
 
-    app.post('/modifyProfile', (req,res) =>{
+    app.put('/modifyProfile/:id', (req,res) =>{
+        var id = req.param("id");
+        User.findById(req.params.id, function(err, user){
+            if (err){
+                res.send(err);
+            }
 
+            user.hashed_password = req.body.hashed_password;
+
+            user.save(function(err){
+                if (err){
+                    res.send(err);
+                }
+
+                res.json ({message: 'User Pswd saved'});
+            });
+
+        });
     });
 
     app.delete('/removeProfile/:id', (req, res) => {
