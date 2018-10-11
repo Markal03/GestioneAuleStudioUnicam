@@ -19,6 +19,10 @@ import { IonicStorageModule } from '@ionic/storage';
 import { AdminPage } from '../pages/admin/admin';
 import { StudyRoomPage } from '../pages/study-room/study-room';
 import { ProfileProvider } from '../providers/profile/profile';
+<<<<<<< HEAD
+=======
+import { StudyRoomProvider } from '../providers/study-room/study-room';
+>>>>>>> 3deb5a03ae799730c897d6a0416c28e36c620d03
 
 @NgModule({
   declarations: [
@@ -60,6 +64,10 @@ import { ProfileProvider } from '../providers/profile/profile';
     AuthProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ProfileProvider,
+<<<<<<< HEAD
+=======
+    StudyRoomProvider,
+>>>>>>> 3deb5a03ae799730c897d6a0416c28e36c620d03
   ]
 })
 export class AppModule {}

@@ -28,7 +28,6 @@ export class AuthProvider {
         this.storage.get('token').then((value) => {
             //TODO il token qui è null ma segna che si è comunque loggati
             this.token = value;
-            console.log("this token: ");
             console.log(this.token);
             let headers = new Headers();
             headers.append('Authorization', this.token);

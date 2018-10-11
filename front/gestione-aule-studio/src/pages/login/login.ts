@@ -13,9 +13,11 @@ export class LoginPage {
   email: string;
   password: string;
   loading: any;
+  result: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController, public authService: AuthProvider, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
   }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -25,8 +27,9 @@ export class LoginPage {
     //Check if already authenticated
      this.authService.checkAuthentication().then((res) => {
         console.log("Already authorized");
+        console.log(res);
         this.loading.dismiss();
-        this.navCtrl.setRoot(MainPage);
+        this.navCtrl.setRoot(MainPage, {data: res});
     }, (err) => {
         console.log("Not already authorized");
         this.loading.dismiss();
@@ -45,7 +48,7 @@ export class LoginPage {
    this.authService.login(credentials).then((result) => {
       this.loading.dismiss();
       console.log(result);
-      this.navCtrl.setRoot(MainPage);
+      this.navCtrl.setRoot(MainPage, {data: result});
   }, (err) => {
     let alert = this.alertCtrl.create({
       title: 'Errore',
