@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
-<<<<<<< HEAD
-import { IonicPage, NavController, NavParams, ItemSliding } from 'ionic-angular';
-import { StudyRoomPage } from '../study-room/study-room';
-=======
 import { IonicPage, NavController, NavParams, ItemSliding, ModalController, AlertController, LoadingController } from 'ionic-angular';
 import { StudyRoomPage } from '../study-room/study-room';
 import { StudyRoomProvider } from '../../providers/study-room/study-room';
 import { AuthProvider } from '../../providers/auth/auth';
->>>>>>> 3deb5a03ae799730c897d6a0416c28e36c620d03
 
 /**
  * Generated class for the AdminPage page.
@@ -47,10 +42,6 @@ export class AdminPage {
     console.log('ionViewDidLoad AdminPage');
   }
 
-<<<<<<< HEAD
-  addItem(item){
-    this.navCtrl.push(StudyRoomPage);
-=======
   addStudyRoom(){
     console.log('presenta il prompt');
     let prompt = this.alertCtrl.create({
@@ -92,7 +83,6 @@ export class AdminPage {
       ]
     });
     prompt.present();
->>>>>>> 3deb5a03ae799730c897d6a0416c28e36c620d03
   }
 
   removeStudyRoom(studyRoom){
