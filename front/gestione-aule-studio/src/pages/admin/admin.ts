@@ -18,16 +18,15 @@ import { AuthProvider } from '../../providers/auth/auth';
 })
 export class AdminPage {
  items;
- studyRoom:any;
+ studyRooms:any;
  loading: any;
 
  constructor(public navCtrl: NavController, public navParams: NavParams, public studyRoomService: StudyRoomProvider,public modalCtrl: ModalController,
   public alertCtrl: AlertController, public authService: AuthProvider, public loadingCtrl: LoadingController) {
-    this.initializeItems();
-
+    this.initializeItems(); //Rimuovere quando è presente il backend
   }
 
-  //Provvisorio
+  //Rimuovere quando è presente il backend
   initializeItems() {
     this.items = [
       {title: 'Polo Informatico Lodovici'},
@@ -40,6 +39,16 @@ export class AdminPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminPage');
+
+    //Popola la lista di aule disponibili con quelle presenti nel db
+    //Da attivare quando è presente il backend
+
+    /* this.studyRoomService.getStudyRooms().then((data) => {
+      this.studyRooms = data;
+    }, (err) => {
+      console.log("Operazione non autorizzata");
+    }); */
+
   }
 
   addStudyRoom(){
@@ -69,7 +78,7 @@ export class AdminPage {
 
                this.studyRoomService.addStudyRoom(studyRoom).then((result) => {
                  this.loading.dismiss();
-                 this.studyRoom = result;
+                 this.studyRooms = result;
                  console.log("Aula studio creata");
                }, (err) => {
                  this.loading.dismiss();
@@ -86,7 +95,21 @@ export class AdminPage {
   }
 
   removeStudyRoom(studyRoom){
-    //TODO
+    this.showLoader();
+
+    this.studyRoomService.deleteStudyRoom(studyRoom._id).then((result) => {
+      this.loading.dismiss();
+
+        let index = this.studyRooms.indexOf(studyRoom);
+        
+        if (index > -1) {
+          this.studyRooms.splice(index, 1);
+        }
+
+    }, (err) => {
+      this.loading.dismiss();
+        console.log("Permesso negato");
+    });
   }
 
   editStudyRoom(studyRoom){

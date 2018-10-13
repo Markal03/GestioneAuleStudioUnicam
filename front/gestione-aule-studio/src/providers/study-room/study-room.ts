@@ -18,6 +18,22 @@ export class StudyRoomProvider {
     console.log('Hello StudyRoomProvider Provider');
   }
   
+  getStudyRooms(){
+    return new Promise((resolve, reject) =>{
+
+      let headers = new Headers();
+      headers.append('Authorization', this.authService.token);
+      //Me serve la route ooooooooooooooooooooooooooh
+      this.http.get('http://', {headers: headers })
+        .map(res => res.json())
+        .subscribe(data => {
+          resolve(data);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
   addStudyRoom(studyRoom){
     return new Promise((resolve, reject) =>{
 
@@ -35,4 +51,16 @@ export class StudyRoomProvider {
     });
   }
 
+  deleteStudyRoom(studyRoom){
+      return new Promise((resolve, reject) => {
+        let headers = new Headers();
+        headers.append('Authorization', this.authService.token);
+
+        this.http.delete('http://localhost:3000/deleteStudyRoom' + studyRoom, {headers: headers}).subscribe((res) => {
+          resolve(res);
+      }, (err) => {
+          reject(err);
+      });
+    });
+  }
 }
