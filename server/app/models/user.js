@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const express = require('express');
 const Schema = mongoose.Schema;
 var salt_value = 10;
 
@@ -9,6 +8,8 @@ const UserSchema = new Schema({
     surname: { type: String, required: [true, 'Inserisci il tuo cognome'] },
     email: { type: String, unique: true, required: [true, 'Inserisci la tua email Unicam'] },
     hashed_password: { type: String, required: [true, 'Inserisci una password'] },
+    profile_image: { type: Buffer, required: false },
+    admin: { type: Boolean, required: true, default: false }
 });
 
 
@@ -57,7 +58,7 @@ UserSchema.path('email').validate((email) => {
 }, "L'email inserita non è valida" );
 
 UserSchema.path('hashed_password').validate((hashed_password) => {
-    return hashed_password.length;
+    return hashed_password.length > 0;
 }, 'La password non può essere vuota');
 
 
