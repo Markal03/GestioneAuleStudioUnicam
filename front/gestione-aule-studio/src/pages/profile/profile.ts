@@ -24,7 +24,6 @@ export class ProfilePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
-    console.log(this.result.user._id);
   }
 
   //CRUD dati utente
@@ -77,6 +76,33 @@ export class ProfilePage {
   }
   //Funzione per la modifica password
   updatePassword() {
+    let updatePasswordAlert = this.alertCtrl.create({
+      title: 'Modifica Passowrd',
+      message: 'Inserisci la tua vecchia password e la nuova e clicca su \'Modifica\' per procedere',
+      inputs: [
+        {
+          name: 'oldPassword',
+          placeholder: 'Vecchia Password',
+          type: 'password'
+        },
+        
+        {
+          name: 'newPassword',
+          placeholder: 'Nuova Password',
+          type: 'password'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Indietro'
+        },
+        {
+          text: 'Modifica',
+          handler: (data)=> {console.log(data);}
+        }
+      ]
+    });
+    updatePasswordAlert.present();
   }
 
 }
