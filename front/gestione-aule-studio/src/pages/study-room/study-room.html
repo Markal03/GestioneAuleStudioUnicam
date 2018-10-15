@@ -8,20 +8,62 @@
 
 
 <ion-content padding>
+
   <ion-list>
+
     <ion-item>
-      <ion-label color="primary">Nome Aula: </ion-label>
-      <ion-input placeholder="Nome"></ion-input>
+
+      <ion-label color="primary"> Nome Aula: </ion-label>
+      <ion-input placeholder="Nome" [(ngModel)] = "name"></ion-input>
+    
     </ion-item>
     <ion-item>
       <ion-label color="primary">Posti Disponibili: </ion-label>
-      <ion-input placeholder="Numero Posti"></ion-input>
+      <ion-input placeholder="Numero Posti" [(ngModel)] = "capacity"></ion-input>
     </ion-item>
     <ion-item>
+      <ion-label>Orari Apertura:</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Da:</ion-label>
+      <ion-datetime displayFormat="HH:mm" min="08:00" max="18:00" [(ngModel)]="from">
+      </ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>A:</ion-label>
+      <ion-datetime displayFormat="HH:mm" min="08:00" max="18:00" [(ngModel)]="to">
+      </ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Giorni Apertura:</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Luned&igrave;</ion-label>
+      <ion-checkbox [(ngModel)]="Lunedi"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Marted&igrave;</ion-label>
+      <ion-checkbox [(ngModel)]="Martedi"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Mercoled&igrave;</ion-label>
+      <ion-checkbox [(ngModel)]="Mercoledi"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Gioved&igrave;</ion-label>
+      <ion-checkbox [(ngModel)]="Giovedi"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Venerd&igrave;</ion-label>
+      <ion-checkbox [(ngModel)]="Venerdi"></ion-checkbox>
+    </ion-item> 
+<!--     <ion-item>
       <ion-label color="primary"> <button ion-button color="primary">Carica Foto Aula</button> </ion-label> 
-    </ion-item>
+    </ion-item> -->
     <ion-item>
-      <ion-label color="primary"> <button ion-button color="primary"> Aggiungi Aula</button></ion-label>
+      <ion-label color="primary">
+         <button ion-button color="primary" (click) ='addStudyRoom()'> Aggiungi Aula</button>
+      </ion-label>
     </ion-item>
     </ion-list>
 </ion-content>
