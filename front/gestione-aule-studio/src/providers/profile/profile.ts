@@ -15,8 +15,25 @@ export class ProfileProvider {
   constructor(public http: Http, public authService: AuthProvider) {
   }
 
+  getUserInfos(userId){
+    var url = 'http://localhost:3000/getUserInfos/';
+    return new Promise((resolve, reject) => {
+      let headers = new Headers();
+      headers.append('Authorization', this.authService.token);
+
+      this.http.get(url + userId, {headers: headers})
+        .map( res => res.json())
+        .subscribe( data => {
+          resolve(data);
+        }, (err)=> {
+          reject(err);
+        });
+    });
+
+  }
+
   deleteProfile(userId){
-    var url = 'http://localhost:3000/removeProfile/'
+    var url = 'http://localhost:3000/removeProfile/';
     return new Promise ((resolve, reject) => {
 
       let headers = new Headers();
@@ -32,7 +49,7 @@ export class ProfileProvider {
   }
 
   updatePassword(userId, passwords) {
-    var url = 'http://localhost:3000/modifyPassword/'
+    var url = 'http://localhost:3000/modifyPassword/';
     return new Promise ((resolve, reject) => {
       let headers = new Headers();
       headers.append('Authorization', this.authService.token);
