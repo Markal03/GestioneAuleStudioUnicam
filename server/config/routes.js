@@ -1,9 +1,8 @@
 var AuthenticationController = require('../app/controllers/authentication'), 
     express = require('express'),
     passportService = require('../config/passport'),
-    passport = require('passport');
-    mongoose = require('mongoose');
-    User = mongoose.model('User');
+    passport = require('passport'),
+    UserController = require('../app/controllers/users');
  
 var requireAuth = passport.authenticate('jwt', {session: false}),
     requireLogin = passport.authenticate('local', {session: false});
@@ -23,12 +22,6 @@ module.exports = function(app) {
     app.get('/protected', requireAuth, function(req, res){
         res.send({ content: 'Success'});
     });
-    
-    app.get('/profile', (req, res) => {
-        console.log ('profile');
-        res.render(/*nome pagina profilo*/);
-    });
-
 
     //STUDENT ROUTES
 
@@ -36,38 +29,11 @@ module.exports = function(app) {
 
     });
 
-    app.put('/modifyProfile/:id', (req,res) =>{
-        var id = req.param("id");
-        User.findById(req.params.id, function(err, user){
-            if (err){
-                res.send(err);
-            }
+    app.put('/modifyPassword/:id', UserController.modifyPassword);
 
-            user.hashed_password = req.body.hashed_password;
+    app.put('/modifyProfileImage/:id', UserController.modifyProfileImage);
 
-            user.save(function(err){
-                if (err){
-                    res.send(err);
-                }
-
-                res.json ({message: 'User Pswd saved'});
-            });
-
-        });
-    });
-
-    app.delete('/removeProfile/:id', (req, res) => {
-        var id= req.param("id");
-        User.remove({
-            _id:id
-        }, function(err){
-            if(err){
-            console.log(err);
-        }else{
-          return  res.send("Eliminazione confermata");
-        }
-        });
-    });
+    app.delete('/removeProfile/:id', UserController.delete);
 
     //NEWS FEED ROUTES
 
@@ -104,19 +70,4 @@ module.exports = function(app) {
 
     });
 
-    
-    /*
-
-    DA TOGLIERE
-
-    app.post('/registraUtente', (req,res) => {
-        console.log ('registra utente');
-        users.create(req, res);
-    });
-
-    app.post('/loginUtente', (req,res)=>{
-        console.log('login utente');
-        users.findOne(req, res);
-    });
-    */
 }
