@@ -11,7 +11,6 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class ProfileProvider {
-  passwords: any;
 
   constructor(public http: Http, public authService: AuthProvider) {
   }
@@ -23,6 +22,7 @@ export class ProfileProvider {
       let headers = new Headers();
       headers.append('Authorization', this.authService.token);
       this.http.delete(url + userId, {headers: headers}).subscribe((res) => {
+        console.log(res);
         resolve(res);
       }, (err) => {
         reject(err);
@@ -31,12 +31,18 @@ export class ProfileProvider {
     });
   }
 
-  updatePassword(userId) {
+  updatePassword(userId, passwords) {
     var url = 'http://localhost:3000/modifyPassword/'
     return new Promise ((resolve, reject) => {
       let headers = new Headers();
       headers.append('Authorization', this.authService.token);
-      this.http.put(url + userId, this.passwords, {headers: headers});
-    })
+      headers.append('Content-type', 'Application/json')
+      this.http.put(url + userId, JSON.stringify(passwords), {headers: headers}).subscribe((res) => {
+        console.log(res);
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+    });
   }
 }
