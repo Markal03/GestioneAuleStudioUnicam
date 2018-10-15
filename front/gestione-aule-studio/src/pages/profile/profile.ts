@@ -109,7 +109,7 @@ export class ProfilePage {
           }, (err) => {
             let alert = this.alertCtrl.create({
               title: 'Oooops!',
-              message: 'C\'è stato un errore, la password non è stata modificata',
+              message: err._body,
               buttons: ['Ok']
             });
             console.log(err);
