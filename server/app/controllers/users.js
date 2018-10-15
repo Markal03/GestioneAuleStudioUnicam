@@ -42,20 +42,29 @@ exports.modifyPassword = (req, res) => {
             res.status(400).send({ error: err });
         }
 
-        if(User.comparePasswords(req.body.oldPassword, user.hashed_password, cb)){
-
-        user.hashed_password = req.body.newPassword;
-
-        user.save(function(err){
-            if (err){
-                res.status(400).send({ error: err });
+        user.comparePasswords(req.body.oldPassword, user.hashed_password, function (err, isMatch) {
+            if(err){
+                console.log("Meeeenghia, nn o cpt");
+                return res.status(400).json(err);
             }
 
-            res.status(200).json('Password aggiornata');
-        });
-    }else{
-        res.status(422).json("Vecchia password errata");
-    }
+            if(!isMatch){
+                console.log("ciccio hai sbagliato pswd");
+                return res.status(422).json("Vecchia password errata");
+            }
+
+            user.hashed_password = req.body.newPassword;
+
+            user.save(function(err){
+                if (err){
+                    res.status(400).send({ error: err });
+                }
+    
+                res.status(200).json('Password aggiornata');
+            });
+        })
+
+
     });
 };
 
