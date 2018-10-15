@@ -20,11 +20,9 @@ export class StudyRoomProvider {
   
   getStudyRooms(){
     return new Promise((resolve, reject) =>{
-
       let headers = new Headers();
       headers.append('Authorization', this.authService.token);
-      //Me serve la route ooooooooooooooooooooooooooh
-      this.http.get('http://', {headers: headers })
+      this.http.get('http://localhost:3000/adminSection', {headers: headers })
         .map(res => res.json())
         .subscribe(data => {
           resolve(data);
@@ -40,7 +38,7 @@ export class StudyRoomProvider {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', this.authService.token);
-
+        console.log('Aula studio json:' + JSON.stringify(studyRoom));
         this.http.post('http://localhost:3000/addStudyRoom', JSON.stringify(studyRoom), {headers: headers})
           .map(res => res.json())
           .subscribe(res=> {

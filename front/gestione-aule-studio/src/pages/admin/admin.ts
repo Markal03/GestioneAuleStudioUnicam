@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ItemSliding, ModalController, Aler
 import { StudyRoomPage } from '../study-room/study-room';
 import { StudyRoomProvider } from '../../providers/study-room/study-room';
 import { AuthProvider } from '../../providers/auth/auth';
+import { Placeholder } from '@angular/compiler/src/i18n/i18n_ast';
 
 /**
  * Generated class for the AdminPage page.
@@ -23,7 +24,7 @@ export class AdminPage {
 
  constructor(public navCtrl: NavController, public navParams: NavParams, public studyRoomService: StudyRoomProvider,public modalCtrl: ModalController,
   public alertCtrl: AlertController, public authService: AuthProvider, public loadingCtrl: LoadingController) {
-    this.initializeItems(); //Rimuovere quando è presente il backend
+    //this.initializeItems(); //Rimuovere quando è presente il backend
   }
 
   //Rimuovere quando è presente il backend
@@ -43,11 +44,11 @@ export class AdminPage {
     //Popola la lista di aule disponibili con quelle presenti nel db
     //Da attivare quando è presente il backend
 
-    /* this.studyRoomService.getStudyRooms().then((data) => {
+     this.studyRoomService.getStudyRooms().then((data) => {
       this.studyRooms = data;
     }, (err) => {
       console.log("Operazione non autorizzata");
-    }); */
+    });
 
   }
 
@@ -64,6 +65,14 @@ export class AdminPage {
         {
           name: 'numeroPosti',
           placeholder:'Numero posti disponibili'
+        },
+        {
+          name: 'orarioApertura',
+          placeholder:'Orario apertura'
+        },
+        {
+          name: 'orarioChiusura',
+          placeholder:'Orario chiusura'
         }
       ],
       buttons: [
@@ -82,9 +91,7 @@ export class AdminPage {
                  console.log("Aula studio creata");
                }, (err) => {
                  this.loading.dismiss();
-                 console.log("not allowed");
-
-               
+                 console.log("Not allowed");             
                });
             }
           }
