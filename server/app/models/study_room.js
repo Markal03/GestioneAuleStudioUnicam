@@ -5,7 +5,7 @@ const base_days = [
     'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'
 ];
 
-const base_hours;
+const base_hours = [];
 var i;
 for (i = 0; i < 5; i++) { 
     base_hours.push({from: '09:00', to: '18:00'});

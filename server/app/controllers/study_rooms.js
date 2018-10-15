@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const StudyRoom = mongoose.model('Study Room');
+//const StudyRoom = mongoose.model('Study Room');
+const StudyRoom = require('../models/study_room');
 
 exports.addStudyRoom = (req, res, next) => {
     var name = req.body.name;
