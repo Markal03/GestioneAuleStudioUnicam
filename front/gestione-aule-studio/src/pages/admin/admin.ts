@@ -28,7 +28,7 @@ export class AdminPage {
   }
 
   //Rimuovere quando è presente il backend
-  initializeItems() {
+/*   initializeItems() {
     this.items = [
       {title: 'Polo Informatico Lodovici'},
       {title: 'Campus Universitario'},
@@ -36,7 +36,7 @@ export class AdminPage {
       {title: 'Polo El Fuego'},
       {title: 'Polo Gyros Pita'}
   ];
-  }
+  } */
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminPage');
