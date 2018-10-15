@@ -42,6 +42,8 @@ exports.modifyPassword = (req, res) => {
             res.status(400).send({ error: err });
         }
 
+        if(User.comparePasswords(req.body.confirmPassword, user.hashed_password, cb)){
+
         user.hashed_password = req.body.hashed_password;
 
         user.save(function(err){
@@ -51,7 +53,9 @@ exports.modifyPassword = (req, res) => {
 
             res.send({message: 'Password aggiornata'});
         });
-
+    }else{
+        res.status(200).json("Vecchia password errata");
+    }
     });
 };
 
