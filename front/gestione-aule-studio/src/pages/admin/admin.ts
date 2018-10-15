@@ -28,7 +28,7 @@ export class AdminPage {
   }
 
   //Rimuovere quando è presente il backend
-  initializeItems() {
+/*   initializeItems() {
     this.items = [
       {title: 'Polo Informatico Lodovici'},
       {title: 'Campus Universitario'},
@@ -36,7 +36,7 @@ export class AdminPage {
       {title: 'Polo El Fuego'},
       {title: 'Polo Gyros Pita'}
   ];
-  }
+  } */
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminPage');
@@ -53,17 +53,19 @@ export class AdminPage {
   }
 
   addStudyRoom(){
-    console.log('presenta il prompt');
+/*     console.log('presenta il prompt');
     let prompt = this.alertCtrl.create({
       title:'Aggiungi un\'aula studio',
       message: 'Inserisci i dati:',
       inputs: [
         {
-          name: 'nome',
+          name: 'name',
+          type: 'text',
           placeholder: 'Nome Aula'
         },
         {
-          name: 'numeroPosti',
+          name: 'capacity',
+          type: 'number',
           placeholder:'Numero posti disponibili'
         },
         {
@@ -98,7 +100,9 @@ export class AdminPage {
         }
       ]
     });
-    prompt.present();
+
+    prompt.present(); */
+    this.navCtrl.push(StudyRoomPage);
   }
 
   removeStudyRoom(studyRoom){
