@@ -37,7 +37,6 @@ UserSchema.pre('save', function(next)  {
     } 
 });
 
-
 // Validatori custom
 
 UserSchema.path('name').validate((name) => {
@@ -63,25 +62,15 @@ UserSchema.path('hashed_password').validate((hashed_password) => {
 
 
 //Methods
-
 // come callback usa "(err, matched) => {...}"
 UserSchema.methods.comparePasswords = (possiblePassword, hashed_password, cb) => {
         var user = this;
-        console.log("user in method: ");
-        console.log(user);
-        console.log(user.hashed_password);
-        console.log(this.hashed_password);
         bcrypt.compare(possiblePassword, hashed_password, (err, matched) => {
             if (err) {
-                console.log("poss: ");
-                console.log(possiblePassword);
-                console.log("\nhash: ");
-                console.log(user.hashed_password);
                 return cb(err);
             }
             cb(null, matched);
         });
 }
 
-//mongoose.model('User', UserSchema);
 module.exports = mongoose.model('User', UserSchema);

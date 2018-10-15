@@ -2,7 +2,8 @@ var AuthenticationController = require('../app/controllers/authentication'),
     express = require('express'),
     passportService = require('../config/passport'),
     passport = require('passport'),
-    UserController = require('../app/controllers/users');
+    UserController = require('../app/controllers/users'),
+    StudyRoomController = require('../app/controllers/study_rooms');
  
 var requireAuth = passport.authenticate('jwt', {session: false}),
     requireLogin = passport.authenticate('local', {session: false});
@@ -25,15 +26,13 @@ module.exports = function(app) {
 
     //STUDENT ROUTES
 
-    app.get('/profile', (req,res) =>{
+    app.get('/getUserInfos/:id', checkAuth, UserController.getUserInfos);
 
-    });
+    app.put('/modifyPassword/:id', checkAuth, UserController.modifyPassword);
 
-    app.put('/modifyPassword/:id', UserController.modifyPassword);
+    app.put('/modifyProfileImage/:id', checkAuth, UserController.modifyProfileImage);
 
-    app.put('/modifyProfileImage/:id', UserController.modifyProfileImage);
-
-    app.delete('/removeProfile/:id', UserController.delete);
+    app.delete('/removeProfile/:id', checkAuth, UserController.delete);
 
     //NEWS FEED ROUTES
 
@@ -48,15 +47,13 @@ module.exports = function(app) {
 
     });
 
-    app.post('/addStudyRoom', (req, res) =>{
-
-    });
+    app.post('/addStudyRoom', StudyRoomController.addStudyRoom);
 
     app.put('/modifyStudyRoom', (req, res) =>{
 
     });
 
-    app.post('/deleteStudyRoom', (req, res) =>{
+    app.delete('/deleteStudyRoom', (req, res) =>{
 
     });
 
