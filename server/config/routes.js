@@ -26,13 +26,13 @@ module.exports = function(app) {
 
     //STUDENT ROUTES
 
-    app.get('/getUserInfos/:id', checkAuth, UserController.getUserInfos);
+    app.get('/getUserInfos/:id', requireAuth, UserController.getUserInfos);
 
-    app.put('/modifyPassword/:id', checkAuth, UserController.modifyPassword);
+    app.put('/modifyPassword/:id', requireAuth, UserController.modifyPassword);
 
-    app.put('/modifyProfileImage/:id', checkAuth, UserController.modifyProfileImage);
+    app.put('/modifyProfileImage/:id', requireAuth, UserController.modifyProfileImage);
 
-    app.delete('/removeProfile/:id', checkAuth, UserController.delete);
+    app.delete('/removeProfile/:id', requireAuth, UserController.delete);
 
     //NEWS FEED ROUTES
 
