@@ -62,3 +62,7 @@ exports.deleteStudyRoom = (req,res, next) =>{
     });
 };
 
+exports.modifyStudyRoom = (req, res, next) =>{
+
+};
+

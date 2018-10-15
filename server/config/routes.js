@@ -49,13 +49,9 @@ module.exports = function(app) {
 
     app.post('/addStudyRoom', StudyRoomController.addStudyRoom);
 
-    app.put('/modifyStudyRoom', (req, res) =>{
+    app.put('/modifyStudyRoom', StudyRoomController.modifyStudyRoom);
 
-    });
-
-    app.delete('/deleteStudyRoom', (req, res) =>{
-
-    });
+    app.delete('/deleteStudyRoom', StudyRoomController.deleteStudyRoom);
 
     //STUDY ROOM ROUTES FOR STUDENTS
 
