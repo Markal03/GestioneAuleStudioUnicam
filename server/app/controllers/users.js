@@ -28,9 +28,9 @@ exports.delete = (req, res) => {
     }, function(err){
         if(err){
         console.log(err);
-        res.status(400).send({ error: "Errore nell'eliminazione del profilo" });
+        return res.status(400).json("Errore nell'eliminazione del profilo" );
     } else {
-        return  res.send("Eliminazione confermata");
+        return res.status(200).json("Eliminazione confermata");
     }
     });
 };

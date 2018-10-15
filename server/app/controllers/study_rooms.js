@@ -47,3 +47,17 @@ exports.addStudyRoom = (req, res, next) => {
     
 };
 
+exports.deleteStudyRoom = (req,res, next) =>{
+    var id = req.param("id");
+    StudyRoom.remove({
+        _id:id
+    }, function(err){
+        if (err){
+            console.log(err);
+            return res.status(400).json("Errore");
+        }else{
+            return res.status(200).json("Eliminazione corretta")
+        }
+    });
+};
+
