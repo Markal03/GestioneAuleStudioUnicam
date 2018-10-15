@@ -76,6 +76,7 @@ export class ProfilePage {
   }
   //Funzione per la modifica password
   updatePassword() {
+    var userId = this.result.user._id;
     let updatePasswordAlert = this.alertCtrl.create({
       title: 'Modifica Passowrd',
       message: 'Inserisci la tua vecchia password e la nuova e clicca su \'Modifica\' per procedere',
@@ -98,7 +99,22 @@ export class ProfilePage {
         },
         {
           text: 'Modifica',
-          handler: (data)=> {console.log(data);}
+          handler: (data)=> {this.profileProvider.updatePassword(userId, data).then((result)=> {
+            let toast = this.toastCtrl.create({
+              message: 'Password modificata correttamente',
+              duration: 1000,
+              position: 'middle'
+            });
+            toast.present();
+          }, (err) => {
+            let alert = this.alertCtrl.create({
+              title: 'Oooops!',
+              message: 'C\'è stato un errore, la password non è stata modificata',
+              buttons: ['Ok']
+            });
+            console.log(err);
+            alert.present();
+          });}
         }
       ]
     });
