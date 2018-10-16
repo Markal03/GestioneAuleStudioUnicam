@@ -16,17 +16,43 @@ import { HomePage } from '../home/home';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
-  result: any;
+  public result: any;
+  public userInfos: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public profileProvider: ProfileProvider, public alertCtrl: AlertController, public toastCtrl: ToastController ) {
     this.result = this.navParams.get('data');
   }
 
-  ionViewDidLoad() {
+ /* ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
-  }
+    this.profileProvider.getUserInfos(this.result.user._id).then((data) => {
+      this.userInfos = data;
+      console.log(this.userInfos);
+    }, (err) => {
+      let alert = this.alertCtrl.create({
+        title: 'Oooops!',
+        message: 'C\'è stato un errore, non è stato possibile caricare le informazioni del profilo',
+        buttons: ['Ok']
+      });
+      alert.present();
+    });
 
-  //CRUD dati utente
+  }*/
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter ProfilePage');
+    this.profileProvider.getUserInfos(this.result.user._id).then((data) => {
+      this.userInfos = data;
+      console.log(this.userInfos);
+    }, (err) => {
+      let alert = this.alertCtrl.create({
+        title: 'Oooops!',
+        message: 'C\'è stato un errore, non è stato possibile caricare le informazioni del profilo',
+        buttons: ['Ok']
+      });
+      alert.present();
+    });
+  }
 
   //Funzione per l'eliminazione del profilo utente
   deleteProfile() {
@@ -109,7 +135,7 @@ export class ProfilePage {
           }, (err) => {
             let alert = this.alertCtrl.create({
               title: 'Oooops!',
-              message: 'C\'è stato un errore, la password non è stata modificata',
+              message: err._body,
               buttons: ['Ok']
             });
             console.log(err);
