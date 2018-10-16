@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController, LoadingController } from 'ionic-angular';
 import { StudyRoomProvider } from '../../providers/study-room/study-room';
 import { AuthProvider } from '../../providers/auth/auth';
+import { AdminPage } from '../admin/admin';
 
 /**
  * Generated class for the StudyRoomPage page.
@@ -19,34 +20,52 @@ export class StudyRoomPage {
 
   studyRooms: any;
   loading: any;
+  days: any [];
 
   name: string;
   capacity: string;
   from: string;
   to: string;
-  Lunedi : string; //provvisorio
   days_open = [];
   hours_open = [];
   description: string;
   image: any;
+  
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public studyRoomService: StudyRoomProvider, public modalCtrl: ModalController,
     public alertCtrl: AlertController, public authService: AuthProvider, public loadingCtrl: LoadingController) {
+      this.initializeDays();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad StudyRoomPage');
   }
 
-    //TOFIX
+  initializeDays() {
+    this.days = [
+      {id:1, name:'Lunedì', selected: false},
+      {id:2, name:'Martedì', selected: false},
+      {id:3, name:'Mercoledì', selected: false},
+      {id:4, name:'Giovedì', selected: false},
+      {id:5, name:'Venerdì', selected: false}
+    ]
+  }
+
   addStudyRoom(){
     this.showLoader();
+
+    let hours = {
+      from: this.from,
+      to: this.to
+    }
+
+    this.hours_open.push(hours);
 
     let studyRoom = {
       name: this.name,
       capacity: this.capacity,
-      days_open: this.days_open.push(this.Lunedi),
-      hours_open: this.hours_open.push(this.from, this.to),
+      days_open: this.days_open,
+      hours_open: this.hours_open,
       description: this.description,
       image: this.image
     };
@@ -60,7 +79,7 @@ export class StudyRoomPage {
         buttons: [
           {
             text: 'Ok',
-            handler: () => {confirm.dismiss();}
+            handler: () => {this.navCtrl.popTo(AdminPage)}
           }
         ]
       });
@@ -79,6 +98,16 @@ export class StudyRoomPage {
     });
   }
 
+  //Aggiorna l'array dei giorni selezionati dinamicamente
+  //ev è un oggetto creato ogni volta che si switcha valore di una checkbox
+  selectDay(day, ev){
+    console.log(ev);
+    if(ev.value){
+      this.days_open.push(day);
+    } else {
+      this.days_open.splice(this.days_open.indexOf(day), 1);
+    }
+  }
 
   showLoader(){
     this.loading = this.loadingCtrl.create({
