@@ -36,11 +36,6 @@ export class RegisterPage {
   
   register() {
 
-    this.showLoader();
-    console.log("Email: " + this.email);
-    console.log("Password: " + this.password);
-    console.log("Password Conferma: " + this.passwordConfirm);
-
     if (this.password != this.passwordConfirm) {
       //Creo l'alert se le due password non corrispondono
       let alert = this.alertCtrl.create({
@@ -50,6 +45,11 @@ export class RegisterPage {
       });
       alert.present();
     }
+    
+    this.showLoader();
+    console.log("Email: " + this.email);
+    console.log("Password: " + this.password);
+    console.log("Password Conferma: " + this.passwordConfirm);
 
     let details = {
       name: this.nome,
