@@ -47,17 +47,15 @@ module.exports = function(app) {
 
     });
 
-    app.post('/addStudyRoom', StudyRoomController.addStudyRoom);
+    app.post('/addStudyRoom', requireAuth, StudyRoomController.addStudyRoom);
 
-    app.put('/modifyStudyRoom', StudyRoomController.modifyStudyRoom);
+    app.put('/modifyStudyRoom', requireAuth, StudyRoomController.modifyStudyRoom);
 
-    app.delete('/deleteStudyRoom', StudyRoomController.deleteStudyRoom);
+    app.delete('/deleteStudyRoom', requireAuth, StudyRoomController.deleteStudyRoom);
 
     //STUDY ROOM ROUTES FOR STUDENTS
 
-    app.get('/studyRooms', (req, res) =>{
-
-    });
+    app.get('/studyRooms', StudyRoomController.browseStudyRooms);
     
     app.post('/bookStudyRoom', (req, res) =>{
 

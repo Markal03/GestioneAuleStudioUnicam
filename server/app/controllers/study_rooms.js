@@ -2,9 +2,20 @@ const mongoose = require('mongoose');
 //const StudyRoom = mongoose.model('Study Room');
 const StudyRoom = require('../models/study_room');
 
+exports.browseStudyRooms = (req, res) => {
+    StudyRoom.find({}, (err, rooms) => {
+        if (err) {
+            return res.status(422).send({ error: err });
+        }
+        res.status(200).send({ rooms: rooms });
+    });
+};
+
 exports.addStudyRoom = (req, res, next) => {
     var name = req.body.name;
     var capacity = req.body.capacity;
+    var days_open = req.body.days_open;
+    var hours_open = req.body.hours_open;
     if (!name) {
         res.status(422).send({ error: "Campo nome necessario" });
     }
@@ -48,10 +59,10 @@ exports.addStudyRoom = (req, res, next) => {
     
 };
 
-exports.deleteStudyRoom = (req,res, next) =>{
-    var id = req.param("id");
+exports.deleteStudyRoom = (req, res) =>{
+    var name = req.body.name;
     StudyRoom.remove({
-        _id:id
+        name:name
     }, function(err){
         if (err){
             console.log(err);
@@ -62,7 +73,22 @@ exports.deleteStudyRoom = (req,res, next) =>{
     });
 };
 
-exports.modifyStudyRoom = (req, res, next) =>{
-
+exports.modifyStudyRoom = (req, res) =>{
+    var name = req.body.name;
+    StudyRoom.findOne({ name: name }, (err, room) => {
+        if (err) {
+            return res.status(400).json({ error: err });
+        }
+        room.capacity = req.body.capacity;
+        room.days_open = req.body.days_open;
+        room.hours_open = req.body.hours_open;
+        room.description = req.body.description;
+        //aggiungere aggiornamento immagine
+        room.save((err) => {
+            if (err)
+                return res.status(400).json({ error: err });
+            return res.status(200).json({ message: 'Aula studio modificata correttamente'});
+        });
+    });
 };
 

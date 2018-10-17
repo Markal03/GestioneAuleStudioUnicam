@@ -74,8 +74,10 @@ exports.register = function(req, res, next){
 }
 
 exports.isAdmin = (req, res, next) => {
-    if (req.user.admin)
+    console.log(req.user);
+    if (req.user.admin) {
         return next();
+    }
     else 
         res.status(400).send({error: "L'utente non è un admin di sistema"});
 };

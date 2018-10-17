@@ -60,7 +60,7 @@ exports.modifyPassword = (req, res) => {
                     res.status(400).send({ error: err });
                 }
     
-                res.status(200).json('Password aggiornata');
+                res.status(200).json({message: 'Password aggiornata'});
             });
         })
 
