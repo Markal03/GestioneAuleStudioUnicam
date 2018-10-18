@@ -46,10 +46,24 @@ export class AdminPage {
 
      this.studyRoomService.getStudyRooms().then((data) => {
       this.studyRooms = data;
+      console.log('Aula studio:' + this.studyRooms);
     }, (err) => {
       console.log("Operazione non autorizzata");
     });
+  }
 
+  ionViewWillEnter(){
+    this.studyRoomService.getStudyRooms().then((data) => {
+      this.studyRooms = data;
+      console.log('Aula studio:' + this.studyRooms);
+    }, (err) => {
+      let alert = this.alertCtrl.create({
+        title: 'Oooops!',
+        message: 'C\'è stato un errore, non è stato possibile caricare le informazioni delle aule',
+        buttons: ['Ok']
+      });
+      alert.present();
+    });
   }
 
   addStudyRoom(){

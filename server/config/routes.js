@@ -43,9 +43,12 @@ module.exports = function(app) {
     //STUDY ROOM ROUTES FOR ADMIN
 
     
-    app.get('/adminSection', (req, res) =>{
+/*     app.get('/adminSection', (req, res) =>{
+        
 
-    });
+    }); */
+
+    app.get('/adminSection', requireAuth, StudyRoomController.getStudyRooms); //Ho messo questa al posto di quella commentata
 
     app.post('/addStudyRoom', requireAuth, StudyRoomController.addStudyRoom);
 
