@@ -9,16 +9,16 @@
 
 
 <ion-content padding>
-  <ion-list no-lines>
+  <ion-list>
   <ion-item-sliding *ngFor="let studyRoom of studyRooms">
  
     <ion-item>
-    {{studyRoom.name}}
+    {{studyRoom?.name}}
     </ion-item>
  
     <ion-item-options>
-      <button ion-button color="danger" (click)="removeStudyRoom(item)"><ion-icon name="trash"></ion-icon> Elimina </button>
-      <button ion-button (click)="editItem(item)"><ion-icon name="brush"></ion-icon> Modifica </button>
+      <button ion-button color="danger" (click)="removeStudyRoom(studyRoom)"><ion-icon name="trash"></ion-icon> Elimina </button>
+      <button ion-button (click)="editItem(studyRoom)"><ion-icon name="brush"></ion-icon> Modifica </button>
     </ion-item-options>
   </ion-item-sliding>
   </ion-list>

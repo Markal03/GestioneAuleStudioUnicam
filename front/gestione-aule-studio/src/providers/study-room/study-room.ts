@@ -49,12 +49,11 @@ export class StudyRoomProvider {
     });
   }
 
-  deleteStudyRoom(studyRoom){
+  deleteStudyRoom(name){
       return new Promise((resolve, reject) => {
         let headers = new Headers();
         headers.append('Authorization', this.authService.token);
-
-        this.http.delete('http://localhost:3000/deleteStudyRoom' + studyRoom, {headers: headers}).subscribe((res) => {
+        this.http.delete('http://localhost:3000/deleteStudyRoom' + name , {headers: headers}).subscribe((res) => {
           resolve(res);
       }, (err) => {
           reject(err);

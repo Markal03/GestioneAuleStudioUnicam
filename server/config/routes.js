@@ -48,13 +48,13 @@ module.exports = function(app) {
 
     }); */
 
-    app.get('/adminSection', requireAuth, StudyRoomController.getStudyRooms); //Ho messo questa al posto di quella commentata
+    app.get('/adminSection', requireAuth, StudyRoomController.browseStudyRooms); 
 
     app.post('/addStudyRoom', requireAuth, StudyRoomController.addStudyRoom);
 
     app.put('/modifyStudyRoom', requireAuth, StudyRoomController.modifyStudyRoom);
 
-    app.delete('/deleteStudyRoom', requireAuth, StudyRoomController.deleteStudyRoom);
+    app.delete('/deleteStudyRoom/:name', requireAuth, StudyRoomController.deleteStudyRoom);
 
     //STUDY ROOM ROUTES FOR STUDENTS
 

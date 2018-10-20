@@ -19,7 +19,7 @@ import { Placeholder } from '@angular/compiler/src/i18n/i18n_ast';
 })
 export class AdminPage {
  items;
- studyRooms:any;
+ studyRooms: any;
  loading: any;
 
  constructor(public navCtrl: NavController, public navParams: NavParams, public studyRoomService: StudyRoomProvider,public modalCtrl: ModalController,
@@ -38,7 +38,7 @@ export class AdminPage {
   ];
   } */
 
-  ionViewDidLoad() {
+/*   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminPage');
 
     //Popola la lista di aule disponibili con quelle presenti nel db
@@ -46,16 +46,16 @@ export class AdminPage {
 
      this.studyRoomService.getStudyRooms().then((data) => {
       this.studyRooms = data;
-      console.log('Aula studio:' + this.studyRooms);
+      
+      console.log(this.studyRooms);
     }, (err) => {
       console.log("Operazione non autorizzata");
     });
-  }
+  } */
 
-  ionViewWillEnter(){
+   ionViewWillEnter(){
     this.studyRoomService.getStudyRooms().then((data) => {
       this.studyRooms = data;
-      console.log('Aula studio:' + this.studyRooms);
     }, (err) => {
       let alert = this.alertCtrl.create({
         title: 'Oooops!',
@@ -64,7 +64,7 @@ export class AdminPage {
       });
       alert.present();
     });
-  }
+  } 
 
   addStudyRoom(){
 /*     console.log('presenta il prompt');
@@ -121,8 +121,8 @@ export class AdminPage {
 
   removeStudyRoom(studyRoom){
     this.showLoader();
-
-    this.studyRoomService.deleteStudyRoom(studyRoom._id).then((result) => {
+    this.studyRoomService.deleteStudyRoom(studyRoom.name).then((result) => {
+      console.log(result);
       this.loading.dismiss();
 
         let index = this.studyRooms.indexOf(studyRoom);
@@ -133,7 +133,7 @@ export class AdminPage {
 
     }, (err) => {
       this.loading.dismiss();
-        console.log("Permesso negato");
+        console.log("Aula non trovata");
     });
   }
 
