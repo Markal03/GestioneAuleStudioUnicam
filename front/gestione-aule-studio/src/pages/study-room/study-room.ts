@@ -70,7 +70,6 @@ export class StudyRoomPage {
       image: this.image
     };
 
-    console.log(studyRoom);
     this.studyRoomService.addStudyRoom(studyRoom).then((result) => {
       this.loading.dismiss();
       let confirm = this.alertCtrl.create({
@@ -101,7 +100,6 @@ export class StudyRoomPage {
   //Aggiorna l'array dei giorni selezionati dinamicamente
   //ev è un oggetto creato ogni volta che si switcha valore di una checkbox
   selectDay(day, ev){
-    console.log(ev);
     if(ev.value){
       this.days_open.push(day);
     } else {

@@ -63,7 +63,7 @@ exports.addStudyRoom = (req, res, next) => {
 };
 
 exports.deleteStudyRoom = (req, res) =>{
-    var id = req.param("name");
+    var name = req.param("name");
     StudyRoom.remove({
         name:name
     }, function(err){
