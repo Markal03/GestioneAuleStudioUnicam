@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Aula Studio</ion-title>
+    <ion-title>Modifica Aula Studio</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -14,29 +14,29 @@
     <ion-item>
 
       <ion-label color="primary" > Nome Aula: </ion-label>
-      <ion-input placeholder="Nome" [(ngModel)] = "name"></ion-input>
+      <ion-input value = "{{studyRoom?.name}}" disabled [(ngModel)] = "name"></ion-input>
     
     </ion-item>
     <ion-item>
       <ion-label color="primary">Posti Disponibili: </ion-label>
-      <ion-input placeholder="Numero Posti" [(ngModel)] = "capacity"></ion-input>
+      <ion-input value ="{{studyRoom?.capacity}}" [(ngModel)] = "capacity"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label  stacked>Orari Apertura:</ion-label>
     </ion-item>
     <ion-item>
       <ion-label color="primary" > Da:</ion-label>
-      <ion-datetime displayFormat="HH:mm" minuteValues="0,30" min="08:00" max="18:30" [(ngModel)]="from">
+      <ion-datetime displayFormat="HH:mm" minuteValues="0,30" min="08:00" max="18:30"  [(ngModel)]="from">
       </ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label color="primary" >A:</ion-label>
-      <ion-datetime displayFormat="HH:mm" minuteValues="0,30" min="08:00" max="18:30" [(ngModel)]="to">
+      <ion-datetime displayFormat="HH:mm" minuteValues="0,30" min="08:00" max="18:30"  [(ngModel)]="to">
       </ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label color="primary">Descrizione:</ion-label>
-      <ion-input textarea placeholder="Descrizione" [(ngModel)] = "Descrizione"></ion-input>
+      <ion-input textarea  [(ngModel)] = "Descrizione" value ="{{studyRoom?.description}}"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked >Giorni Apertura:</ion-label>
@@ -48,7 +48,7 @@
       </ion-item>
     <ion-item>
       <ion-label color="primary">
-         <button ion-button color="primary" (click) ='addStudyRoom()'> Aggiungi Aula</button>
+         <button ion-button color="primary" (click) ='editStudyRoom()'> Conferma Modifiche</button>
       </ion-label>
     </ion-item>
     

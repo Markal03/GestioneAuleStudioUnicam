@@ -5,7 +5,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { AdminPage } from '../admin/admin';
 
 /**
- * Generated class for the StudyRoomPage page.
+ * Generated class for the EditStudyRoomPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -13,12 +13,13 @@ import { AdminPage } from '../admin/admin';
 
 @IonicPage()
 @Component({
-  selector: 'page-study-room',
-  templateUrl: 'study-room.html',
+  selector: 'page-edit-study-room',
+  templateUrl: 'edit-study-room.html',
 })
-export class StudyRoomPage {
+export class EditStudyRoomPage {
+  studyRoom;
+  editedStudyRoom;
 
-  studyRooms: any;
   loading: any;
   days: any [];
 
@@ -30,15 +31,19 @@ export class StudyRoomPage {
   hours_open = [];
   description: string;
   image: any;
-  
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public studyRoomService: StudyRoomProvider, public modalCtrl: ModalController,
     public alertCtrl: AlertController, public authService: AuthProvider, public loadingCtrl: LoadingController) {
-      this.initializeDays();
+    this.studyRoom = navParams.get('data');
+    this.initializeDays();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad StudyRoomPage');
+    console.log('ionViewDidLoad EditStudyRoomPage');
+    console.log(this.studyRoom);
+    this.from = this.studyRoom.hours_open[0].from;
+    this.to = this.studyRoom.hours_open[0].to;
+
   }
 
   initializeDays() {
@@ -49,56 +54,9 @@ export class StudyRoomPage {
       {id:4, name:'Giovedì', selected: false},
       {id:5, name:'Venerdì', selected: false}
     ]
+    //TODO Preload
   }
 
-  addStudyRoom(){
-    this.showLoader();
-
-    let hours = {
-      from: this.from,
-      to: this.to
-    }
-
-    this.hours_open.push(hours);
-
-    let studyRoom = {
-      name: this.name,
-      capacity: this.capacity,
-      days_open: this.days_open,
-      hours_open: this.hours_open,
-      description: this.description,
-      image: this.image
-    };
-
-    this.studyRoomService.addStudyRoom(studyRoom).then((result) => {
-      this.loading.dismiss();
-      let confirm = this.alertCtrl.create({
-        title: 'Aula aggiunta con successo!',
-        message: 'Aula aggiunta correttamente!',
-        buttons: [
-          {
-            text: 'Ok',
-            handler: () => {this.navCtrl.popTo(AdminPage)}
-          }
-        ]
-      });
-      this.studyRooms = result;
-      confirm.present();
-      console.log("Aula studio creata");
-    }, (err) => {
-      this.loading.dismiss();
-      let alert = this.alertCtrl.create({
-        title: 'Oooops!',
-        message: 'C\'è stato un errore, aggiunta aula non effettuata',
-        buttons: ['Ok']
-      });
-      console.log(err);
-      alert.present();             
-    });
-  }
-
-  //Aggiorna l'array dei giorni selezionati dinamicamente
-  //ev è un oggetto creato ogni volta che si switcha valore di una checkbox
   selectDay(day, ev){
     if(ev.value){
       this.days_open.push(day);
@@ -107,9 +65,46 @@ export class StudyRoomPage {
     }
   }
 
+  editStudyRoom(){
+    this.showLoader();
+
+    let editedStudyRoom = {
+      name: this.name,
+      capacity: this.capacity,
+      days_open: this.days_open,
+      hours_open: this.hours_open,
+      description: this.description,
+      image: this.image
+    }
+    this.studyRoomService.editStudyRoom(editedStudyRoom).then((result) => {
+      this.loading.dismiss();
+      let confirm = this.alertCtrl.create({
+        title: 'Aula modificata con successo!',
+        message: 'Aula modificata correttamente!',
+        buttons: [
+          {
+            text: 'Ok',
+            handler: () => {this.navCtrl.popTo(AdminPage)}
+          }
+        ]
+      });
+      confirm.present();
+      console.log("Aula studio modificata");
+    }, (err) => {
+      this.loading.dismiss();
+      let alert = this.alertCtrl.create({
+        title: 'Oooops!',
+        message: 'C\'è stato un errore, modifica aula non effettuata',
+        buttons: ['Ok']
+      });
+      console.log(err);
+      alert.present();             
+    });
+  }
+
   showLoader(){
     this.loading = this.loadingCtrl.create({
-      content: 'Creazione Aula Studio in corso...'
+      content: 'Modifica Aula Studio in corso...'
     });
     this.loading.present();
   }

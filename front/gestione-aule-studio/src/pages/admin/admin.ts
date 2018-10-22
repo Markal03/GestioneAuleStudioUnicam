@@ -4,6 +4,7 @@ import { StudyRoomPage } from '../study-room/study-room';
 import { StudyRoomProvider } from '../../providers/study-room/study-room';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Placeholder } from '@angular/compiler/src/i18n/i18n_ast';
+import { EditStudyRoomPage } from '../edit-study-room/edit-study-room';
 
 /**
  * Generated class for the AdminPage page.
@@ -19,96 +20,33 @@ import { Placeholder } from '@angular/compiler/src/i18n/i18n_ast';
 })
 export class AdminPage {
  items;
- studyRooms:any;
+ studyRooms: any;
  loading: any;
 
  constructor(public navCtrl: NavController, public navParams: NavParams, public studyRoomService: StudyRoomProvider,public modalCtrl: ModalController,
   public alertCtrl: AlertController, public authService: AuthProvider, public loadingCtrl: LoadingController) {
-    //this.initializeItems(); //Rimuovere quando è presente il backend
   }
 
-  //Rimuovere quando è presente il backend
-/*   initializeItems() {
-    this.items = [
-      {title: 'Polo Informatico Lodovici'},
-      {title: 'Campus Universitario'},
-      {title: 'Polo Scienze della Terra'},
-      {title: 'Polo El Fuego'},
-      {title: 'Polo Gyros Pita'}
-  ];
-  } */
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AdminPage');
-
-    //Popola la lista di aule disponibili con quelle presenti nel db
-    //Da attivare quando è presente il backend
-
-     this.studyRoomService.getStudyRooms().then((data) => {
+   ionViewWillEnter(){
+    this.studyRoomService.getStudyRooms().then((data) => {
       this.studyRooms = data;
     }, (err) => {
-      console.log("Operazione non autorizzata");
+      let alert = this.alertCtrl.create({
+        title: 'Oooops!',
+        message: 'C\'è stato un errore, non è stato possibile caricare le informazioni delle aule',
+        buttons: ['Ok']
+      });
+      alert.present();
     });
-
-  }
+  } 
 
   addStudyRoom(){
-/*     console.log('presenta il prompt');
-    let prompt = this.alertCtrl.create({
-      title:'Aggiungi un\'aula studio',
-      message: 'Inserisci i dati:',
-      inputs: [
-        {
-          name: 'name',
-          type: 'text',
-          placeholder: 'Nome Aula'
-        },
-        {
-          name: 'capacity',
-          type: 'number',
-          placeholder:'Numero posti disponibili'
-        },
-        {
-          name: 'orarioApertura',
-          placeholder:'Orario apertura'
-        },
-        {
-          name: 'orarioChiusura',
-          placeholder:'Orario chiusura'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Annulla'
-        },
-        {
-          text: 'Aggiungi Aula',
-          handler: studyRoom => {
-            if (studyRoom){
-               this.showLoader();
-
-               this.studyRoomService.addStudyRoom(studyRoom).then((result) => {
-                 this.loading.dismiss();
-                 this.studyRooms = result;
-                 console.log("Aula studio creata");
-               }, (err) => {
-                 this.loading.dismiss();
-                 console.log("Not allowed");             
-               });
-            }
-          }
-        }
-      ]
-    });
-
-    prompt.present(); */
     this.navCtrl.push(StudyRoomPage);
   }
 
   removeStudyRoom(studyRoom){
     this.showLoader();
-
-    this.studyRoomService.deleteStudyRoom(studyRoom._id).then((result) => {
+    this.studyRoomService.deleteStudyRoom(studyRoom.name).then((result) => {
       this.loading.dismiss();
 
         let index = this.studyRooms.indexOf(studyRoom);
@@ -119,12 +57,13 @@ export class AdminPage {
 
     }, (err) => {
       this.loading.dismiss();
-        console.log("Permesso negato");
+        console.log("Aula non trovata");
     });
   }
 
   editStudyRoom(studyRoom){
-    //TODO
+    console.log("ciao");
+    this.navCtrl.push(EditStudyRoomPage, {data: studyRoom});
   }
 
   showLoader(){

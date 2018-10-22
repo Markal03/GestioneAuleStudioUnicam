@@ -34,7 +34,6 @@ export class StudyRoomProvider {
 
   addStudyRoom(studyRoom){
     return new Promise((resolve, reject) =>{
-
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', this.authService.token);
@@ -49,16 +48,29 @@ export class StudyRoomProvider {
     });
   }
 
-  deleteStudyRoom(studyRoom){
+  deleteStudyRoom(name){
       return new Promise((resolve, reject) => {
         let headers = new Headers();
         headers.append('Authorization', this.authService.token);
-
-        this.http.delete('http://localhost:3000/deleteStudyRoom' + studyRoom, {headers: headers}).subscribe((res) => {
+        this.http.delete('http://localhost:3000/deleteStudyRoom/' + name , {headers: headers}).subscribe((res) => {
           resolve(res);
       }, (err) => {
           reject(err);
       });
+    });
+  }
+  
+  editStudyRoom(studyRoom){
+    return new Promise ((resolve, reject) => {
+      let headers = new Headers();
+      headers.append('Authoriazion', this.authService.token);
+      this.http.put('http://localhost:300/modifyStudyRoom/', JSON.stringify(studyRoom), {headers: headers})
+      .map(res => res.json())
+          .subscribe(res=> {
+            resolve(res);
+          }, (err)=>{
+            reject(err);
+          });
     });
   }
 }

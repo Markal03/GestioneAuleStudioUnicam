@@ -49,7 +49,7 @@ module.exports = function(app) {
 
     app.put('/modifyStudyRoom', requireAuth, AuthenticationController.isAdmin, StudyRoomController.modifyStudyRoom);
 
-    app.delete('/deleteStudyRoom', requireAuth, AuthenticationController.isAdmin, StudyRoomController.deleteStudyRoom);
+    app.delete('/deleteStudyRoom/:name', requireAuth, AuthenticationController.isAdmin, StudyRoomController.deleteStudyRoom);
 
     //STUDY ROOM ROUTES FOR STUDENTS
 
