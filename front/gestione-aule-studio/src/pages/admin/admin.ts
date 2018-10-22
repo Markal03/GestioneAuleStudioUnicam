@@ -4,6 +4,7 @@ import { StudyRoomPage } from '../study-room/study-room';
 import { StudyRoomProvider } from '../../providers/study-room/study-room';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Placeholder } from '@angular/compiler/src/i18n/i18n_ast';
+import { EditStudyRoomPage } from '../edit-study-room/edit-study-room';
 
 /**
  * Generated class for the AdminPage page.
@@ -61,7 +62,8 @@ export class AdminPage {
   }
 
   editStudyRoom(studyRoom){
-    //TODO
+    console.log("ciao");
+    this.navCtrl.push(EditStudyRoomPage, {data: studyRoom});
   }
 
   showLoader(){

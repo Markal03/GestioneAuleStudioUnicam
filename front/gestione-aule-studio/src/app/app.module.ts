@@ -20,6 +20,7 @@ import { AdminPage } from '../pages/admin/admin';
 import { StudyRoomPage } from '../pages/study-room/study-room';
 import { ProfileProvider } from '../providers/profile/profile';
 import { StudyRoomProvider } from '../providers/study-room/study-room';
+import { EditStudyRoomPage } from '../pages/edit-study-room/edit-study-room';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { StudyRoomProvider } from '../providers/study-room/study-room';
     SearchPage,
     ReservePage,
     AdminPage,
-    StudyRoomPage
+    StudyRoomPage,
+    EditStudyRoomPage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import { StudyRoomProvider } from '../providers/study-room/study-room';
     SearchPage,
     ReservePage,
     AdminPage,
-    StudyRoomPage
+    StudyRoomPage,
+    EditStudyRoomPage
   ],
   providers: [
     AuthProvider,
