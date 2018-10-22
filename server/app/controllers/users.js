@@ -37,11 +37,11 @@ exports.delete = (req, res) => {
 
 exports.modifyPassword = (req, res) => {
     var id = req.user._id;
-    User.findById(req.params.id, function(err, user){
+    User.findById(id, function(err, user){
         if (err) {
             res.status(400).send({ error: err });
         }
-
+        
         user.comparePasswords(req.body.oldPassword, user.hashed_password, function (err, isMatch) {
             if(err){
                 console.log("Meeeenghia, nn o cpt");
