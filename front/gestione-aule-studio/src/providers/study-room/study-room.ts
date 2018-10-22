@@ -64,7 +64,7 @@ export class StudyRoomProvider {
     return new Promise ((resolve, reject) => {
       let headers = new Headers();
       headers.append('Authoriazion', this.authService.token);
-      this.http.put('http://localhost:300/modifyStudyRoom/', JSON.stringify(studyRoom), {headers: headers})
+      this.http.put('http://localhost:3000/modifyStudyRoom/', JSON.stringify(studyRoom), {headers: headers})
       .map(res => res.json())
           .subscribe(res=> {
             resolve(res);

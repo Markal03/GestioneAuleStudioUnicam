@@ -41,9 +41,10 @@ export class EditStudyRoomPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditStudyRoomPage');
     console.log(this.studyRoom);
+    this.description = this.studyRoom.description;
+    console.log(this.description);
     this.from = this.studyRoom.hours_open[0].from;
     this.to = this.studyRoom.hours_open[0].to;
-
   }
 
   initializeDays() {
@@ -76,6 +77,7 @@ export class EditStudyRoomPage {
       description: this.description,
       image: this.image
     }
+    
     this.studyRoomService.editStudyRoom(editedStudyRoom).then((result) => {
       this.loading.dismiss();
       let confirm = this.alertCtrl.create({
