@@ -4,8 +4,8 @@ const passport = require('passport');
 const User = mongoose.model('User');
 
 exports.getUserInfos = (req, res) => {
-    var id= req.param("id");
-    User.findById(req.params.id, function(err, user){
+    var id = req.user._id;
+    User.findById(id, function(err, user) {
         if (err) {
             res.status(400).send({ error: err });
         }
@@ -22,7 +22,7 @@ exports.getUserInfos = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-    var id= req.param("id");
+    var id = req.user._id;
     User.remove({
         _id:id
     }, function(err){
@@ -36,7 +36,7 @@ exports.delete = (req, res) => {
 };
 
 exports.modifyPassword = (req, res) => {
-    var id = req.param("id");
+    var id = req.user._id;
     User.findById(req.params.id, function(err, user){
         if (err) {
             res.status(400).send({ error: err });

@@ -21,11 +21,6 @@ module.exports = function(app) {
         next();
      });
 
-     app.use(function(req, res, next) {
-        console.log("body: " + JSON.stringify(req.body));
-        next();
-     });
-
     // set della path per le views
     //app.set('views', path.join(__dirname, '/app/views'));
     app.set('views', path.join(__dirname, '/../app/views'));

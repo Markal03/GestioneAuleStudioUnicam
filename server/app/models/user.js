@@ -23,7 +23,6 @@ UserSchema.virtual('fullName').get(() => {
 // Pre, avvengono in automatico prima di save
 
 UserSchema.pre('save', function(next)  {
-    console.log("quasi");
     // aggiorna la password solo se è appena modificato o è nuovo 
     if (this.isNew || this.isModified('hashed_password')) {
         // hash the password using our new salt
