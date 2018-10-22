@@ -43,13 +43,13 @@ module.exports = function(app) {
     //STUDY ROOM ROUTES FOR ADMIN
 
     
-    app.get('/adminSection', AuthenticationController.isAdmin);
+    app.get('/adminSection', requireAuth, StudyRoomController.browseStudyRooms);
 
-    app.post('/addStudyRoom', requireAuth, AuthenticationController.isAdmin, StudyRoomController.addStudyRoom);
+    app.post('/addStudyRoom', requireAuth, StudyRoomController.addStudyRoom);
 
-    app.put('/modifyStudyRoom', requireAuth, AuthenticationController.isAdmin, StudyRoomController.modifyStudyRoom);
+    app.put('/modifyStudyRoom', requireAuth, StudyRoomController.modifyStudyRoom);
 
-    app.delete('/deleteStudyRoom/:name', requireAuth, AuthenticationController.isAdmin, StudyRoomController.deleteStudyRoom);
+    app.delete('/deleteStudyRoom/:name', requireAuth, StudyRoomController.deleteStudyRoom);
 
     //STUDY ROOM ROUTES FOR STUDENTS
 
