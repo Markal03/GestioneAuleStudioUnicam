@@ -56,7 +56,6 @@ export class ProfilePage {
 
   //Funzione per l'eliminazione del profilo utente
   deleteProfile() {
-    var userId = this.result.user._id;
 
     let confirm = this.alertCtrl.create({
       title: "Sei sicuro di voler procedere?",
@@ -68,7 +67,7 @@ export class ProfilePage {
 
         {
           text: "Conferma",
-          handler: () => {this.profileProvider.deleteProfile(userId).then((result)=> {
+          handler: () => {this.profileProvider.deleteProfile().then((result)=> {
             let toast = this.toastCtrl.create({
               message: 'Eliminazione profilo completata',
               duration: 1000,
@@ -102,7 +101,6 @@ export class ProfilePage {
   }
   //Funzione per la modifica password
   updatePassword() {
-    var userId = this.result.user._id;
     let updatePasswordAlert = this.alertCtrl.create({
       title: 'Modifica Passowrd',
       message: 'Inserisci la tua vecchia password e la nuova e clicca su \'Modifica\' per procedere',
@@ -125,7 +123,7 @@ export class ProfilePage {
         },
         {
           text: 'Modifica',
-          handler: (data)=> {this.profileProvider.updatePassword(userId, data).then((result)=> {
+          handler: (data)=> {this.profileProvider.updatePassword(data).then((result)=> {
             let toast = this.toastCtrl.create({
               message: 'Password modificata correttamente',
               duration: 1000,

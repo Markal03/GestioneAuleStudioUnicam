@@ -32,13 +32,13 @@ export class ProfileProvider {
 
   }
 
-  deleteProfile(userId){
+  deleteProfile(){
     var url = 'http://localhost:3000/removeProfile/';
     return new Promise ((resolve, reject) => {
 
       let headers = new Headers();
       headers.append('Authorization', this.authService.token);
-      this.http.delete(url + userId, {headers: headers}).subscribe((res) => {
+      this.http.delete(url, {headers: headers}).subscribe((res) => {
         console.log(res);
         resolve(res);
       }, (err) => {
@@ -48,13 +48,13 @@ export class ProfileProvider {
     });
   }
 
-  updatePassword(userId, passwords) {
+  updatePassword(passwords) {
     var url = 'http://localhost:3000/modifyPassword/';
     return new Promise ((resolve, reject) => {
       let headers = new Headers();
       headers.append('Authorization', this.authService.token);
       headers.append('Content-type', 'Application/json')
-      this.http.put(url + userId, JSON.stringify(passwords), {headers: headers}).subscribe((res) => {
+      this.http.put(url, JSON.stringify(passwords), {headers: headers}).subscribe((res) => {
         console.log(res);
         resolve(res);
       }, (err) => {
