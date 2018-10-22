@@ -41,24 +41,3 @@ function startSession(){
         saveUninitialized: false
       }));
 }
-
-
-
-
-/*
-// TEST 
-require('./app/models/user');
-mongoose.connect('mongodb://unicamadmin:unicamadmin123@ds020228.mlab.com:20228/unicamaulestudio', { useNewUrlParser: true });
-app.listen(3000);
-const User = mongoose.model('User');
-//User.collection.drop();
-var user2 = new User();
-user2.name = "leonardo"; 
-user2.surname = "nooooooo";
-user2.email = "macristooooooaaa.noooooa@studenti.unicam.it";
-user2.hashed_password = "asdaaaaaaaaaaaa";
-user2.save();
-User.find({}).exec((err, users) => {
-    console.log(users);
-}); */ 
-// TEST

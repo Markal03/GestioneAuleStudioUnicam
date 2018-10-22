@@ -26,13 +26,13 @@ module.exports = function(app) {
 
     //STUDENT ROUTES
 
-    app.get('/getUserInfos/:id', requireAuth, UserController.getUserInfos);
+    app.get('/getUserInfos', requireAuth, UserController.getUserInfos);
 
-    app.put('/modifyPassword/:id', requireAuth, UserController.modifyPassword);
+    app.put('/modifyPassword', requireAuth, UserController.modifyPassword);
 
-    app.put('/modifyProfileImage/:id', requireAuth, UserController.modifyProfileImage);
+    app.put('/modifyProfileImage', requireAuth, UserController.modifyProfileImage);
 
-    app.delete('/removeProfile/:id', requireAuth, UserController.delete);
+    app.delete('/removeProfile', requireAuth, UserController.delete);
 
     //NEWS FEED ROUTES
 
@@ -43,18 +43,13 @@ module.exports = function(app) {
     //STUDY ROOM ROUTES FOR ADMIN
 
     
-/*     app.get('/adminSection', (req, res) =>{
-        
+    app.get('/adminSection', AuthenticationController.isAdmin);
 
-    }); */
+    app.post('/addStudyRoom', requireAuth, AuthenticationController.isAdmin, StudyRoomController.addStudyRoom);
 
-    app.get('/adminSection', requireAuth, StudyRoomController.browseStudyRooms); 
+    app.put('/modifyStudyRoom', requireAuth, AuthenticationController.isAdmin, StudyRoomController.modifyStudyRoom);
 
-    app.post('/addStudyRoom', requireAuth, StudyRoomController.addStudyRoom);
-
-    app.put('/modifyStudyRoom', requireAuth, StudyRoomController.modifyStudyRoom);
-
-    app.delete('/deleteStudyRoom/:name', requireAuth, StudyRoomController.deleteStudyRoom);
+    app.delete('/deleteStudyRoom/:name', requireAuth, AuthenticationController.isAdmin, StudyRoomController.deleteStudyRoom);
 
     //STUDY ROOM ROUTES FOR STUDENTS
 

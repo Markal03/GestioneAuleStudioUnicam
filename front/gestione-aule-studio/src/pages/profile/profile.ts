@@ -41,7 +41,7 @@ export class ProfilePage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter ProfilePage');
-    this.profileProvider.getUserInfos(this.result.user._id).then((data) => {
+    this.profileProvider.getUserInfos().then((data) => {
       this.userInfos = data;
       console.log(this.userInfos);
     }, (err) => {
