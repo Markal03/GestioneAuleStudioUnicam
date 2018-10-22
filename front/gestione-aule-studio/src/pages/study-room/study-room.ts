@@ -69,7 +69,8 @@ export class StudyRoomPage {
       description: this.description,
       image: this.image
     };
-
+    console.log("Bro");
+    console.log(studyRoom);
     this.studyRoomService.addStudyRoom(studyRoom).then((result) => {
       this.loading.dismiss();
       let confirm = this.alertCtrl.create({
