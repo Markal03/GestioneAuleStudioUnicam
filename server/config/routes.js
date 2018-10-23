@@ -47,7 +47,7 @@ module.exports = function(app) {
 
     app.post('/addStudyRoom', requireAuth, StudyRoomController.addStudyRoom);
 
-    app.put('/modifyStudyRoom', requireAuth, StudyRoomController.modifyStudyRoom);
+    app.put('/modifyStudyRoom/:name', requireAuth, StudyRoomController.modifyStudyRoom);
 
     app.delete('/deleteStudyRoom/:name', requireAuth, StudyRoomController.deleteStudyRoom);
 

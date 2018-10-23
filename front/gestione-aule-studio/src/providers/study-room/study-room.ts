@@ -37,7 +37,6 @@ export class StudyRoomProvider {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', this.authService.token);
-        console.log('Aula studio json:' + JSON.stringify(studyRoom));
         this.http.post('http://localhost:3000/addStudyRoom', JSON.stringify(studyRoom), {headers: headers})
           .map(res => res.json())
           .subscribe(res=> {
@@ -61,13 +60,18 @@ export class StudyRoomProvider {
   }
   
   editStudyRoom(studyRoom){
+    let name = studyRoom.name;
     return new Promise ((resolve, reject) => {
       let headers = new Headers();
-      headers.append('Authoriazion', this.authService.token);
-      this.http.put('http://localhost:3000/modifyStudyRoom/', JSON.stringify(studyRoom), {headers: headers})
+      //console.log(this.authService.token);
+      headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', this.authService.token);
+      console.log(JSON.stringify(studyRoom));
+      this.http.put('http://localhost:3000/modifyStudyRoom/' + name, JSON.stringify(studyRoom), {headers: headers})
       .map(res => res.json())
           .subscribe(res=> {
             resolve(res);
+            console.log(res);
           }, (err)=>{
             reject(err);
           });

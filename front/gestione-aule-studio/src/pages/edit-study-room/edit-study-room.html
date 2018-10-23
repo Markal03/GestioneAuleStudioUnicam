@@ -44,7 +44,7 @@
   </ion-list>
     <ion-item *ngFor="let day of days">
         <ion-label>{{day.name}}</ion-label>
-        <ion-checkbox color="dark" checked="false" (ionChange)="selectDay(day.name, $event)"></ion-checkbox>
+        <ion-checkbox color="dark" [checked] = isChecked(day) (ionChange)="selectDay(day.name, $event)"></ion-checkbox>
       </ion-item>
     <ion-item>
       <ion-label color="primary">

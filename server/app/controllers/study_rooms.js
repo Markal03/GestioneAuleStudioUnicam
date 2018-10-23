@@ -77,11 +77,12 @@ exports.deleteStudyRoom = (req, res) =>{
 };
 
 exports.modifyStudyRoom = (req, res) =>{
-    
+    let name = req.param("name");
     StudyRoom.findOne({ name: name }, (err, room) => {
         if (err) {
             return res.status(400).json({ error: err });
         }
+        console.log(req.body);
         room.capacity = req.body.capacity;
         room.days_open = req.body.days_open;
         room.hours_open = req.body.hours_open;

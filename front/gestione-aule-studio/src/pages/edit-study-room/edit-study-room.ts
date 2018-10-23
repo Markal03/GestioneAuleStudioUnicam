@@ -40,9 +40,6 @@ export class EditStudyRoomPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditStudyRoomPage');
-    console.log(this.studyRoom);
-    this.description = this.studyRoom.description;
-    console.log(this.description);
     this.from = this.studyRoom.hours_open[0].from;
     this.to = this.studyRoom.hours_open[0].to;
   }
@@ -55,7 +52,38 @@ export class EditStudyRoomPage {
       {id:4, name:'Giovedì', selected: false},
       {id:5, name:'Venerdì', selected: false}
     ]
-    //TODO Preload
+    this.checkDays();
+  }
+
+  isChecked(day){
+      if (day.selected) {
+      return this.days.indexOf(day) >= 0;
+      }
+  }
+
+  checkDays(){
+    
+    if (this.studyRoom.days_open.includes("Lunedì")){
+      this.days[0].selected = true;
+      this.days_open.push(this.days[0].name);
+    }
+    if (this.studyRoom.days_open.includes("Martedì")){
+      this.days[1].selected = true;
+      this.days_open.push(this.days[1].name);
+    }
+    if (this.studyRoom.days_open.includes("Mercoledì")){
+      this.days[2].selected = true;
+      this.days_open.push(this.days[2].name);
+    }
+    if (this.studyRoom.days_open.includes("Giovedì")){
+      this.days[3].selected = true;
+      this.days_open.push(this.days[3].name);
+    }
+    if (this.studyRoom.days_open.includes("Venerdì")){
+      this.days[4].selected = true;
+      this.days_open.push(this.days[4].name);
+    }
+
   }
 
   selectDay(day, ev){
@@ -68,6 +96,15 @@ export class EditStudyRoomPage {
 
   editStudyRoom(){
     this.showLoader();
+
+    let hours = {
+      from: this.from,
+      to: this.to
+    }
+
+    this.hours_open.push(hours);
+
+    console.log(this.days_open);
 
     let editedStudyRoom = {
       name: this.name,

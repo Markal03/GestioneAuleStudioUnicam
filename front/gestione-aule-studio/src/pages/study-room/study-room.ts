@@ -31,7 +31,6 @@ export class StudyRoomPage {
   description: string;
   image: any;
   
-
   constructor(public navCtrl: NavController, public navParams: NavParams, public studyRoomService: StudyRoomProvider, public modalCtrl: ModalController,
     public alertCtrl: AlertController, public authService: AuthProvider, public loadingCtrl: LoadingController) {
       this.initializeDays();
@@ -69,8 +68,7 @@ export class StudyRoomPage {
       description: this.description,
       image: this.image
     };
-    console.log("Bro");
-    console.log(studyRoom);
+
     this.studyRoomService.addStudyRoom(studyRoom).then((result) => {
       this.loading.dismiss();
       let confirm = this.alertCtrl.create({
