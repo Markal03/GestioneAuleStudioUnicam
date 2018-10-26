@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const StudyRoom = require('../models/study_room');
 
 exports.browseStudyRooms = (req, res) => {
-    console.log("utente: ");
-    console.log(req.user);
     StudyRoom.find({}, (err, rooms) => {
         if (err) {
             return res.status(422).send({ error: err });
@@ -63,10 +61,10 @@ exports.addStudyRoom = (req, res, next) => {
 };
 
 exports.deleteStudyRoom = (req, res) =>{
-    var name = req.param("name");
+    let name = req.param("name");
     StudyRoom.remove({
         name:name
-    }, function(err){
+    }, (err) => {
         if (err){
             console.log(err);
             return res.status(400).json("Errore");

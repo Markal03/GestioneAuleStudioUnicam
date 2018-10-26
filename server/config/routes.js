@@ -3,26 +3,20 @@ var AuthenticationController = require('../app/controllers/authentication'),
     passportService = require('../config/passport'),
     passport = require('passport'),
     UserController = require('../app/controllers/users'),
-    StudyRoomController = require('../app/controllers/study_rooms');
+    StudyRoomController = require('../app/controllers/study_rooms'),
+    ReservationController = require('../app/controllers/reservations');
  
 var requireAuth = passport.authenticate('jwt', {session: false}),
     requireLogin = passport.authenticate('local', {session: false});
 
 module.exports = function(app) {
-    //route di prova
-    app.get('/', (req, res) => {
-        console.log('homepage');
-        //res.render('homepage.ejs');
-        res.json({error: 'ciao'});
-    });
 
     app.post('/login', requireLogin, AuthenticationController.login);
 
     app.post('/register', AuthenticationController.register);
 
-    app.get('/protected', requireAuth, function(req, res){
-        res.send({ content: 'Success'});
-    });
+    app.get('/protected', requireAuth, AuthenticationController.protected);
+
 
     //STUDENT ROUTES
 
@@ -32,18 +26,14 @@ module.exports = function(app) {
 
     app.put('/modifyProfileImage', requireAuth, UserController.modifyProfileImage);
 
-    app.delete('/removeProfile', requireAuth, UserController.delete);
+    app.delete('/removeProfile', requireAuth, UserController.adminDelete);
 
-    //NEWS FEED ROUTES
-
-    app.get('/newsfeed', (req,res) => {
-
-    });
 
     //STUDY ROOM ROUTES FOR ADMIN
 
-    
     app.get('/adminSection', requireAuth, StudyRoomController.browseStudyRooms);
+
+    app.get('/usersList', requireAuth, UserController.getUsersList);
 
     app.post('/addStudyRoom', requireAuth, StudyRoomController.addStudyRoom);
 
@@ -51,12 +41,22 @@ module.exports = function(app) {
 
     app.delete('/deleteStudyRoom/:name', requireAuth, StudyRoomController.deleteStudyRoom);
 
+    app.delete('/deleteUser/:name', requireAuth, UserController.adminDelete);
+     
+    //TODO
+    //app.delete('/deleteReservation', requireAuth, ReservationController.deleteReservation);
+
+
     //STUDY ROOM ROUTES FOR STUDENTS
 
-    app.get('/studyRooms', StudyRoomController.browseStudyRooms);
+    app.get('/studyRooms', requireAuth, StudyRoomController.browseStudyRooms);
     
-    app.post('/bookStudyRoom', (req, res) =>{
+    app.post('/bookStudyRoom', requireAuth, ReservationController.addReservation);
 
-    });
+    app.get('/getReservations', requireAuth, ReservationController.getReservation);
+
+    app.put('/modifyReservation', requireAuth, ReservationController.modifyReservation);
+
+    app.delete('/deleteReservation', requireAuth, ReservationController.deleteReservation);
 
 }
