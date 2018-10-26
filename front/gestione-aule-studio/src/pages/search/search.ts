@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ReservePage } from '../reserve/reserve';
+import { StudyRoomProvider } from '../../providers/study-room/study-room';
 
 /**
  * Generated class for the SearchPage page.
@@ -15,41 +16,45 @@ import { ReservePage } from '../reserve/reserve';
   templateUrl: 'search.html',
 })
 export class SearchPage {
-
-  items;
   id;
+  studyRooms: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.initializeItems();
+  constructor(public navCtrl: NavController, public navParams: NavParams, public studyRoomProvider: StudyRoomProvider, public alertCtrl: AlertController) {
   }
 
   initializeItems() {
-    this.items = [
-      'Polo Informatico Lodovici',
-      'Campus Universitario',
-      'Polo Scienze della Terra',
-      'Polo El Fuego',
-      'Polo Gyros Pita'
-    ]
+    this.studyRoomProvider.getStudyRooms().then((data) => {
+      this.studyRooms = data;
+      console.log(this.studyRooms);
+    }, (err) => {
+      let alert = this.alertCtrl.create({
+        title: 'Oooops!',
+        message: 'C\'è stato un errore, non è stato possibile caricare le informazioni delle aule',
+        buttons: ['Ok']
+      });
+      alert.present();
+    });
+
   }
 
-  getItems(ev) {
-    this.initializeItems();
+  getStudyRoom(ev) {
     var val = ev.target.value;
     if (val && val.trim() != '') {
-      this.items = this.items.filter((item) => {
-        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      this.studyRooms = this.studyRooms.filter((studyRoom) => {
+        return (studyRoom.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
   }
 
-   reserve(item) {
-    this.id = item;
-    this.navCtrl.push(ReservePage, {data: this.id});
+   reserve(studyRoom) {
+    this.navCtrl.push(ReservePage, {data: studyRoom});
   }  
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchPage');
+  }
+  ionViewWillEnter() {
+    this.initializeItems();
   }
 
 }
