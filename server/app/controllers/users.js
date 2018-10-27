@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 const express = require('express');
-const passport = require('passport');
 const User = mongoose.model('User');
 
 exports.getUserInfos = (req, res) => {
     var id = req.user._id;
-    User.findById(id, function(err, user) {
+    User.findById(id, (err, user) => {
         if (err) {
             res.status(400).send({ error: err });
         }
@@ -21,18 +20,23 @@ exports.getUserInfos = (req, res) => {
     });
 };
 
-exports.delete = (req, res) => {
-    var id = req.user._id;
-    User.remove({
-        _id:id
-    }, function(err){
-        if(err){
-        console.log(err);
-        return res.status(400).json("Errore nell'eliminazione del profilo" );
-    } else {
-        return res.status(200).json("Eliminazione confermata");
-    }
+exports.getUsersList = (req, res) => {
+    User.find({}, (err, users) => {
+        if (err) {
+            res.status(400).send({ error: err });
+        }
+        res.status(200).send(users);
     });
+};
+
+exports.delete = (req, res) => {
+    let id = req.user._id;
+    deleteProfile(id);
+};
+
+exports.adminDelete = (req, res) => {
+    let id = req.param("id");
+    deleteProfile(id);
 };
 
 exports.modifyPassword = (req, res) => {
@@ -71,3 +75,17 @@ exports.modifyPassword = (req, res) => {
 exports.modifyProfileImage=(req, res) => {
 
 };
+
+
+function deleteProfile(id) {
+    User.remove({
+        _id:id
+    }, function(err){
+        if(err){
+        console.log(err);
+        return res.status(400).json("Errore nell'eliminazione del profilo" );
+    } else {
+        return res.status(200).json("Eliminazione confermata");
+    }
+    });
+}

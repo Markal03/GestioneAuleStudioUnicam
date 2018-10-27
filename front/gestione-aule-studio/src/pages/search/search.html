@@ -8,11 +8,12 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-searchbar (ionInput)="getStudyRoom($event)"></ion-searchbar>
   <ion-list>
-      <button ion-item *ngFor="let item of items" (click)="reserve(items.indexOf(item))" >
-      {{ item }}
-    </button>
+      <button ion-item *ngFor="let studyRoom of studyRooms" (click)="reserve(studyRoom)">
+      <h2>{{ studyRoom?.name }}</h2>
+      <p>{{studyRoom?.description}}</p>
+      </button>
   </ion-list>
 
 

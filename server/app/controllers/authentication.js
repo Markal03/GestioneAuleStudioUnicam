@@ -15,8 +15,12 @@ function setUserInfo(request){
     };
 }
 
+exports.protected = (req, res) => {
+    res.send({ content: 'Success'});
+};
+
 //metodo che si utilizza dopo che passport ha già gestito il login effettivo, quando, di conseguenza, l'utente è già loggato
-exports.login = function(req, res, next){
+exports.login = (req, res, next) => {
     var userInfo = setUserInfo(req.user);
     res.status(200).json({
         token: 'JWT ' + generateToken(userInfo),
@@ -24,7 +28,7 @@ exports.login = function(req, res, next){
     });
 }
 
-exports.register = function(req, res, next){
+exports.register = (req, res, next) => {
     var name = req.body.name;
     var surname = req.body.surname;
     var email = req.body.email;
