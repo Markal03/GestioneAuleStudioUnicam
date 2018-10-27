@@ -14,6 +14,8 @@ export class ReservePage {
   isEnabled = true;
   immagine = new Image();
   daysOpen = "";
+  minFrom;
+  maxTo;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
     this.studyRoom = navParams.get('data');
@@ -64,9 +66,16 @@ export class ReservePage {
     }
     console.log(this.daysOpen);
   }
+
+  getHours(){
+    this.minFrom = parseInt(this.studyRoom.hours_open[0].from.substring(0,2)) + 1 + ":00";
+    this.maxTo = parseInt(this.studyRoom.hours_open[0].to.substring(0,2)) - 1 + ":00";
+  }
+
   ionViewWillEnter() {
     this.checkAvailability();
     this.getDays();
+    this.getHours();
     }
 }
 

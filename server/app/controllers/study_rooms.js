@@ -75,7 +75,7 @@ exports.deleteStudyRoom = (req, res) =>{
 };
 
 exports.modifyStudyRoom = (req, res) =>{
-    let name = req.param("name");
+    let name = req.body.name
     StudyRoom.findOne({ name: name }, (err, room) => {
         if (err) {
             return res.status(400).json({ error: err });

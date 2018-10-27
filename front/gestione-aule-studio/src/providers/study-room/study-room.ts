@@ -66,7 +66,7 @@ export class StudyRoomProvider {
       headers.append('Content-Type', 'application/json');
       headers.append('Authorization', this.authService.token);
       console.log(JSON.stringify(studyRoom));
-      this.http.put('http://localhost:3000/modifyStudyRoom/' + name, JSON.stringify(studyRoom), {headers: headers})
+      this.http.put('http://localhost:3000/modifyStudyRoom', JSON.stringify(studyRoom), {headers: headers})
       .map(res => res.json())
           .subscribe(res=> {
             resolve(res);
