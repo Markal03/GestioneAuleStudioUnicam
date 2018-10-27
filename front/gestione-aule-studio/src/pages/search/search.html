@@ -10,10 +10,10 @@
 <ion-content padding>
     <ion-searchbar (ionInput)="getStudyRoom($event)"></ion-searchbar>
   <ion-list>
-      <button ion-item *ngFor="let studyRoom of studyRooms" (click)="reserve(studyRoom)">
+      <ion-item detail-push *ngFor="let studyRoom of studyRooms" (click)="reserve(studyRoom)">
       <h2>{{ studyRoom?.name }}</h2>
       <p>{{studyRoom?.description}}</p>
-      </button>
+      </ion-item>
   </ion-list>
 
 
