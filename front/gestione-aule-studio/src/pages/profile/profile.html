@@ -10,21 +10,25 @@
 
 <ion-content padding>
   <div id="proPic" align="center">
-      <ion-img width="200" height="200" src="../../assets/imgs/GyrosPita.jpg"></ion-img>
+      <ion-item no-lines>
+        <ion-thumbnail>
+          <img src="../../assets/imgs/blankProPic.png">
+        </ion-thumbnail>
+      </ion-item>
   </div>
   <br>
   <ion-list>
       <ion-item>
         <ion-label color="primary">Nome</ion-label>
-        <ion-input placeholder="{{userInfos?.name}}" disabled></ion-input>
+        <ion-input value="{{userInfos?.name}}" readonly></ion-input>
       </ion-item>
       <ion-item>
         <ion-label color="primary">Cognome</ion-label>
-        <ion-input placeholder="{{userInfos?.surname}}" disabled></ion-input>
+        <ion-input value="{{userInfos?.surname}}" readonly></ion-input>
       </ion-item>
       <ion-item>
         <ion-label color="primary">E-mail</ion-label>
-        <ion-input placeholder="{{userInfos?.email}}" disabled></ion-input>
+        <ion-input value="{{userInfos?.email}}" readonly></ion-input>
       </ion-item>
   </ion-list>    
   <button full ion-button icon-start (click)= " updatePassword()">
