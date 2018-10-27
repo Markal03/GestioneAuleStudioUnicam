@@ -21,6 +21,7 @@ import { StudyRoomPage } from '../pages/study-room/study-room';
 import { ProfileProvider } from '../providers/profile/profile';
 import { StudyRoomProvider } from '../providers/study-room/study-room';
 import { EditStudyRoomPage } from '../pages/edit-study-room/edit-study-room';
+import { ReservationProvider } from '../providers/reservation/reservation';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { EditStudyRoomPage } from '../pages/edit-study-room/edit-study-room';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ProfileProvider,
     StudyRoomProvider,
+    ReservationProvider,
   ]
 })
 export class AppModule {}
