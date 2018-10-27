@@ -63,7 +63,6 @@ export class StudyRoomProvider {
     let name = studyRoom.name;
     return new Promise ((resolve, reject) => {
       let headers = new Headers();
-      //console.log(this.authService.token);
       headers.append('Content-Type', 'application/json');
       headers.append('Authorization', this.authService.token);
       console.log(JSON.stringify(studyRoom));

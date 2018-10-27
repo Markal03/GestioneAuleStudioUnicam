@@ -88,7 +88,8 @@ export class StudyRoomPage {
       this.loading.dismiss();
       let alert = this.alertCtrl.create({
         title: 'Oooops!',
-        message: 'C\'è stato un errore, aggiunta aula non effettuata',
+        message: err._body,
+        //message: err._body.substring(err._body.indexOf(":") + 2, err._body.lastIndexOf("\"")),
         buttons: ['Ok']
       });
       console.log(err);
