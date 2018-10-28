@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { ReservationProvider } from '../../providers/reservation/reservation';
 
 @IonicPage()
 @Component({
@@ -17,7 +18,7 @@ export class ReservePage {
   minFrom;
   maxTo;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public reservationProvider: ReservationProvider) {
     this.studyRoom = navParams.get('data');
   }
 

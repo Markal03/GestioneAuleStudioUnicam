@@ -27,7 +27,7 @@ export class StudyRoomPage {
   from: string;
   to: string;
   days_open = [];
-  hours_open = [];
+  hours_open = []; //da modificare in numero  
   description: string;
   image: any;
   

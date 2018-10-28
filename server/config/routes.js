@@ -31,7 +31,7 @@ module.exports = function(app) {
 
     //STUDY ROOM ROUTES FOR ADMIN
 
-    app.get('/adminSection', requireAuth, StudyRoomController.browseStudyRooms);
+    app.get('/getStudyRooms', requireAuth, StudyRoomController.browseStudyRooms);
 
     app.get('/usersList', requireAuth, UserController.getUsersList);
 
@@ -43,13 +43,14 @@ module.exports = function(app) {
 
     app.delete('/deleteUser/:name', requireAuth, UserController.adminDelete);
      
-    //TODO
-    //app.delete('/deleteReservation', requireAuth, ReservationController.deleteReservation);
+    app.delete('/deleteReservation/:reservationId', requireAuth, ReservationController.deleteReservation);
 
 
     //STUDY ROOM ROUTES FOR STUDENTS
 
     app.get('/studyRooms', requireAuth, StudyRoomController.browseStudyRooms);
+
+    app.get('/getTime', requireAuth, ReservationController.getTime);
     
     app.post('/bookStudyRoom', requireAuth, ReservationController.addReservation);
 

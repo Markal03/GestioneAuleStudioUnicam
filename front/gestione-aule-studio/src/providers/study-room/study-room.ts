@@ -22,7 +22,7 @@ export class StudyRoomProvider {
     return new Promise((resolve, reject) =>{
       let headers = new Headers();
       headers.append('Authorization', this.authService.token);
-      this.http.get('http://localhost:3000/adminSection', {headers: headers })
+      this.http.get('http://localhost:3000/getStudyRooms', {headers: headers })
         .map(res => res.json())
         .subscribe(data => {
           resolve(data);
