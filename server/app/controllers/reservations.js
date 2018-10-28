@@ -11,7 +11,7 @@ exports.getTime = (req, res) => {
     let hours = date.getHours();
     let minute = date.getMinutes();
     let seconds = date.getSeconds();
-    let time = hours + ":" + minute + ":" + seconds;
+    let time = hours + ":" + minute;
     res.status(200).send({time: time});
 };
 
