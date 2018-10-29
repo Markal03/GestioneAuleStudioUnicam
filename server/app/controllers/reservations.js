@@ -10,11 +10,11 @@ exports.getTime = (req, res) => {
     let date = new Date();
     let hours = date.getHours();
     let minute = date.getMinutes();
-    let seconds = date.getSeconds();
     let time = hours + ":" + minute;
     res.status(200).send({time: time});
 };
 
+//TODO: MODIFICA CON ID PRENOTAZIONE
 exports.deleteReservation = (req, res) => {
     let user_id = req.user.user_id;
     deleteReservation(user_id);
@@ -66,6 +66,7 @@ exports.addReservation = (req, res) => {
     });
 };
 
+//TODO: modifica con id prenotazione
 exports.modifyReservation = (req, res) => {
     let user_id = req.user._id;
     Reservation.findOne({user_id: user_id}, (err, reservation) => {
@@ -88,11 +89,11 @@ exports.modifyReservation = (req, res) => {
 
 exports.getReservation = (req, res) => {
     let user_id = req.user._id;
-    Reservation.findOne({user_id: user_id}, (err, reservation) => {
+    Reservation.find({user_id: user_id}, (err, reservations) => {
         if (err) {
             return res.status(400).json({error: err});
         }
-        return res.status(200).json(reservation);
+        return res.status(200).json(reservations);
     });
 };
 
