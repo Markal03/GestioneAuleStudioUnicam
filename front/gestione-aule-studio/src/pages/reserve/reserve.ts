@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ReservationProvider } from '../../providers/reservation/reservation';
 
+
 @IonicPage()
 @Component({
   selector: 'page-reserve',
@@ -17,6 +18,13 @@ export class ReservePage {
   daysOpen = "";
   minFrom;
   maxTo;
+
+  //Variabili per la prenotazione
+  hourFrom: number;
+  hourTo: number;
+  reservationDay: String;
+
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public reservationProvider: ReservationProvider) {
     this.studyRoom = navParams.get('data');
@@ -34,23 +42,7 @@ export class ReservePage {
 
   //Funzione per la conferma della prenotazione da parte dell'utente
   createReservation(){
-      //Comunico all'utente l'avvenuta prenotazione
-      this.confirmationAlert();
-      //Riduco i posti disponibili di 1
-      //Da sistemare inserendo un'interazione con il database per il numero dei posti
-      this.numeroPostiDisponibili--;
-      //Ritorno al menù principale
-      this.navCtrl.popToRoot();    
-  }
 
-
-
-  //Funzione che controlla se ci sono posti disponibili, altrimenti disabilita il tasto della prenotazione
-  checkAvailability(){
-    console.log(this.numeroPostiDisponibili);
-    if (this.numeroPostiDisponibili == 0){
-      this.isEnabled = false;
-    }
   }
 
   ionViewDidLoad() {
@@ -74,7 +66,6 @@ export class ReservePage {
   }
 
   ionViewWillEnter() {
-    this.checkAvailability();
     this.getDays();
     this.getHours();
     }
