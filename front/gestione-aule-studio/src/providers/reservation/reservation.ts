@@ -17,7 +17,7 @@ export class ReservationProvider {
   }
 
   public getUserReservations() {
-    var url = "http://localhost:8000/getReservations";
+    var url = "http://localhost:3000/getReservations";
 
     return new Promise((resolve, reject ) => {
       let headers = new Headers();
@@ -33,7 +33,7 @@ export class ReservationProvider {
   }
 
   public addReservation(reservation) {
-    var url="http://localhost:8000/addReservation";
+    var url="http://localhost:3000/bookStudyRoom";
 
     return new Promise((resolve, reject) =>{
       let headers = new Headers();
@@ -50,7 +50,7 @@ export class ReservationProvider {
   }
 
   public updateReservation(reservation) {
-    var url ="http://localhost:8000/modifyReservation";
+    var url ="http://localhost:3000/modifyReservation";
 
     return new Promise ((resolve, reject) => {
       let headers = new Headers();
@@ -66,7 +66,7 @@ export class ReservationProvider {
   }
 
   public deleteReservation() {
-    var url ="http://localhost:8000/deleteReservation";
+    var url ="http://localhost:3000/deleteReservation";
 
     return new Promise ((resolve, reject) => {
       let headers = new Headers();

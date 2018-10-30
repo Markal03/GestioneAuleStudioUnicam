@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Reservation = require('../models/reservation');
+const StudyRoom = require('../models/study_room');
 
 exports.adminDeleteReservation = (req, res) => {
     let user_id = req.params("reservationId");
