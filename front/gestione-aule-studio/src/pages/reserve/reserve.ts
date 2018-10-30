@@ -100,8 +100,8 @@ export class ReservePage {
   }
 
   getHours(){
-    this.minFrom = parseInt(this.studyRoom.hours_open[0].from.substring(0,2)) + 1 + ":00";
-    this.maxTo = parseInt(this.studyRoom.hours_open[0].to.substring(0,2)) - 1 + ":00";
+    this.minFrom = parseInt(this.studyRoom.hours_open.from.substring(0,2)) + 1 + ":00";
+    this.maxTo = parseInt(this.studyRoom.hours_open.to.substring(0,2)) - 1 + ":00";
   }
 
   showLoader() {

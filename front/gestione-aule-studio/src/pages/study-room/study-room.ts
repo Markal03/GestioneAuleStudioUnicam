@@ -23,11 +23,10 @@ export class StudyRoomPage {
   days: any [];
 
   name: string;
-  capacity: string;
+  capacity: number;
   from: string;
   to: string;
   days_open = [];
-  hours_open = []; //da modificare in numero  
   description: string;
   image: any;
   
@@ -53,18 +52,27 @@ export class StudyRoomPage {
   addStudyRoom(){
     this.showLoader();
 
+    let order = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"];
+    
+    //Funzione per ordinare i giorni nell'array
+    function sortDays(a,b){
+      return order.indexOf(a) - order.indexOf(b); 
+    }
+
+    this.days_open.sort(sortDays);
+
     let hours = {
       from: this.from,
       to: this.to
     }
 
-    this.hours_open.push(hours);
+    //this.hours_open.push(hours);
 
     let studyRoom = {
       name: this.name,
       capacity: this.capacity,
       days_open: this.days_open,
-      hours_open: this.hours_open,
+      hours_open: hours,
       description: this.description,
       image: this.image
     };
