@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { ReservationProvider } from '../../providers/reservation/reservation';
 import { MainPage } from '../main/main';
+import { templateJitUrl } from '@angular/compiler';
 
 
 
@@ -45,14 +46,13 @@ export class ReservePage {
 
   //Funzione per la conferma della prenotazione da parte dell'utente
   createReservation(){
-
     this.showLoader();
 
     let reservationDetails = {
       study_room_id: this.studyRoom._id,
       day: this.reservationDay,
       from_hour: parseInt(this.hourFrom.substring(0,2)),
-      to_hour: 18 //parseInt(this.hourTo.substring(0,2))
+      to_hour: parseInt(this.hourTo.substring(0,2))
     }
 
     this.reservationProvider.addReservation(reservationDetails).then((result) => {
@@ -86,6 +86,7 @@ export class ReservePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReservePage');    
+    console.log(this.studyRoom);
   }
   getDays(){
     for(let i = 0; i<this.studyRoom.days_open.length; i++) {
@@ -100,8 +101,18 @@ export class ReservePage {
   }
 
   getHours(){
+    if (this.studyRoom.hours_open[0].from.charAt(0) === "0") {
+      let temp = parseInt(this.studyRoom.hours_open[0].from.substring(0,2)) + 1 + ":00";
+      this.minFrom = "00000900" + temp;
+    }
+    if (this.studyRoom.hours_open[0].to.charAt(0) === "0") {
+      this.maxTo = "0" + parseInt(this.studyRoom.hours_open[0].to) + ":00";
+    }
     this.minFrom = parseInt(this.studyRoom.hours_open[0].from.substring(0,2)) + 1 + ":00";
     this.maxTo = parseInt(this.studyRoom.hours_open[0].to.substring(0,2)) - 1 + ":00";
+    console.log(this.minFrom);
+    console.log(this.maxTo);
+    
   }
 
   showLoader() {
