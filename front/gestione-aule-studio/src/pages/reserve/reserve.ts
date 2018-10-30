@@ -19,8 +19,8 @@ export class ReservePage {
   isEnabled = true;
   immagine = new Image();
   daysOpen = "";
-  minFrom;
-  maxTo;
+  minFrom: string;
+  maxTo: string;
   loading: any;
 
   //Variabili per la prenotazione
@@ -101,8 +101,24 @@ export class ReservePage {
   }
 
   getHours(){
-    this.minFrom = parseInt(this.studyRoom.hours_open.from.substring(0,2)) + 1 + ":00";
-    this.maxTo = parseInt(this.studyRoom.hours_open.to.substring(0,2)) - 1 + ":00";
+    if (this.studyRoom.hours_open.from.charAt(0) === "0") {
+      console.log("Sono qua");
+      let temp = parseInt(this.studyRoom.hours_open.from.substring(0,2)) + 1
+      this.minFrom = "0" + temp.toString() + ":00";
+    } else {
+      this.minFrom = parseInt(this.studyRoom.hours_open.from.substring(0,2)) + 1 + ":00";
+    }
+    if (this.studyRoom.hours_open.to.charAt(0) === "=") {
+      let temp = parseInt(this.studyRoom.hours_open.to.substring(0,2)) - 1
+      this.minFrom = "0" + temp.toString() + ":00";
+    } else {
+      this.maxTo = parseInt(this.studyRoom.hours_open.to.substring(0,2)) - 1 + ":00";
+    }
+
+    
+
+    console.log(this.minFrom);
+    console.log(this.maxTo);
   }
 
   showLoader() {
@@ -117,6 +133,7 @@ export class ReservePage {
   ionViewWillEnter() {
     this.getDays();
     this.getHours();
+    console.log(this.studyRoom);
     }
 
 
