@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ItemSliding, ModalController, AlertController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ItemSliding, ModalController, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { StudyRoomPage } from '../study-room/study-room';
 import { StudyRoomProvider } from '../../providers/study-room/study-room';
 import { AuthProvider } from '../../providers/auth/auth';
@@ -25,7 +25,7 @@ export class StudyRoomsManagementPage {
   loading: any;
  
   constructor(public navCtrl: NavController, public navParams: NavParams, public studyRoomService: StudyRoomProvider,public modalCtrl: ModalController,
-   public alertCtrl: AlertController, public authService: AuthProvider, public loadingCtrl: LoadingController) {
+   public alertCtrl: AlertController, public authService: AuthProvider, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
    }
  
     ionViewWillEnter(){
@@ -46,21 +46,49 @@ export class StudyRoomsManagementPage {
    }
  
    removeStudyRoom(studyRoom){
-     this.showLoader();
-     this.studyRoomService.deleteStudyRoom(studyRoom.name).then((result) => {
-       this.loading.dismiss();
- 
-         let index = this.studyRooms.indexOf(studyRoom);
+     let confirm = this.alertCtrl.create({
+      title: "Sei sicuro di voler procedere?",
+      message: "L'operazione di eliminazione dell'aula studio è irreversibile.",
+      buttons: [
+        {
+          text: "Indietro"
+        },
+
+        {
+          text: "Conferma",
+          handler: () => {this.studyRoomService.deleteStudyRoom(studyRoom.name).then((result) => {
+            
+              let toast = this.toastCtrl.create({
+                message: 'Eliminazione aula studio completata',
+                duration: 1000,
+                position: 'middle'
+              });
+
+              let index = this.studyRooms.indexOf(studyRoom);
          
-         if (index > -1) {
-           this.studyRooms.splice(index, 1);
-         }
- 
+              if (index > -1) {
+              this.studyRooms.splice(index, 1);
+              toast.present();
+              }
+            
      }, (err) => {
-       this.loading.dismiss();
-         console.log("Aula non trovata");
-     });
-   }
+      let alert = this.alertCtrl.create({
+        title: 'Oooops!',
+        message: 'C\'è stato un errore, eliminazione non effettuata',
+        buttons: ['Ok']
+      });
+         console.log(err);
+         alert.present();
+     });}
+    
+    }
+  
+  ]
+   
+  });
+   
+   confirm.present();
+  }
  
    editStudyRoom(studyRoom){
      console.log("ciao");

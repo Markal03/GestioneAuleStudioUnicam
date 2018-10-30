@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { StudentsProvider } from '../../providers/students/students';
 import { ReservationsManagementPage } from '../reservations-management/reservations-management';
 
@@ -16,11 +16,10 @@ import { ReservationsManagementPage } from '../reservations-management/reservati
   templateUrl: 'students-management.html',
 })
 export class StudentsManagementPage {
-  loading;
   students;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public studentsService: StudentsProvider,
-    public loadingCtrl: LoadingController) {
+  public toastCtrl: ToastController) {
   }
 
   ionViewWillEnter(){
@@ -38,9 +37,22 @@ export class StudentsManagementPage {
   }
 
   removeStudent(student){
-    this.showLoader();
-    this.studentsService.deleteStudent(student._id).then((result) => {
-      this.loading.dismiss();
+    let confirm = this.alertCtrl.create({
+      title: "Sei sicuro di voler procedere?",
+      message: "L'operazione di eliminazione dello studente è irreversibile.",
+      buttons: [
+        {
+          text: "Indietro"
+        },
+
+        {
+          text: "Conferma",
+          handler: () => {this.studentsService.deleteStudent(student._id).then((result) => {
+            let toast = this.toastCtrl.create({
+              message: 'Eliminazione studente',
+              duration: 1000,
+              position: 'middle'
+            });
 
         let index = this.students.indexOf(student);
         
@@ -49,9 +61,22 @@ export class StudentsManagementPage {
         }
 
     }, (err) => {
-      this.loading.dismiss();
-        console.log(err);
-    });
+      let alert = this.alertCtrl.create({
+        title: 'Oooops!',
+        message: 'C\'è stato un errore, eliminazione non effettuata',
+        buttons: ['Ok']
+      });
+         console.log(err);
+         alert.present();
+     });}
+    
+    }
+  
+  ]
+   
+  });
+   
+   confirm.present();
   }
 
   getStudents(ev) {
@@ -69,15 +94,5 @@ export class StudentsManagementPage {
 
   browseReservations(student){
     this.navCtrl.push(ReservationsManagementPage, {data: student});
-  }
-
-  showLoader(){
- 
-    this.loading = this.loadingCtrl.create({
-      content: 'Eliminazione Studente...'
-    });
-
-    this.loading.present();
-
   }
 }

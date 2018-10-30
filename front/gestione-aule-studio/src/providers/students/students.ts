@@ -29,12 +29,12 @@ export class StudentsProvider {
     });
   }
 
-  //TOFIX
-  getReservations(studentName){
+  getReservations(student){
       return new Promise((resolve, reject) =>{
         let headers = new Headers();
+        let id = student._id;
         headers.append('Authorization', this.authService.token);
-        this.http.get('http://localhost:3000/reservations/'+ studentName, {headers: headers }) //indirizzo provvisorio
+        this.http.get('http://localhost:3000/getAdminReservations/' + id, {headers: headers })
           .map(res => res.json())
           .subscribe(data => {
             resolve(data);
@@ -43,6 +43,20 @@ export class StudentsProvider {
           });
       });
     }
+  
+  deleteReservation(reservation){
+    return new Promise ((resolve, reject) => {
+      let headers = new Headers();
+      let reservationId = reservation._id;
+      headers.append('Authorization', this.authService.token);
+      this.http.delete("http://localhost:3000/deleteReservation/" + reservationId, {headers: headers}).subscribe((res) => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+
+    });
+  }
 
   deleteStudent(name){
 

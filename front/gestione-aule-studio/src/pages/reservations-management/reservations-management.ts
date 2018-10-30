@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { StudentsProvider } from '../../providers/students/students';
 
 /**
@@ -18,13 +18,15 @@ export class ReservationsManagementPage {
   student;
   reservations;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public studentsService: StudentsProvider, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public studentsService: StudentsProvider, public alertCtrl: AlertController,
+    public toastCtrl: ToastController) {
     this.student = navParams.get('data');
   }
 
   ionViewWillEnter(){
-    this.studentsService.getReservations(this.student.name).then((data) => {
+    this.studentsService.getReservations(this.student).then((data) => {
       this.reservations = data;
+      console.log(this.reservations);
     }, (err) => {
       let alert = this.alertCtrl.create({
         title: 'Oooops!',
@@ -35,9 +37,46 @@ export class ReservationsManagementPage {
     });
   }
 
+  removeReservation(reservation){
+    let confirm = this.alertCtrl.create({
+      title: "Sei sicuro di voler procedere?",
+      message: "L'operazione di eliminazione della prenotazione è irreversibile.",
+      buttons: [
+        {
+          text: "Indietro"
+        },
+
+        {
+          text: "Conferma",
+          handler: () => {this.studentsService.deleteReservation(reservation.id).then((result) => {
+          let toast = this.toastCtrl.create({
+              message: 'Eliminazione prenotazione',
+              duration: 1000,
+              position: 'middle'
+          });
+
+          let index = this.reservations.indexOf(reservation);
+          if (index > -1) {
+            this.reservations.splice(index, 1);
+          }
+
+    }, (err) => {
+       let alert = this.alertCtrl.create({
+        title: 'Oooops!',
+        message: 'C\'è stato un errore, eliminazione non effettuata',
+        buttons: ['Ok']
+      });
+         console.log(err);
+         alert.present();
+     });}
+    }
+  ]
+  });
+   confirm.present();
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReservationsManagementPage');
-    console.log(this.student);
   }
 
 }
