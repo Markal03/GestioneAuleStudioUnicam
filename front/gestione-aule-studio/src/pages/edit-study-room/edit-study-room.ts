@@ -28,7 +28,6 @@ export class EditStudyRoomPage {
   from: string;
   to: string;
   days_open = [];
-  hours_open = [];
   description: string;
   image: any;
 
@@ -102,7 +101,6 @@ export class EditStudyRoomPage {
       to: this.to
     }
 
-    this.hours_open.push(hours);
 
     console.log(this.days_open);
 
@@ -110,7 +108,7 @@ export class EditStudyRoomPage {
       name: this.name,
       capacity: this.capacity,
       days_open: this.days_open,
-      hours_open: this.hours_open,
+      hours_open: hours,
       description: this.description,
       image: this.image
     }

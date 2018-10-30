@@ -90,6 +90,17 @@ exports.modifyReservation = (req, res) => {
     });
 };
 
+//Da controllare
+exports.getAdminReservation = (req, res) =>{
+    let user_id = req.param("user_id");
+    Reservation.find({user_id:user_id}, (err, reservations) =>{
+        if (err) {
+            return res.status(400).json({error: err});
+        }
+        return res.status(200).json(reservations);
+    })
+}
+
 exports.getReservation = (req, res) => {
     let user_id = req.user._id;
    getReservationFromUser(user_id);
