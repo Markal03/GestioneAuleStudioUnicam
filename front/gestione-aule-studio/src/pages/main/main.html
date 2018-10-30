@@ -18,15 +18,19 @@
 
 <ion-content padding>
 <div id="prenotazione"></div>
-
-  <ion-card>
+<ion-list>
+  <ion-item *ngFor="let reservation of reservations">
+    <h2>{{reservation?.day}}</h2>
+    <p>{{reservation?.from_hour}} - {{reservation?.to_hour}}</p>
+  </ion-item>
+</ion-list>
+  <!--<ion-card>
     <ion-card-content>
       <ion-card-title>
         <h2> <b> Prenotazione </b> </h2>
       </ion-card-title>
-      Nessuna prenotazione effettuata
     </ion-card-content>
-  </ion-card>
+  </ion-card>-->
 
 
 </ion-content>
