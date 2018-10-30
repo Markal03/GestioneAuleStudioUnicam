@@ -9,20 +9,9 @@
 
 
 <ion-content padding>
-  <ion-list>
-  <ion-item-sliding *ngFor="let studyRoom of studyRooms">
- 
-    <ion-item detail-push>
-    {{studyRoom?.name}}
-    </ion-item>
- 
-    <ion-item-options>
-      <button ion-button color="danger" (click)="removeStudyRoom(studyRoom)"><ion-icon name="trash"></ion-icon> Elimina </button>
-      <button ion-button (click)="editStudyRoom(studyRoom)"><ion-icon name="brush"></ion-icon> Modifica </button>
-    </ion-item-options>
-  </ion-item-sliding>
-  </ion-list>
-  <ion-fab bottom center #fab>
-  <button ion-fab (click)="addStudyRoom()"><ion-icon name="add"></ion-icon></button>
-  </ion-fab>
+  
+  <button ion-button full color="primary" (click)="studyRoomsManagement()"> Gestione Aule Studio</button>
+  <button ion-button full color="primary" (click)="studentsManagement()">Gestione Studenti</button>
+  <button ion-button full color="danger" (click)="logout()">Logout</button>
+
 </ion-content>

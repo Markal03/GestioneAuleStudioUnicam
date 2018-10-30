@@ -1,0 +1,30 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Gestione Studenti</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-searchbar (ionInput)="getStudent($event)"></ion-searchbar>
+    <ion-list>
+        <ion-item-sliding detail-push *ngFor="let student of students">
+
+          <ion-item>
+              <h2>{{student?.name}}</h2>
+              <p>{{student?.email}}</p>            
+          </ion-item>
+
+            <ion-item-options>
+                <button ion-button color="danger" (click)="removeStudent(student)"><ion-icon name="trash"></ion-icon> Elimina </button>
+                <button ion-button color="primary"(click)="browseReservations(student)"><ion-icon name="book"></ion-icon> Prenotazioni </button>
+              </ion-item-options>
+              
+        </ion-item-sliding>
+    </ion-list>
+  
+
+</ion-content>
