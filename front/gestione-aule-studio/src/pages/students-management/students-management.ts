@@ -39,7 +39,7 @@ export class StudentsManagementPage {
 
   removeStudent(student){
     this.showLoader();
-    this.studentsService.deleteStudent(student.name).then((result) => {
+    this.studentsService.deleteStudent(student._id).then((result) => {
       this.loading.dismiss();
 
         let index = this.students.indexOf(student);
