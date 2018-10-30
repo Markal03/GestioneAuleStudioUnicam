@@ -31,12 +31,12 @@ exports.getUsersList = (req, res) => {
 
 exports.delete = (req, res) => {
     let id = req.user._id;
-    deleteProfile(id);
+    deleteProfile(id, res);
 };
 
 exports.adminDelete = (req, res) => {
     let id = req.param("id");
-    deleteProfile(id);
+    deleteProfile(id, res);
 };
 
 exports.modifyPassword = (req, res) => {
@@ -77,7 +77,7 @@ exports.modifyProfileImage=(req, res) => {
 };
 
 
-function deleteProfile(id) {
+function deleteProfile(id, res) {
     User.remove({
         _id:id
     }, function(err){
