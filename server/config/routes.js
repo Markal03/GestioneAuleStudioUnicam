@@ -26,7 +26,7 @@ module.exports = function(app) {
 
     app.put('/modifyProfileImage', requireAuth, UserController.modifyProfileImage);
 
-    app.delete('/removeProfile', requireAuth, UserController.adminDelete);
+    app.delete('/removeProfile', requireAuth, UserController.delete);
 
 
     //STUDY ROOM ROUTES FOR ADMIN
@@ -39,11 +39,11 @@ module.exports = function(app) {
 
     app.put('/modifyStudyRoom', requireAuth, StudyRoomController.modifyStudyRoom);
 
+    app.put('/getUserReservations', requireAuth, ReservationController.adminGetUserReservations);
+
     app.delete('/deleteStudyRoom/:name', requireAuth, StudyRoomController.deleteStudyRoom);
 
-    app.delete('/deleteUser/:id', requireAuth, UserController.adminDelete);
-     
-    app.delete('/deleteReservation/:reservationId', requireAuth, ReservationController.deleteReservation);
+    app.delete('/deleteUser/:user_id', requireAuth, UserController.adminDelete);
 
     app.get('/getAdminReservations/:user_id', requireAuth, ReservationController.getAdminReservation);
 
@@ -58,8 +58,11 @@ module.exports = function(app) {
 
     app.get('/getReservations', requireAuth, ReservationController.getReservation);
 
-    app.put('/modifyReservation', requireAuth, ReservationController.modifyReservation);
+    app.put('/modifyReservation/:reservationId', requireAuth, ReservationController.modifyReservation);
 
-    app.delete('/deleteReservation', requireAuth, ReservationController.deleteReservation);
+
+    //COMMON STUDY ROOM ROUTES
+
+    app.delete('/deleteReservation/:reservationId', requireAuth, ReservationController.deleteReservation);
 
 }

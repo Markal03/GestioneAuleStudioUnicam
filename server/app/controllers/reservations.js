@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Reservation = require('../models/reservation');
+const StudyRoom = require('../models/study_room');
 
 exports.adminDeleteReservation = (req, res) => {
     let user_id = req.params("reservationId");
@@ -11,13 +12,16 @@ exports.getTime = (req, res) => {
     let hours = date.getHours();
     let minute = date.getMinutes();
     let time = hours + ":" + minute;
-    res.status(200).send({time: time});
+    let monthDay = date.getDate();
+    let month = date.getMonth();
+    let year = date.getFullYear();
+    let day = monthDay + ":" + month + ":" + year;
+    res.status(200).send({time: time, day: day});
 };
 
-//TODO: MODIFICA CON ID PRENOTAZIONE
 exports.deleteReservation = (req, res) => {
-    let user_id = req.user.user_id;
-    deleteReservation(user_id);
+    let id = req.params("reservationId");
+    deleteReservation(id);
 };
 
 exports.addReservation = (req, res) => {
@@ -66,10 +70,9 @@ exports.addReservation = (req, res) => {
     });
 };
 
-//TODO: modifica con id prenotazione
 exports.modifyReservation = (req, res) => {
-    let user_id = req.user._id;
-    Reservation.findOne({user_id: user_id}, (err, reservation) => {
+    let id = req.params("reservationId");
+    Reservation.findOne({_id: id}, (err, reservation) => {
         if (err) {
             return res.status(400).json({error: err});
         }
@@ -100,22 +103,27 @@ exports.getAdminReservation = (req, res) =>{
 
 exports.getReservation = (req, res) => {
     let user_id = req.user._id;
-    Reservation.find({user_id: user_id}, (err, reservations) => {
-        if (err) {
-            return res.status(400).json({error: err});
-        }
-        return res.status(200).json(reservations);
-    });
+   getReservationFromUser(user_id);
+};
+
+exports.adminGetUserReservations = (req, res) => {
+    let user_id = req.params("user_id");
+   getReservationFromUser(user_id);
 };
 
 function checkReservationValidity(newReservation) {
     //query con cui si ottengono solo le prenotazioni la cui ora di inizio e/o l'ora di fine sono comprese tra le ore di inizio e fine della nuova prenotazione
+    // e quelle la cui ora di inizio è minore o uguale a quella di inizio della nuova prenotazione e la cui ora di fine è maggiore o uguale a quella di fine della nuova prenotazione
     Reservation.find({
         $and: [
             {day: newReservation.day},
             {study_room_id: newReservation.study_room_id},
             {$or:[{from_hour: {$gte: newReservation.from_hour, $lt: newReservation.to_hour}},
-                  {to_hour: {$gt: newReservation.from_hour, $lte: newReservation.to_hour}}]}
+                  {to_hour: {$gt: newReservation.from_hour, $lte: newReservation.to_hour}},
+                  {$and:[{from_hour: {$lte: newReservation.from_hour}},
+                         {to_hour: {$gte: newReservation.to_hour}}
+                        ]}
+                ]}
             ]
     }, (err, reservations) => {
         if (err) {
@@ -150,11 +158,20 @@ function checkReservationValidity(newReservation) {
     }); 
 }
 
-function deleteReservation(user_id) {
-    Reservation.deleteOne({ user_id: user_id }, (err) => {
+function deleteReservation(id) {
+    Reservation.deleteOne({ _id: id }, (err) => {
         if (err) {
             return res.status(400).json({ error: err });
         }
         return res.status(200).json({ message: 'Prenotazione eliminata correttamente'});
+    });
+}
+
+function getReservationFromUser(user_id) {
+    Reservation.find({user_id: user_id}, (err, reservations) => {
+        if (err) {
+            return res.status(400).json({error: err});
+        }
+        return res.status(200).json(reservations);
     });
 }

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { ReservationProvider } from '../../providers/reservation/reservation';
+import { MainPage } from '../main/main';
+
 
 
 @IonicPage()
@@ -18,15 +20,16 @@ export class ReservePage {
   daysOpen = "";
   minFrom;
   maxTo;
+  loading: any;
 
   //Variabili per la prenotazione
-  hourFrom: number;
-  hourTo: number;
-  reservationDay: String;
+  hourFrom: string;
+  hourTo: string;
+  reservationDay: string;
 
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public reservationProvider: ReservationProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public reservationProvider: ReservationProvider) {
     this.studyRoom = navParams.get('data');
   }
 
@@ -43,6 +46,42 @@ export class ReservePage {
   //Funzione per la conferma della prenotazione da parte dell'utente
   createReservation(){
 
+    this.showLoader();
+
+    let reservationDetails = {
+      study_room_id: this.studyRoom._id,
+      day: this.reservationDay,
+      from_hour: parseInt(this.hourFrom.substring(0,2)),
+      to_hour: 18 //parseInt(this.hourTo.substring(0,2))
+    }
+
+    this.reservationProvider.addReservation(reservationDetails).then((result) => {
+      this.loading.dismiss();
+      let confirmationAlert = this.alertCtrl.create({
+        title: "Prenotazione effettuata!",
+        message: "Premi su conferma per visualizzare le tue prenotazioni",
+        buttons: [
+          {
+            text: "Conferma",
+            handler:() => {this.navCtrl.setRoot(MainPage);}
+          }
+        ]
+      })
+      confirmationAlert.present();
+    }, (err) => {
+      this.loading.dismiss();
+      let errorAlert = this.alertCtrl.create({
+        title: "Ooooops!",
+        message: "C'è stato un errore durante la prenotazione dell'aula studio",
+        buttons: [
+          {
+            text: "Indietro",
+          }
+        ]
+      })
+      errorAlert.present();
+    });
+    console.log(reservationDetails)
   }
 
   ionViewDidLoad() {
@@ -65,9 +104,20 @@ export class ReservePage {
     this.maxTo = parseInt(this.studyRoom.hours_open[0].to.substring(0,2)) - 1 + ":00";
   }
 
+  showLoader() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Verifica disponibilità posto in corso...'
+    });
+
+    this.loading.present();
+  }
+
+
   ionViewWillEnter() {
     this.getDays();
     this.getHours();
     }
+
+
 }
 
