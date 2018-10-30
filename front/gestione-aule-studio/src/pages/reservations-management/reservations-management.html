@@ -1,0 +1,25 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Prenotazioni</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+        <ion-item detail-push *ngFor="let reservation of reservations">
+
+          <ion-item>
+              <h2>{{reservation}}</h2>            
+          </ion-item>
+
+            <ion-item-options>
+                <button ion-button color="danger" (click)="removeReservation(reservation)"><ion-icon name="trash"></ion-icon> Elimina </button>
+              </ion-item-options>
+              
+        </ion-item>
+    </ion-list>
+</ion-content>

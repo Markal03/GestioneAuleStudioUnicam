@@ -41,7 +41,7 @@ module.exports = function(app) {
 
     app.delete('/deleteStudyRoom/:name', requireAuth, StudyRoomController.deleteStudyRoom);
 
-    app.delete('/deleteUser/:name', requireAuth, UserController.adminDelete);
+    app.delete('/deleteUser/:id', requireAuth, UserController.adminDelete);
      
     app.delete('/deleteReservation/:reservationId', requireAuth, ReservationController.deleteReservation);
 

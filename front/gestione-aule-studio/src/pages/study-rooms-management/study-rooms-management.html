@@ -1,0 +1,31 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Gestione Aule</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-searchbar (ionInput)="getStudyRooms($event)"></ion-searchbar>
+
+  <ion-list>
+  <ion-item-sliding *ngFor="let studyRoom of studyRooms">
+ 
+    <ion-item detail-none>
+    <h2>{{studyRoom?.name}}</h2>
+    <p>{{studyRoom?.description}}</p>
+    </ion-item>
+ 
+    <ion-item-options>
+      <button ion-button color="danger" (click)="removeStudyRoom(studyRoom)"><ion-icon name="trash"></ion-icon> Elimina </button>
+      <button ion-button (click)="editStudyRoom(studyRoom)"><ion-icon name="brush"></ion-icon> Modifica </button>
+    </ion-item-options>
+  </ion-item-sliding>
+  </ion-list>
+  <ion-fab bottom center #fab>
+  <button ion-fab (click)="addStudyRoom()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+</ion-content>

@@ -22,6 +22,10 @@ import { ProfileProvider } from '../providers/profile/profile';
 import { StudyRoomProvider } from '../providers/study-room/study-room';
 import { EditStudyRoomPage } from '../pages/edit-study-room/edit-study-room';
 import { ReservationProvider } from '../providers/reservation/reservation';
+import { StudentsManagementPage } from '../pages/students-management/students-management';
+import { StudyRoomsManagementPage } from '../pages/study-rooms-management/study-rooms-management';
+import { StudentsProvider } from '../providers/students/students';
+import { ReservationsManagementPage } from '../pages/reservations-management/reservations-management';
 
 @NgModule({
   declarations: [
@@ -35,7 +39,10 @@ import { ReservationProvider } from '../providers/reservation/reservation';
     ReservePage,
     AdminPage,
     StudyRoomPage,
-    EditStudyRoomPage
+    EditStudyRoomPage,
+    StudyRoomsManagementPage,
+    StudentsManagementPage,
+    ReservationsManagementPage
   ],
   imports: [
     BrowserModule,
@@ -56,7 +63,10 @@ import { ReservationProvider } from '../providers/reservation/reservation';
     ReservePage,
     AdminPage,
     StudyRoomPage,
-    EditStudyRoomPage
+    EditStudyRoomPage,
+    StudyRoomsManagementPage,
+    StudentsManagementPage,
+    ReservationsManagementPage
   ],
   providers: [
     AuthProvider,
@@ -67,6 +77,7 @@ import { ReservationProvider } from '../providers/reservation/reservation';
     ProfileProvider,
     StudyRoomProvider,
     ReservationProvider,
+    StudentsProvider,
   ]
 })
 export class AppModule {}
