@@ -54,7 +54,8 @@ exports.addReservation = (req, res) => {
             study_room_infos: study_room_infos,
             day: day,
             from_hour: from_hour,
-            to_hour: to_hour
+            to_hour: to_hour,
+            creation_time: creation_time
         });
         saveReservation(newReservation, res);
     //});
@@ -92,7 +93,7 @@ function getTimeAndDate() {
     let monthDay = date.getDate();
     let month = date.getMonth();
     let year = date.getFullYear();
-    let day = monthDay + ":" + month + ":" + year;
+    let day = monthDay + "-" + month + "-" + year;
     let fullDate = {time: time, day: day};
     return fullDate;
 }
