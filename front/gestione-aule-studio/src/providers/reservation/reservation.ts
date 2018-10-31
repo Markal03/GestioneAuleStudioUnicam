@@ -21,7 +21,7 @@ export class ReservationProvider {
 
     return new Promise((resolve, reject ) => {
       let headers = new Headers();
-      headers.append('Authentication', this.authService.token);
+      headers.append('Authorization', this.authService.token);
       this.http.get(url, {headers: headers})
         .map((res) => res.json())
         .subscribe(data => {
@@ -84,7 +84,7 @@ export class ReservationProvider {
     var url = "http://localhost:3000/getTime";
     return new Promise((resolve, reject ) => {
       let headers = new Headers();
-      headers.append('Authentication', this.authService.token);
+      headers.append('Authorization', this.authService.token);
       this.http.get(url, {headers: headers})
         .map((res) => res.json())
         .subscribe(data => {
