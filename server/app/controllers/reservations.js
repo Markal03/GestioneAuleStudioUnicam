@@ -8,15 +8,7 @@ exports.adminDeleteReservation = (req, res) => {
 };
 
 exports.getTime = (req, res) => {
-    let date = new Date();
-    let hours = date.getHours();
-    let minute = date.getMinutes();
-    let time = hours + ":" + minute;
-    let monthDay = date.getDate();
-    let month = date.getMonth();
-    let year = date.getFullYear();
-    let day = monthDay + ":" + month + ":" + year;
-    res.status(200).send({time: time, day: day});
+    res.status(200).send(getTimeAndDate());
 };
 
 exports.deleteReservation = (req, res) => {
@@ -26,10 +18,13 @@ exports.deleteReservation = (req, res) => {
 
 exports.addReservation = (req, res) => {
     let user_id = req.user._id;
-    let study_room_id = req.body.study_room_id;
+    let name = req.body.study_room_name;
+    let address = req.body.study_room_address;
+    let study_room_infos = {name: name, address: address};
     let day = req.body.day;
     let from_hour = req.body.from_hour;
     let to_hour = req.body.to_hour;
+    let creation_time = getTimeAndDate();
     if (!user_id) {
         res.status(422).json({ error: 'Id utente mancante' });
     }
@@ -56,7 +51,7 @@ exports.addReservation = (req, res) => {
         
         let newReservation = new Reservation({
             user_id: user_id,
-            study_room_id: study_room_id,
+            study_room_infos: study_room_infos,
             day: day,
             from_hour: from_hour,
             to_hour: to_hour
@@ -88,6 +83,19 @@ exports.adminGetUserReservations = (req, res) => {
     let user_id = req.param("user_id");
     getReservationFromUser(user_id, res);
 };
+
+function getTimeAndDate() {
+    let date = new Date();
+    let hours = date.getHours();
+    let minute = date.getMinutes();
+    let time = hours + ":" + minute;
+    let monthDay = date.getDate();
+    let month = date.getMonth();
+    let year = date.getFullYear();
+    let day = monthDay + ":" + month + ":" + year;
+    let fullDate = {time: time, day: day};
+    return fullDate;
+}
 
 function saveReservation(newReservation, res) {
     //query con cui si ottengono solo le prenotazioni la cui ora di inizio e/o l'ora di fine sono comprese tra le ore di inizio e fine della nuova prenotazione
