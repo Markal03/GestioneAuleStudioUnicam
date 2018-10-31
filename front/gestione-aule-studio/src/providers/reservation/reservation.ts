@@ -80,6 +80,22 @@ export class ReservationProvider {
     });
   }
 
+  public getDateAndTime() {
+    var url = "http://localhost:3000/getTime";
+    return new Promise((resolve, reject ) => {
+      let headers = new Headers();
+      headers.append('Authentication', this.authService.token);
+      this.http.get(url, {headers: headers})
+        .map((res) => res.json())
+        .subscribe(data => {
+          resolve(data);
+        }, (err) => {
+          reject(err);
+        } )
+    });
+
+  }
+
   
 
 }
