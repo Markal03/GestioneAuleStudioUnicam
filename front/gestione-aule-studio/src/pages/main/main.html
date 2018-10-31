@@ -19,6 +19,16 @@
 <ion-content padding>
 <div id="prenotazione"></div>
 <ion-list>
+  <ion-item *ngIf="reservations?.length === 0">
+      <ion-card>
+          <ion-card-content>
+            <ion-card-title>
+              <h2> <b> Prenotazione </b> </h2>
+            </ion-card-title>
+            Non hai ancora effettuato alcuna prenotazione
+          </ion-card-content>
+        </ion-card>
+  </ion-item>
   <ion-item *ngFor="let reservation of reservations">
     <h2>{{reservation?.day}}</h2>
     <p>{{reservation?.from_hour}} - {{reservation?.to_hour}}</p>
