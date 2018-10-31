@@ -127,7 +127,7 @@ export class ReservePage {
 
   getHours(){
     if (this.studyRoom.hours_open.from.charAt(0) === "0") {
-      let temp = parseInt(this.studyRoom.hours_open.from.substring(0,2)) + 1
+      let temp = parseInt(this.studyRoom.hours_open.from.substring(0,2)) + 1;
       if (temp < 10 ) {
         this.minFrom = "0" + temp.toString() + ":00";
       } else {

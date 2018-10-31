@@ -49,14 +49,14 @@ export class ReservationProvider {
     });
   }
 
-  public updateReservation(reservation) {
-    var url ="http://localhost:3000/modifyReservation";
+  public updateReservation(reservation, reservationId) {
+    var url ="http://localhost:3000/modifyReservation/";
 
     return new Promise ((resolve, reject) => {
       let headers = new Headers();
       headers.append('Authorization', this.authService.token);
       headers.append('Content-type', 'Application/json')
-      this.http.put(url, JSON.stringify(reservation), {headers: headers}).subscribe((res) => {
+      this.http.put(url + reservationId, JSON.stringify(reservation), {headers: headers}).subscribe((res) => {
         console.log(res);
         resolve(res);
       }, (err) => {
@@ -65,13 +65,13 @@ export class ReservationProvider {
     });
   }
 
-  public deleteReservation() {
-    var url ="http://localhost:3000/deleteReservation";
+  public deleteReservation(reservationId) {
+    var url ="http://localhost:3000/deleteReservation/";
 
     return new Promise ((resolve, reject) => {
       let headers = new Headers();
       headers.append('Authorization', this.authService.token);
-      this.http.delete(url, {headers: headers}).subscribe((res) => {
+      this.http.delete(url + reservationId, {headers: headers}).subscribe((res) => {
         resolve(res);
       }, (err) => {
         reject(err);
