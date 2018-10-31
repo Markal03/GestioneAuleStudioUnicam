@@ -28,8 +28,8 @@ exports.addReservation = (req, res) => {
     if (!user_id) {
         res.status(422).json({ error: 'Id utente mancante' });
     }
-    if (!study_room_id) {
-        res.status(422).json({ error: 'Id aula studio mancante' });
+    if (!study_room_infos) {
+        res.status(422).json({ error: 'Informazioni aula studio mancanti' });
     }
     if (!day) {
         res.status(422).json({ error: 'Giorno mancante' });
@@ -119,7 +119,9 @@ function saveReservation(newReservation, res) {
         let to_hour = newReservation.to_hour;
         let total_hours = to_hour - from_hour;
         let reservations_in_hour = 0;
-        StudyRoom.find({_id: newReservation.study_room_id}, (err, room) => {
+        console.log(newReservation.study_room_infos.name);
+        console.log(newReservation.study_room_infos.address);
+        StudyRoom.find({name: newReservation.study_room_infos.name, address: newReservation.study_room_infos.address}, (err, room) => {
             if (err) {
                 return res.status(400).send({error: err});
             }
