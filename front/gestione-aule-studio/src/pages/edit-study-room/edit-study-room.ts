@@ -24,6 +24,7 @@ export class EditStudyRoomPage {
   days: any [];
 
   name: string;
+  address:string;
   capacity: string;
   from: string;
   to: string;
@@ -101,11 +102,19 @@ export class EditStudyRoomPage {
       to: this.to
     }
 
+    let order = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"];
+    
+    //Funzione per ordinare i giorni nell'array
+    function sortDays(a,b){
+      return order.indexOf(a) - order.indexOf(b); 
+    }
 
-    console.log(this.days_open);
+    this.days_open.sort(sortDays);
+
 
     let editedStudyRoom = {
       name: this.name,
+      address: this.address,
       capacity: this.capacity,
       days_open: this.days_open,
       hours_open: hours,

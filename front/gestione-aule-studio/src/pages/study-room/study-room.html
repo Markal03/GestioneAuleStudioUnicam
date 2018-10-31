@@ -10,13 +10,14 @@
 <ion-content padding>
 
   <ion-list>
-
     <ion-item>
-
       <ion-label color="primary" > Nome Aula: </ion-label>
       <ion-input placeholder="Nome" [(ngModel)] = "name"></ion-input>
-    
     </ion-item>
+    <ion-item>
+        <ion-label color="primary">Indirizzo: </ion-label>
+        <ion-input placeholder="Via Mario Rossi, 123" [(ngModel)] = "address"></ion-input>
+      </ion-item>
     <ion-item>
       <ion-label color="primary">Posti Disponibili: </ion-label>
       <ion-input placeholder="Numero Posti" [(ngModel)] = "capacity"></ion-input>

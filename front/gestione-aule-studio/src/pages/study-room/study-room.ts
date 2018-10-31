@@ -23,6 +23,7 @@ export class StudyRoomPage {
   days: any [];
 
   name: string;
+  address:string;
   capacity: number;
   from: string;
   to: string;
@@ -70,6 +71,7 @@ export class StudyRoomPage {
 
     let studyRoom = {
       name: this.name,
+      address: this.address,
       capacity: this.capacity,
       days_open: this.days_open,
       hours_open: hours,

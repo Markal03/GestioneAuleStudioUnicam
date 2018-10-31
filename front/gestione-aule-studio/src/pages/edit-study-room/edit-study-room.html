@@ -10,12 +10,13 @@
 <ion-content padding>
 
   <ion-list>
-
     <ion-item>
-
       <ion-label color="primary" > Nome Aula: </ion-label>
       <ion-input value = "{{studyRoom?.name}}" disabled [(ngModel)] = "name"></ion-input>
-    
+    </ion-item>
+    <ion-item>
+        <ion-label color="primary">Indirizzo: </ion-label>
+        <ion-input value="{{studyRoom?.address}}" [(ngModel)] = "address"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label color="primary">Posti Disponibili: </ion-label>
