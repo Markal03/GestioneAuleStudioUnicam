@@ -58,12 +58,11 @@ export class StudentsProvider {
     });
   }
 
-  deleteStudent(name){
-
+  deleteStudent(user_id){
     return new Promise ((resolve, reject) => {
       let headers = new Headers();
       headers.append('Authorization', this.authService.token);
-      this.http.delete("http://localhost:3000/deleteUser/" + name, {headers: headers}).subscribe((res) => {
+      this.http.delete("http://localhost:3000/deleteUser/" + user_id, {headers: headers}).subscribe((res) => {
         resolve(res);
       }, (err) => {
         reject(err);

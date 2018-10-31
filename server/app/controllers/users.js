@@ -35,7 +35,7 @@ exports.delete = (req, res) => {
 };
 
 exports.adminDelete = (req, res) => {
-    let id = req.param("id");
+    let id = req.param("user_id");
     deleteProfile(id, res);
 };
 
