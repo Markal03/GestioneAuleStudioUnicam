@@ -47,7 +47,6 @@ export class ReservePage {
 
   //Funzione per la conferma della prenotazione da parte dell'utente
   createReservation(){
-    
     if (!(this.hourFrom) || !(this.hourTo) || !(this.reservationDay)) {
       let alert = this.alertCtrl.create({
         title: 'Oooops!',
