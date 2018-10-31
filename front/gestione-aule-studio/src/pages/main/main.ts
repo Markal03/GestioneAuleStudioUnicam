@@ -54,7 +54,7 @@ export class MainPage {
           text: "Conferma",
           handler: () => {this.reservationProvider.deleteReservation(reservationId).then((result)=> {
             let toast = this.toastCtrl.create({
-              message: 'Eliminazione profilo completata',
+              message: 'Eliminazione prenotazione completata',
               duration: 1000,
               position: 'middle'
             });
