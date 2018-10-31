@@ -45,7 +45,7 @@ module.exports = function(app) {
 
     app.delete('/deleteUser/:user_id', requireAuth, UserController.adminDelete);
 
-    app.get('/getAdminReservations/:user_id', requireAuth, ReservationController.getAdminReservation);
+    app.get('/getAdminReservations/:user_id', requireAuth, ReservationController.adminGetUserReservations);
 
 
     //STUDY ROOM ROUTES FOR STUDENTS

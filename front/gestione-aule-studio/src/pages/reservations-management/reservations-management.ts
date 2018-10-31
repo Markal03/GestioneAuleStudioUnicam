@@ -75,6 +75,11 @@ export class ReservationsManagementPage {
    confirm.present();
   }
 
+
+  editReservation(){
+
+  }
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReservationsManagementPage');
   }

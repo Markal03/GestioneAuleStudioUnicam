@@ -39,8 +39,8 @@ export class EditStudyRoomPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditStudyRoomPage');
-    this.from = this.studyRoom.hours_open[0].from;
-    this.to = this.studyRoom.hours_open[0].to;
+    this.from = this.studyRoom.hours_open.from;
+    this.to = this.studyRoom.hours_open.to;
   }
 
   initializeDays() {

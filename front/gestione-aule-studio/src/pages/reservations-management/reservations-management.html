@@ -10,16 +10,18 @@
 
 <ion-content padding>
     <ion-list>
-        <ion-item detail-push *ngFor="let reservation of reservations">
+        <ion-item-sliding detail-push *ngFor="let reservation of reservations">
 
           <ion-item>
-              <h2>{{reservation}}</h2>            
+              <h2>{{reservation?.day}}</h2>
+              <p>{{reservation?.from_hour}}:00 - {{reservation?.to_hour}}:00 </p>            
           </ion-item>
 
             <ion-item-options>
                 <button ion-button color="danger" (click)="removeReservation(reservation)"><ion-icon name="trash"></ion-icon> Elimina </button>
+                <button ion-button color="primary" (click)="editReservation(reservation)"><ion-icon name="brush"></ion-icon> Modifica </button>
               </ion-item-options>
               
-        </ion-item>
+        </ion-item-sliding>
     </ion-list>
 </ion-content>
