@@ -66,7 +66,7 @@ exports.addStudyRoom = (req, res, next) => {
 };
 
 exports.deleteStudyRoom = (req, res) =>{
-    let name = req.param("name");
+    let name = req.params.name
     StudyRoom.remove({
         name:name
     }, (err) => {

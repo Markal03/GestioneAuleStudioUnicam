@@ -48,7 +48,7 @@ export class ReservationsManagementPage {
 
         {
           text: "Conferma",
-          handler: () => {this.studentsService.deleteReservation(reservation.id).then((result) => {
+          handler: () => {this.studentsService.deleteReservation(reservation).then((result) => {
           let toast = this.toastCtrl.create({
               message: 'Eliminazione prenotazione',
               duration: 1000,
