@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { StudentsProvider } from '../../providers/students/students';
+import { EditReservationPage } from '../edit-reservation/edit-reservation';
 
 /**
  * Generated class for the ReservationsManagementPage page.
@@ -76,8 +77,8 @@ export class ReservationsManagementPage {
   }
 
 
-  editReservation(){
-
+  editReservation(reservation){
+    this.navCtrl.push(EditReservationPage, {data:reservation});
   }
   
   ionViewDidLoad() {
