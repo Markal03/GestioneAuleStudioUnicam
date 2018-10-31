@@ -58,7 +58,8 @@ export class ReservePage {
     } else {
       this.showLoader();
       let reservationDetails = {
-        study_room_id: this.studyRoom._id,
+        study_room_name: this.studyRoom.name,
+        study_room_address: this.studyRoom.address,
         day: this.reservationDay,
         from_hour: parseInt(this.hourFrom.substring(0,2)),
         to_hour: parseInt(this.hourTo.substring(0,2))
@@ -128,13 +129,17 @@ export class ReservePage {
   getHours(){
     if (this.studyRoom.hours_open.from.charAt(0) === "0") {
       let temp = parseInt(this.studyRoom.hours_open.from.substring(0,2)) + 1
-      this.minFrom = "0" + temp.toString() + ":00";
+      if (temp < 10 ) {
+        this.minFrom = "0" + temp.toString() + ":00";
+      } else {
+        this.minFrom = temp + ":00";
+      }
     } else {
       this.minFrom = parseInt(this.studyRoom.hours_open.from.substring(0,2)) + 1 + ":00";
     }
-    if (this.studyRoom.hours_open.to.charAt(0) === "=") {
+    if (this.studyRoom.hours_open.to.charAt(0) === "0") {
       let temp = parseInt(this.studyRoom.hours_open.to.substring(0,2)) - 1
-      this.minFrom = "0" + temp.toString() + ":00";
+      this.maxTo = "0" + temp.toString() + ":00";
     } else {
       this.maxTo = parseInt(this.studyRoom.hours_open.to.substring(0,2)) - 1 + ":00";
     }
