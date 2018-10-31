@@ -4,7 +4,7 @@ const StudyRoom = require('../models/study_room');
 
 exports.adminDeleteReservation = (req, res) => {
     let user_id = req.params("reservationId");
-    deleteReservation(user_id);
+    deleteReservation(user_id, res);
 };
 
 exports.getTime = (req, res) => {
@@ -21,7 +21,7 @@ exports.getTime = (req, res) => {
 
 exports.deleteReservation = (req, res) => {
     let id = req.params("reservationId");
-    deleteReservation(id);
+    deleteReservation(id, res);
 };
 
 exports.addReservation = (req, res) => {
@@ -45,13 +45,15 @@ exports.addReservation = (req, res) => {
     if (!to_hour) {
         res.status(422).json({ error: 'Ora fine prenotazione mancante' });
     }
-    Reservation.findOne({user_id: user_id}, (err, existingReservation) => {
+    /*Reservation.findOne({user_id: user_id}, (err, existingReservation) => {
+        console.log("ao");
         if (err) {
             return res.status(400).json({error: err});
         }
         if (existingReservation) {
             return res.status(400).json({error: "L'utente ha già una prenotazione"});
-        }
+        }*/
+        
         let newReservation = new Reservation({
             user_id: user_id,
             study_room_id: study_room_id,
@@ -59,15 +61,8 @@ exports.addReservation = (req, res) => {
             from_hour: from_hour,
             to_hour: to_hour
         });
-        if (checkReservationValidity(newReservation)) {
-            newReservation.save((err, reservation) => {
-                if (err) {
-                    return res.status(400).json({error: err});
-                }
-                return res.status(200).send(reservation);
-            });
-        }
-    });
+        saveReservation(newReservation, res);
+    //});
 };
 
 exports.modifyReservation = (req, res) => {
@@ -79,18 +74,11 @@ exports.modifyReservation = (req, res) => {
         reservation.day = req.body.day;
         reservation.from_hour = req.body.from_hour;
         reservation.to_hour = req.body.to_hour;
-        if (checkReservationValidity(reservation)) {
-            reservation.save((err, reservation) => {
-                if (err) {
-                    return res.status(400).json({error: err});
-                }
-                return res.status(200).json({ message: 'Prenotazione modificata correttamente'});
-            });
-        }
+        saveReservation(reservation, res);
     });
 };
 
-//Da controllare
+//Da controllare 
 exports.getAdminReservation = (req, res) =>{
     let user_id = req.param("user_id");
     Reservation.find({user_id:user_id}, (err, reservations) =>{
@@ -98,20 +86,20 @@ exports.getAdminReservation = (req, res) =>{
             return res.status(400).json({error: err});
         }
         return res.status(200).json(reservations);
-    })
+    });
 }
 
 exports.getReservation = (req, res) => {
     let user_id = req.user._id;
-   getReservationFromUser(user_id);
+    getReservationFromUser(user_id, res);
 };
 
 exports.adminGetUserReservations = (req, res) => {
     let user_id = req.params("user_id");
-   getReservationFromUser(user_id);
+    getReservationFromUser(user_id, res);
 };
 
-function checkReservationValidity(newReservation) {
+function saveReservation(newReservation, res) {
     //query con cui si ottengono solo le prenotazioni la cui ora di inizio e/o l'ora di fine sono comprese tra le ore di inizio e fine della nuova prenotazione
     // e quelle la cui ora di inizio è minore o uguale a quella di inizio della nuova prenotazione e la cui ora di fine è maggiore o uguale a quella di fine della nuova prenotazione
     Reservation.find({
@@ -127,38 +115,44 @@ function checkReservationValidity(newReservation) {
             ]
     }, (err, reservations) => {
         if (err) {
-            res.status(400).send({error: err});
-            return false;
+            return res.status(400).send({error: err});
         }
         let from_hour = newReservation.from_hour;
         let to_hour = newReservation.to_hour;
         let total_hours = to_hour - from_hour;
         let reservations_in_hour = 0;
-        StudyRoom.find({_id: study_room_id}, (err, room) => {
+        StudyRoom.find({_id: newReservation.study_room_id}, (err, room) => {
             if (err) {
-                res.status(400).send({error: err});
-                return false;
+                return res.status(400).send({error: err});
             }
-            let capacity = room.capacity;
+            let capacity = room[0].capacity;
             //per ogni intervallo di ore presente, si controlla quante delle prenotazioni ottenute esistono in quell'intervallo 
             for (let i = 0; i < total_hours; i++){
-                reservations.forEach(reservation => {
-                    if (reservation.from_hour <= from_hour + i && reservation.to_hour >= from_hour + i + 1) {
-                        reservations_in_hour += 1;
-                    }
-                });
+                reservations_in_hour = 0;
+                if (reservations.length > 0) {
+                    reservations.forEach((reservation) => {
+                        if (reservation.from_hour <= from_hour + i && reservation.to_hour >= from_hour + i + 1) {
+                            reservations_in_hour += 1;
+                        }
+                    });
+                }
                 //si controlla se sono ancora presenti posti disponibili nell'intervallo di ore corrente
                 if (capacity - reservations_in_hour <= 0) {
-                    res.status(422).send({message: "L'aula selezionata non ha posti disponibili dalle ore " + from_hour + " alle ore " + (from_hour + 1)});
-                    return false;
+                    return res.status(422).json({message: "L'aula selezionata non ha posti disponibili dalle ore " + from_hour + " alle ore " + (from_hour + 1)});                    
                 }
             }
-            return true;
+            //se si arriva al di fuori del ciclo non ci sono stati problemi, quindi si può salvare la prenotazione
+            newReservation.save((err, reservation) => {
+                if (err) {
+                    return res.status(400).json({error: err});
+                }
+                return res.status(200).send(reservation);
+            });
         });
     }); 
 }
 
-function deleteReservation(id) {
+function deleteReservation(id, res) {
     Reservation.deleteOne({ _id: id }, (err) => {
         if (err) {
             return res.status(400).json({ error: err });
@@ -167,7 +161,7 @@ function deleteReservation(id) {
     });
 }
 
-function getReservationFromUser(user_id) {
+function getReservationFromUser(user_id, res) {
     Reservation.find({user_id: user_id}, (err, reservations) => {
         if (err) {
             return res.status(400).json({error: err});
