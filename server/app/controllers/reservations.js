@@ -103,7 +103,7 @@ function saveReservation(newReservation, res) {
     Reservation.find({
         $and: [
             {day: newReservation.day},
-            {study_room_id: newReservation.study_room_id},
+            {study_room_infos: newReservation.study_room_infos},
             {$or:[{from_hour: {$gte: newReservation.from_hour, $lt: newReservation.to_hour}},
                   {to_hour: {$gt: newReservation.from_hour, $lte: newReservation.to_hour}},
                   {$and:[{from_hour: {$lte: newReservation.from_hour}},
