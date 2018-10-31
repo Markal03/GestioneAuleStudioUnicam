@@ -21,6 +21,7 @@ export class EditReservationPage {
   reservationDay: string;
   studyRoomName: string;
   studyRoomAddress: string;
+  reservationId;
   constructor(public navCtrl: NavController, public navParams: NavParams, public reservationService: ReservationProvider, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
   }
 
@@ -42,7 +43,7 @@ export class EditReservationPage {
         to_hour: parseInt(this.hourTo.substring(0,2))
       }
   
-      this.reservationService.updateReservation(reservationDetails).then((result) => {
+      this.reservationService.updateReservation(reservationDetails, this.reservationId).then((result) => {
         this.loading.dismiss();
         let confirmationAlert = this.alertCtrl.create({
           title: "Prenotazione modificata!",
