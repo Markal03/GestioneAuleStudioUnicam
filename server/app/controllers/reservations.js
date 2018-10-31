@@ -3,7 +3,7 @@ const Reservation = require('../models/reservation');
 const StudyRoom = require('../models/study_room');
 
 exports.adminDeleteReservation = (req, res) => {
-    let user_id = req.params("reservationId");
+    let user_id = req.params.reservationId;
     deleteReservation(user_id, res);
 };
 
@@ -12,7 +12,7 @@ exports.getTime = (req, res) => {
 };
 
 exports.deleteReservation = (req, res) => {
-    let id = req.params("reservationId");
+    let id = req.params.reservationId;
     deleteReservation(id, res);
 };
 
@@ -61,7 +61,7 @@ exports.addReservation = (req, res) => {
 };
 
 exports.modifyReservation = (req, res) => {
-    let id = req.params("reservationId");
+    let id = req.params.reservationId;
     Reservation.findOne({_id: id}, (err, reservation) => {
         if (err) {
             return res.status(400).json({error: err});
@@ -80,7 +80,7 @@ exports.getReservation = (req, res) => {
 };
 
 exports.adminGetUserReservations = (req, res) => {
-    let user_id = req.param("user_id");
+    let user_id = req.params.user_id;
     getReservationFromUser(user_id, res);
 };
 
