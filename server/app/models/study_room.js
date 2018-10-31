@@ -17,6 +17,7 @@ const StudyRoomSchema = new Schema({
     days_open: { type: [String], required: [true, 'Inserisci giorni di apertura'], default: base_days},
     hours_open: { type: { from: String, to: String }, required: [true, 'Inserisci ore di apertura'], default: base_hours},
     description: { type: String, required: false },
+    address: { type: String, required: false },
     image: { type: Buffer, required: false }
 });
 

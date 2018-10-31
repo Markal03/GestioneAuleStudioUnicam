@@ -17,6 +17,7 @@ exports.addStudyRoom = (req, res, next) => {
     var capacity = req.body.capacity;
     var days_open = req.body.days_open;
     var hours_open = req.body.hours_open;
+    var address = req.body.address;
     if (!name) {
         res.status(422).send({ error: "Campo nome necessario" });
     }
@@ -28,6 +29,9 @@ exports.addStudyRoom = (req, res, next) => {
     }
     if (!hours_open) {
         res.status(422).send({ error: "Inserisci orari di apertura" });
+    }
+    if (!address) {
+        res.status(422).send({ error: "Inserisci l'indirizzo" });
     }
     var description = !req.body.description ? "" : req.body.description;
     var image = !req.body.image ? "" : req.body.image;
@@ -46,6 +50,7 @@ exports.addStudyRoom = (req, res, next) => {
             days_open: days_open,
             hours_open: hours_open,
             description: description,
+            address: address,
             image: image
         });
 
