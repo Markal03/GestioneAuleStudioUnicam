@@ -91,7 +91,7 @@ function getTimeAndDate() {
     let minute = date.getMinutes();
     let time = hours + ":" + minute;
     let monthDay = date.getDate();
-    let month = date.getMonth();
+    let month = date.getMonth() + 1;
     let year = date.getFullYear();
     let day = monthDay + "-" + month + "-" + year;
     let fullDate = {time: time, day: day};
