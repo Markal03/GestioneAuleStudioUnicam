@@ -19,8 +19,15 @@ export class ReservePage {
   isEnabled = true;
   immagine = new Image();
   daysOpen = "";
+
+  //Variabili per la gestione delle ore 
   minFrom: string;
+  minTo: string;
   maxTo: string;
+  maxFrom: string;
+  minday: string;
+  maxday: string;
+
   loading: any;
   dateAndTime: any;
 
@@ -59,7 +66,7 @@ export class ReservePage {
       let reservationDetails = {
         study_room_name: this.studyRoom.name,
         study_room_address: this.studyRoom.address,
-        day: this.reservationDay,
+        day: this.formatIonicDate(this.reservationDay),
         from_hour: parseInt(this.hourFrom.substring(0,2)),
         to_hour: parseInt(this.hourTo.substring(0,2))
       }
@@ -103,6 +110,7 @@ export class ReservePage {
   getServerDateTime() {
     this.reservationProvider.getDateAndTime().then((result) => {
       this.dateAndTime = result;
+      this.setAvailableDays();
       console.log(this.dateAndTime);
     }, (err) => {
       let alert = this.alertCtrl.create({
@@ -112,6 +120,8 @@ export class ReservePage {
       });
       alert.present();
     });
+
+    console.log(this.formatIonicDate("2018-11-02"));
   }
   getDays(){
     for(let i = 0; i<this.studyRoom.days_open.length; i++) {
@@ -125,30 +135,125 @@ export class ReservePage {
     console.log(this.daysOpen);
   }
 
-  getHours(){
-    if (this.studyRoom.hours_open.from.charAt(0) === "0") {
-      let temp = parseInt(this.studyRoom.hours_open.from.substring(0,2)) + 1;
-      if (temp < 10 ) {
-        this.minFrom = "0" + temp.toString() + ":00";
-      } else {
-        this.minFrom = temp + ":00";
-      }
-    } else {
-      this.minFrom = parseInt(this.studyRoom.hours_open.from.substring(0,2)) + 1 + ":00";
-    }
-    if (this.studyRoom.hours_open.to.charAt(0) === "0") {
-      let temp = parseInt(this.studyRoom.hours_open.to.substring(0,2)) - 1
-      this.maxTo = "0" + temp.toString() + ":00";
-    } else {
-      this.maxTo = parseInt(this.studyRoom.hours_open.to.substring(0,2)) - 1 + ":00";
-    }
+  setBaseHours(){
+    this.minFrom = this.studyRoom.hours_open.from;
+    this.maxFrom = this.setToHour(this.studyRoom.hours_open.to);
+    this.minTo = this.setFromHour(this.studyRoom.hours_open.from);
+    this.maxTo = this.studyRoom.hours_open.to;
+  }
+  
+  setAvailableDays() {
+    this.minday = this.formatServerDateToIonic(this.dateAndTime.day);
+    this.maxday = this.dateAndTime.day.substring(this.dateAndTime.day.lastIndexOf("-") + 1, this.dateAndTime.day.length);
 
-    
-
-    console.log(this.minFrom);
-    console.log(this.maxTo);
   }
 
+  setAvailableFromHours(ev) {
+    let pickedDate: string;
+      pickedDate = this.formatIonicDate(this.reservationDay);
+      if (pickedDate === this.dateAndTime.day && this.dateAndTime.time > this.studyRoom.hours_open.from) {
+        this.minFrom = this.dateAndTime.time.substring(0, 2) + ":00";
+        if (!this.hourTo) {
+          this.maxFrom = this.setToHour(this.studyRoom.hours_open.to);
+       } else {
+          this.maxFrom = this.setToHour(this.hourTo);
+        }
+     } else {
+      this.minFrom = this.studyRoom.hours_open.from;
+      if (!this.hourTo) {
+        this.maxFrom = this.setToHour(this.studyRoom.hours_open.to);
+      } else {
+        this.maxFrom = this.setToHour(this.hourTo);
+      }
+     }
+     this.minTo = this.setFromHour(ev.hour + ":00");
+
+    console.log(this.hourFrom)
+    console.log(ev);
+  }
+
+
+
+  setAvailableToHours(ev) {
+      this.minTo = this.setFromHour(this.hourFrom);
+      this.maxTo = this.studyRoom.hours_open.to;
+      this.maxFrom = this.setToHour(ev.hour + ":00");
+  }
+
+  setFromHour(hourString) {
+    let temp = parseInt(hourString.substring(0,2)) + 1;
+    let hour: string;
+    if (temp < 10 ) {
+      hour = "0" + temp.toString() + ":00";
+    } else {
+      hour = temp + ":00";
+    }
+
+    return hour;
+  }
+
+  setToHour(hourString) {
+    let temp = parseInt(hourString.substring(0,2)) - 1;
+    let hour: string;
+    if (temp < 10 ) {
+      hour = "0" + temp.toString() + ":00";
+    } else {
+      hour = temp + ":00";
+    }
+
+    return hour;
+  }
+
+  checkReservationFields() {
+
+    if (!this.reservationDay) {
+      let alert = this.alertCtrl.create({
+        title: 'Oooops!',
+        message: 'Seleziona la data della prenotazione per procedere',
+        buttons: ['Ok']
+      });
+      alert.present();
+      return;
+    }
+
+    if (!this.hourFrom) {
+      let alert = this.alertCtrl.create({
+        title: 'Oooops!',
+        message: 'Seleziona l\'ora di inizio della prenotazione per procedere',
+        buttons: ['Ok']
+      });
+      alert.present();
+      return;
+    }
+
+  }
+
+  formatIonicDate(stringDate) {
+    let year = stringDate.substring(0, 4);
+    let month = stringDate.substring(5, 7);
+    let day = stringDate.substring(8, stringDate.length);
+
+    if (day.charAt(0) === "0") {
+      day = day.slice(1);
+    }
+
+    return day + "-" + month + "-" + year;
+  }
+
+  formatServerDateToIonic(stringDate) {
+    let day = stringDate.substring(0, stringDate.indexOf("-"));
+    let month = stringDate.substring(2, stringDate.lastIndexOf("-"));
+    let year = stringDate.substring(stringDate.lastIndexOf("-") + 1, stringDate.length);
+
+    if (day.length < 2) {
+      day = "0" + day;
+    }
+    if (month.length < 2) {
+      month = "0" + month;
+    }
+
+    return year + "-" + month + "-" + day;
+  }
   showLoader() {
     this.loading = this.loadingCtrl.create({
       content: 'Verifica disponibilità posto in corso...'
@@ -160,7 +265,7 @@ export class ReservePage {
 
   ionViewWillEnter() {
     this.getDays();
-    this.getHours();
+    this.setBaseHours();
     this.getServerDateTime();
     }
 

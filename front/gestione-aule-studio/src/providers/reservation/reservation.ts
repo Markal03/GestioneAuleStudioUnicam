@@ -72,7 +72,8 @@ export class ReservationProvider {
       let headers = new Headers();
       headers.append('Authorization', this.authService.token);
       this.http.delete(url + reservationId, {headers: headers}).subscribe((res) => {
-        resolve(res);
+        let data = res.json();
+        resolve(data);
       }, (err) => {
         reject(err);
       });

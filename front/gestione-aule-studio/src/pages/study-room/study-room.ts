@@ -111,6 +111,7 @@ export class StudyRoomPage {
   //ev è un oggetto creato ogni volta che si switcha valore di una checkbox
   selectDay(day, ev){
     if(ev.value){
+      console.log(ev);
       this.days_open.push(day);
     } else {
       this.days_open.splice(this.days_open.indexOf(day), 1);
