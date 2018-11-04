@@ -13,7 +13,7 @@
         <ion-item-sliding detail-push *ngFor="let reservation of reservations">
 
           <ion-item>
-              <h2>{{reservation?.day}}</h2>
+              <h2><b>{{reservation.study_room_infos.name}}</b> - {{reservation?.day}}</h2>
               <p>{{reservation?.from_hour}}:00 - {{reservation?.to_hour}}:00 </p>            
           </ion-item>
 

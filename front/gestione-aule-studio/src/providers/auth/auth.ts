@@ -34,7 +34,8 @@ export class AuthProvider {
 
             this.http.get('http://localhost:3000/protected', {headers: headers})
                 .subscribe(res => {
-                    resolve(res);
+                  let data = res.json();
+                    resolve(data);
                 }, (err) => {
                     reject(err);
                 });

@@ -17,7 +17,7 @@ function setUserInfo(request){
 }
 
 exports.protected = (req, res) => {
-    res.send({ content: 'Success'});
+    res.send({content: 'Success', user: req.user});
 };
 
 //metodo che si utilizza dopo che passport ha già gestito il login effettivo, quando, di conseguenza, l'utente è già loggato
