@@ -16,7 +16,7 @@ var localLogin = new LocalStrategy(localOptions, function(email, password, done)
             return done(err);
         }
         if(!user){
-            return done(null, false, {error: 'Login fallito. Prova di nuovo.'});
+            return done(null, false, {message: 'Login fallito. Prova di nuovo.'});
         }
         
         user.comparePasswords(password, user.hashed_password, function(err, isMatch){
@@ -26,7 +26,7 @@ var localLogin = new LocalStrategy(localOptions, function(email, password, done)
             }
  
             if(!isMatch){
-                return done(null, false, {error: 'Errore nel login, password errata'});
+                return done(null, false, {message: 'Errore nel login, password errata'});
             }
             return done(null, user);
         });

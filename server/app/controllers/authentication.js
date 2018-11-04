@@ -37,16 +37,16 @@ exports.register = (req, res, next) => {
     var passwordConfirm = req.body.passwordConfirm;
 
     if (!name) {
-        return res.status(422).send({error: 'Campo nome necessario'});
+        return res.status(422).send({message: 'Campo nome necessario'});
     }
     if(!email){
-        return res.status(422).send({error: 'Campo email necessario'});
+        return res.status(422).send({message: 'Campo email necessario'});
     }
     if(!password){
-        return res.status(422).send({error: 'Password necessaria'});
+        return res.status(422).send({message: 'Password necessaria'});
     }
     if(!(password===passwordConfirm)) {
-        return res.status(422).send({error: 'Le password inserite non coincidono'});
+        return res.status(422).send({message: 'Le password inserite non coincidono'});
     }
     User.findOne({email: email}, function(err, existingUser){
         if(err) {
@@ -54,7 +54,7 @@ exports.register = (req, res, next) => {
         }
 
         if(existingUser) {
-            return res.status(422).send({error: 'Un account che utilizza la mail inserita è già esistente'});
+            return res.status(422).send({message: 'Un account che utilizza la mail inserita è già esistente'});
         }
 
         var user = new User({
@@ -85,6 +85,6 @@ exports.isAdmin = (req, res, next) => {
     }
     else {
         console.log("come te permetti");
-        res.status(400).send({error: "L'utente non è un admin di sistema"});
+        res.status(400).send({message: "L'utente non è un admin di sistema"});
     }
 };

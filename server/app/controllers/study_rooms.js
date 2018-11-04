@@ -5,7 +5,7 @@ const StudyRoom = require('../models/study_room');
 exports.browseStudyRooms = (req, res) => {
     StudyRoom.find({}, (err, rooms) => {
         if (err) {
-            return res.status(422).send({ error: err });
+            return res.status(422).send({ message: err });
         }
         
         res.status(200).send( rooms );
@@ -19,19 +19,19 @@ exports.addStudyRoom = (req, res, next) => {
     var hours_open = req.body.hours_open;
     var address = req.body.address;
     if (!name) {
-        res.status(422).send({ error: "Campo nome necessario" });
+        res.status(422).send({ message: "Campo nome necessario" });
     }
     if (!capacity) {
-        res.status(422).send({ error: "Campo capienza necessario" });
+        res.status(422).send({ message: "Campo capienza necessario" });
     }
     if (!days_open) {
-        res.status(422).send({ error: "Inserisci giorni di apertura" });
+        res.status(422).send({ message: "Inserisci giorni di apertura" });
     }
     if (!hours_open) {
-        res.status(422).send({ error: "Inserisci orari di apertura" });
+        res.status(422).send({ message: "Inserisci orari di apertura" });
     }
     if (!address) {
-        res.status(422).send({ error: "Inserisci l'indirizzo" });
+        res.status(422).send({ message: "Inserisci l'indirizzo" });
     }
     var description = !req.body.description ? "" : req.body.description;
     var image = !req.body.image ? "" : req.body.image;
@@ -41,7 +41,7 @@ exports.addStudyRoom = (req, res, next) => {
             return next(err);
         }
         if (existingStudyRoom) {
-            return res.status(422).send({error: 'Un aula studio che utilizza il nome inserito è già esistente'});
+            return res.status(422).send({message: 'Un aula studio che utilizza il nome inserito è già esistente'});
         }
 
         var newStudyRoom = new StudyRoom({
@@ -83,7 +83,7 @@ exports.modifyStudyRoom = (req, res) =>{
     let name = req.body.name
     StudyRoom.findOne({ name: name }, (err, room) => {
         if (err) {
-            return res.status(400).json({ error: err });
+            return res.status(400).json({ message: err });
         }
         console.log(req.body);
         room.capacity = req.body.capacity;
@@ -93,7 +93,7 @@ exports.modifyStudyRoom = (req, res) =>{
         //aggiungere aggiornamento immagine
         room.save((err) => {
             if (err)
-                return res.status(400).json({ error: err });
+                return res.status(400).json({ message: err });
             return res.status(200).json({ message: 'Aula studio modificata correttamente'});
         });
     });
