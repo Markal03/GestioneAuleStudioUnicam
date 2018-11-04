@@ -141,7 +141,7 @@ export class ReservePage {
     this.minTo = this.setFromHour(this.studyRoom.hours_open.from);
     this.maxTo = this.studyRoom.hours_open.to;
   }
-  
+
   setAvailableDays() {
     this.minday = this.formatServerDateToIonic(this.dateAndTime.day);
     this.maxday = this.dateAndTime.day.substring(this.dateAndTime.day.lastIndexOf("-") + 1, this.dateAndTime.day.length);
@@ -204,7 +204,7 @@ export class ReservePage {
     return hour;
   }
 
-  checkReservationFields() {
+  checkReservationDay() {
 
     if (!this.reservationDay) {
       let alert = this.alertCtrl.create({
@@ -215,7 +215,10 @@ export class ReservePage {
       alert.present();
       return;
     }
+  }
 
+  checkReservationFrom() {
+    
     if (!this.hourFrom) {
       let alert = this.alertCtrl.create({
         title: 'Oooops!',
