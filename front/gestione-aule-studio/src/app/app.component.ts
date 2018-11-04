@@ -36,9 +36,5 @@ export class MyApp {
     this.menuCtrl.close();
     this.app.getActiveNav().push(SearchPage);
   }
-  admin(){
-    this.menuCtrl.close();
-    this.app.getActiveNav().push(AdminPage);
-  }
 }
 

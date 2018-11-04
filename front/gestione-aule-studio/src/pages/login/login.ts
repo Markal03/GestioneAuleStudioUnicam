@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, LoadingController, AlertController } from 'ionic-angular';
 import { MainPage } from '../main/main';
 import { AuthProvider } from '../../providers/auth/auth';
+import { AdminPage } from '../admin/admin';
 
 @IonicPage()
 @Component({
@@ -27,9 +28,14 @@ export class LoginPage {
     //Check if already authenticated
      this.authService.checkAuthentication().then((res) => {
         console.log("Already authorized");
-        console.log(res);
         this.loading.dismiss();
+        this.result = res;
+        if(this.result.user.admin){
+          this.navCtrl.setRoot(AdminPage);
+        } else {
         this.navCtrl.setRoot(MainPage, {data: res});
+        }
+
     }, (err) => {
         console.log("Not already authorized");
         this.loading.dismiss();
@@ -47,8 +53,12 @@ export class LoginPage {
 
    this.authService.login(credentials).then((result) => {
       this.loading.dismiss();
-      console.log(result);
-      this.navCtrl.setRoot(MainPage, {data: result});
+      this.result = result;
+      if(this.result.user.admin){
+        this.navCtrl.setRoot(AdminPage);
+      } else {
+        this.navCtrl.setRoot(MainPage, {data: result});
+      }
   }, (err) => {
     let alert = this.alertCtrl.create({
       title: 'Errore',
