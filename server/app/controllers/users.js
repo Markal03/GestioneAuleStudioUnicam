@@ -6,7 +6,7 @@ exports.getUserInfos = (req, res) => {
     var id = req.user._id;
     User.findById(id, (err, user) => {
         if (err) {
-            res.status(400).send({ error: err });
+            res.status(400).send({ message: err });
         }
 
         var userInfos = {
@@ -23,7 +23,7 @@ exports.getUserInfos = (req, res) => {
 exports.getUsersList = (req, res) => {
     User.find({}, (err, users) => {
         if (err) {
-            res.status(400).send({ error: err });
+            res.status(400).send({ message: err });
         }
         res.status(200).send(users);
     });
@@ -43,7 +43,7 @@ exports.modifyPassword = (req, res) => {
     var id = req.user._id;
     User.findById(id, function(err, user){
         if (err) {
-            res.status(400).send({ error: err });
+            res.status(400).send({ message: err });
         }
         
         user.comparePasswords(req.body.oldPassword, user.hashed_password, function (err, isMatch) {
@@ -61,7 +61,7 @@ exports.modifyPassword = (req, res) => {
 
             user.save(function(err){
                 if (err){
-                    res.status(400).send({ error: err });
+                    res.status(400).send({ message: err });
                 }
     
                 res.status(200).json({message: 'Password aggiornata'});

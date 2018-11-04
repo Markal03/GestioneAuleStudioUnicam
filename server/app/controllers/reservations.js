@@ -26,46 +26,36 @@ exports.addReservation = (req, res) => {
     let to_hour = req.body.to_hour;
     let creation_time = getTimeAndDate();
     if (!user_id) {
-        res.status(422).json({ error: 'Id utente mancante' });
+        res.status(422).json({ message: 'Id utente mancante' });
     }
     if (!study_room_infos) {
-        res.status(422).json({ error: 'Informazioni aula studio mancanti' });
+        res.status(422).json({ message: 'Informazioni aula studio mancanti' });
     }
     if (!day) {
-        res.status(422).json({ error: 'Giorno mancante' });
+        res.status(422).json({ message: 'Giorno mancante' });
     }
     if (!from_hour) {
-        res.status(422).json({ error: 'Ora inizio prenotazione mancante' });
+        res.status(422).json({ message: 'Ora inizio prenotazione mancante' });
     }
     if (!to_hour) {
-        res.status(422).json({ error: 'Ora fine prenotazione mancante' });
-    }
-    /*Reservation.findOne({user_id: user_id}, (err, existingReservation) => {
-        console.log("ao");
-        if (err) {
-            return res.status(400).json({error: err});
-        }
-        if (existingReservation) {
-            return res.status(400).json({error: "L'utente ha già una prenotazione"});
-        }*/
-        
-        let newReservation = new Reservation({
-            user_id: user_id,
-            study_room_infos: study_room_infos,
-            day: day,
-            from_hour: from_hour,
-            to_hour: to_hour,
-            creation_time: creation_time
-        });
-        saveReservation(newReservation, res);
-    //});
+        res.status(422).json({ message: 'Ora fine prenotazione mancante' });
+    }        
+    let newReservation = new Reservation({
+        user_id: user_id,
+        study_room_infos: study_room_infos,
+        day: day,
+        from_hour: from_hour,
+        to_hour: to_hour,
+        creation_time: creation_time
+    });
+    saveReservation(newReservation, res);
 };
 
 exports.modifyReservation = (req, res) => {
     let id = req.params.reservationId;
     Reservation.findOne({_id: id}, (err, reservation) => {
         if (err) {
-            return res.status(400).json({error: err});
+            return res.status(400).json({message: err});
         }
         reservation.day = req.body.day;
         reservation.from_hour = req.body.from_hour;
@@ -114,17 +104,15 @@ function saveReservation(newReservation, res) {
             ]
     }, (err, reservations) => {
         if (err) {
-            return res.status(400).send({error: err});
+            return res.status(400).send({message: err});
         }
         let from_hour = newReservation.from_hour;
         let to_hour = newReservation.to_hour;
         let total_hours = to_hour - from_hour;
         let reservations_in_hour = 0;
-        console.log(newReservation.study_room_infos.name);
-        console.log(newReservation.study_room_infos.address);
         StudyRoom.find({name: newReservation.study_room_infos.name, address: newReservation.study_room_infos.address}, (err, room) => {
             if (err) {
-                return res.status(400).send({error: err});
+                return res.status(400).send({message: err});
             }
             let capacity = room[0].capacity;
             //per ogni intervallo di ore presente, si controlla quante delle prenotazioni ottenute esistono in quell'intervallo 
@@ -145,7 +133,7 @@ function saveReservation(newReservation, res) {
             //se si arriva al di fuori del ciclo non ci sono stati problemi, quindi si può salvare la prenotazione
             newReservation.save((err, reservation) => {
                 if (err) {
-                    return res.status(400).json({error: err});
+                    return res.status(400).json({message: err});
                 }
                 return res.status(200).send(reservation);
             });
@@ -156,7 +144,7 @@ function saveReservation(newReservation, res) {
 function deleteReservation(id, res) {
     Reservation.deleteOne({ _id: id }, (err) => {
         if (err) {
-            return res.status(400).json({ error: err });
+            return res.status(400).json({ message: err });
         }
         return res.status(200).json({ message: 'Prenotazione eliminata correttamente'});
     });
@@ -165,8 +153,22 @@ function deleteReservation(id, res) {
 function getReservationFromUser(user_id, res) {
     Reservation.find({user_id: user_id}, (err, reservations) => {
         if (err) {
-            return res.status(400).json({error: err});
+            return res.status(400).json({message: err});
         }
-        return res.status(200).json(reservations);
+        let reservationsToSend = [];
+        let date = new Date();
+        let day = date.getDay();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        let hour = date.getHours();
+        reservations.forEach((reservation) => {
+            let resDay = reservation.day.substring(0, reservation.day.indexOf('-'));
+            let resMonth = reservation.day.substring(reservation.day.indexOf('-') + 1, reservation.day.lastIndexOf('-'));
+            let resYear = reservation.day.substring(reservation.day.lastIndexOf('-') + 1, reservation.day.length);
+            if (resYear >= year && resMonth >= month && resDay >= day && reservation.from_hour >= hour) {
+                reservationsToSend.push(reservation);
+            }
+        });
+        return res.status(200).json(reservationsToSend);
     });
 }

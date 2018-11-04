@@ -33,19 +33,19 @@ module.exports = function(app) {
 
     app.get('/getStudyRooms', requireAuth, StudyRoomController.browseStudyRooms);
 
-    app.get('/usersList', requireAuth, UserController.getUsersList);
+    app.get('/usersList', requireAuth, AuthenticationController.isAdmin, UserController.getUsersList);
 
-    app.post('/addStudyRoom', requireAuth, StudyRoomController.addStudyRoom);
+    app.post('/addStudyRoom', requireAuth, AuthenticationController.isAdmin, StudyRoomController.addStudyRoom);
 
-    app.put('/modifyStudyRoom', requireAuth, StudyRoomController.modifyStudyRoom);
+    app.put('/modifyStudyRoom', requireAuth, AuthenticationController.isAdmin, StudyRoomController.modifyStudyRoom);
 
-    app.put('/getUserReservations', requireAuth, ReservationController.adminGetUserReservations);
+    app.put('/getUserReservations', requireAuth, AuthenticationController.isAdmin, ReservationController.adminGetUserReservations);
 
-    app.delete('/deleteStudyRoom/:name', requireAuth, StudyRoomController.deleteStudyRoom);
+    app.delete('/deleteStudyRoom/:name', requireAuth, AuthenticationController.isAdmin, StudyRoomController.deleteStudyRoom);
 
-    app.delete('/deleteUser/:user_id', requireAuth, UserController.adminDelete);
+    app.delete('/deleteUser/:user_id', requireAuth, AuthenticationController.isAdmin, UserController.adminDelete);
 
-    app.get('/getAdminReservations/:user_id', requireAuth, ReservationController.adminGetUserReservations);
+    app.get('/getAdminReservations/:user_id', requireAuth, AuthenticationController.isAdmin, ReservationController.adminGetUserReservations);
 
 
     //STUDY ROOM ROUTES FOR STUDENTS

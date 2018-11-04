@@ -26,7 +26,6 @@ import { StudentsManagementPage } from '../pages/students-management/students-ma
 import { StudyRoomsManagementPage } from '../pages/study-rooms-management/study-rooms-management';
 import { StudentsProvider } from '../providers/students/students';
 import { ReservationsManagementPage } from '../pages/reservations-management/reservations-management';
-import { EditReservationPage } from '../pages/edit-reservation/edit-reservation';
 
 @NgModule({
   declarations: [
@@ -43,8 +42,7 @@ import { EditReservationPage } from '../pages/edit-reservation/edit-reservation'
     EditStudyRoomPage,
     StudyRoomsManagementPage,
     StudentsManagementPage,
-    ReservationsManagementPage,
-    EditReservationPage
+    ReservationsManagementPage
   ],
   imports: [
     BrowserModule,
@@ -68,8 +66,7 @@ import { EditReservationPage } from '../pages/edit-reservation/edit-reservation'
     EditStudyRoomPage,
     StudyRoomsManagementPage,
     StudentsManagementPage,
-    ReservationsManagementPage,
-    EditReservationPage
+    ReservationsManagementPage
   ],
   providers: [
     AuthProvider,
