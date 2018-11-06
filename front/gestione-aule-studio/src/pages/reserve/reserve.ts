@@ -97,7 +97,7 @@ export class ReservePage {
           this.loading.dismiss();
           let errorAlert = this.alertCtrl.create({
             title: "Ooooops!",
-            message: "C'è stato un errore durante la prenotazione dell'aula studio",
+            message: err.message,
             buttons: [
               {
                 text: "Indietro",

@@ -27,7 +27,7 @@ export class ReservationProvider {
         .subscribe(data => {
           resolve(data);
         }, (err) => {
-          reject(err);
+          reject(err.json());
         } )
     });
   }
@@ -44,7 +44,7 @@ export class ReservationProvider {
         .subscribe(res=> {
           resolve(res);
         }, (err)=>{
-          reject(err);
+          reject(err.json());
         });
     });
   }
@@ -60,7 +60,7 @@ export class ReservationProvider {
         console.log(res);
         resolve(res);
       }, (err) => {
-        reject(err);
+        reject(err.json());
       });
     });
   }
@@ -75,7 +75,7 @@ export class ReservationProvider {
         let data = res.json();
         resolve(data);
       }, (err) => {
-        reject(err);
+        reject(err.json());
       });
 
     });
@@ -91,7 +91,7 @@ export class ReservationProvider {
         .subscribe(data => {
           resolve(data);
         }, (err) => {
-          reject(err);
+          reject(err.json());
         } )
     });
 
