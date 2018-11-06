@@ -37,7 +37,7 @@ export class AuthProvider {
                   let data = res.json();
                     resolve(data);
                 }, (err) => {
-                    reject(err.json());
+                    reject(err);
                 });
  
         });        
@@ -87,7 +87,7 @@ export class AuthProvider {
             
             resolve(res.json());
           }, (err) => {
-            reject(err.json());
+            reject(err);
           });
  
     });
