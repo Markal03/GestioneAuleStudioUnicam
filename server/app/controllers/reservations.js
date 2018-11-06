@@ -169,7 +169,21 @@ function getReservationFromUser(user_id, res) {
                 reservationsToSend.push(reservation);
             }
         });
-        reservationsToSend.sort();
+        reservationsToSend.sort((a, b) => {
+            let dateA = new Date(
+                parseInt(a.day.substring(a.day.lastIndexOf('-') + 1, a.day.length)),
+                parseInt(a.day.substring(a.day.indexOf('-') + 1, a.day.lastIndexOf('-'))),
+                parseInt(a.day.substring(0, a.day.indexOf('-'))),
+                a.from_hour
+            );
+            let dateB = new Date(
+                parseInt(b.day.substring(b.day.lastIndexOf('-') + 1, b.day.length)),
+                parseInt(b.day.substring(b.day.indexOf('-') + 1, b.day.lastIndexOf('-'))),
+                parseInt(b.day.substring(0, b.day.indexOf('-'))),
+                b.from_hour
+            );
+            return dateA - dateB;
+        });
         return res.status(200).json(reservationsToSend);
     });
 }
