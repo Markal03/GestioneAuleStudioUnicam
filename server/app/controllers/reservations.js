@@ -127,7 +127,7 @@ function saveReservation(newReservation, res) {
                 }
                 //si controlla se sono ancora presenti posti disponibili nell'intervallo di ore corrente
                 if (capacity - reservations_in_hour <= 0) {
-                    return res.status(422).json({message: "L'aula selezionata non ha posti disponibili dalle ore " + from_hour + " alle ore " + (from_hour + 1)});                    
+                    return res.status(400).json({message: "L'aula selezionata non ha posti disponibili dalle ore " + (from_hour + i) + " alle ore " + (from_hour + i + 1)});                    
                 }
             }
             //se si arriva al di fuori del ciclo non ci sono stati problemi, quindi si può salvare la prenotazione
@@ -169,6 +169,7 @@ function getReservationFromUser(user_id, res) {
                 reservationsToSend.push(reservation);
             }
         });
+        reservationsToSend.sort();
         return res.status(200).json(reservationsToSend);
     });
 }
