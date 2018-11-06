@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { ReservationProvider } from '../../providers/reservation/reservation';
 import { MainPage } from '../main/main';
+import { SelectorMatcher } from '@angular/compiler';
 
 
 
@@ -27,6 +28,7 @@ export class ReservePage {
   maxFrom: string;
   minday: string;
   maxday: string;
+  chosenDate: Date;
 
   loading: any;
   dateAndTime: any;
@@ -62,42 +64,51 @@ export class ReservePage {
       });
       alert.present();
     } else {
-      this.showLoader();
-      let reservationDetails = {
-        study_room_name: this.studyRoom.name,
-        study_room_address: this.studyRoom.address,
-        day: this.formatIonicDate(this.reservationDay),
-        from_hour: parseInt(this.hourFrom.substring(0,2)),
-        to_hour: parseInt(this.hourTo.substring(0,2))
+      if (!this.isBookableOnDay()) {
+        let alert = this.alertCtrl.create({
+          title: 'Oooops!',
+          message: 'L\'aula studio non è aperta nel giorno selezionato.',
+          buttons: ['Ok']
+        });
+        alert.present();
+      } else {
+        this.showLoader();
+        let reservationDetails = {
+          study_room_name: this.studyRoom.name,
+          study_room_address: this.studyRoom.address,
+          day: this.formatIonicDate(this.reservationDay),
+          from_hour: parseInt(this.hourFrom.substring(0,2)),
+          to_hour: parseInt(this.hourTo.substring(0,2))
+        }
+        this.reservationProvider.addReservation(reservationDetails).then((result) => {
+          this.loading.dismiss();
+          let confirmationAlert = this.alertCtrl.create({
+            title: "Prenotazione effettuata!",
+            message: "Premi su conferma per visualizzare le tue prenotazioni",
+            buttons: [
+              {
+                text: "Conferma",
+                handler:() => {this.navCtrl.setRoot(MainPage);}
+              }
+            ]
+          })
+          confirmationAlert.present();
+        }, (err) => {
+          this.loading.dismiss();
+          let errorAlert = this.alertCtrl.create({
+            title: "Ooooops!",
+            message: "C'è stato un errore durante la prenotazione dell'aula studio",
+            buttons: [
+              {
+                text: "Indietro",
+              }
+            ]
+          })
+          errorAlert.present();
+        });
+        console.log(reservationDetails)
       }
-  
-      this.reservationProvider.addReservation(reservationDetails).then((result) => {
-        this.loading.dismiss();
-        let confirmationAlert = this.alertCtrl.create({
-          title: "Prenotazione effettuata!",
-          message: "Premi su conferma per visualizzare le tue prenotazioni",
-          buttons: [
-            {
-              text: "Conferma",
-              handler:() => {this.navCtrl.setRoot(MainPage);}
-            }
-          ]
-        })
-        confirmationAlert.present();
-      }, (err) => {
-        this.loading.dismiss();
-        let errorAlert = this.alertCtrl.create({
-          title: "Ooooops!",
-          message: "C'è stato un errore durante la prenotazione dell'aula studio",
-          buttons: [
-            {
-              text: "Indietro",
-            }
-          ]
-        })
-        errorAlert.present();
-      });
-      console.log(reservationDetails)
+     
     }
 
   }
@@ -145,7 +156,12 @@ export class ReservePage {
   setAvailableDays() {
     this.minday = this.formatServerDateToIonic(this.dateAndTime.day);
     this.maxday = this.dateAndTime.day.substring(this.dateAndTime.day.lastIndexOf("-") + 1, this.dateAndTime.day.length);
+  }
 
+  isBookableOnDay() {
+    let days = ["Domenica", "Lunedì" ,"Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"];
+    this.chosenDate = new Date(this.reservationDay);
+    return this.studyRoom.days_open.includes(days[this.chosenDate.getDay()]);
   }
 
   setAvailableFromHours(ev) {
@@ -238,6 +254,9 @@ export class ReservePage {
 
     if (day.charAt(0) === "0") {
       day = day.slice(1);
+    }
+    if (month.charAt(0) === "0") {
+      month = month.slice(1);
     }
 
     return day + "-" + month + "-" + year;
