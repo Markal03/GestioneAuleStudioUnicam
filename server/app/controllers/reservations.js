@@ -157,15 +157,15 @@ function getReservationFromUser(user_id, res) {
         }
         let reservationsToSend = [];
         let date = new Date();
-        let day = date.getDay();
+        let day = date.getDate();
         let month = date.getMonth() + 1;
         let year = date.getFullYear();
         let hour = date.getHours();
         reservations.forEach((reservation) => {
-            let resDay = reservation.day.substring(0, reservation.day.indexOf('-'));
-            let resMonth = reservation.day.substring(reservation.day.indexOf('-') + 1, reservation.day.lastIndexOf('-'));
-            let resYear = reservation.day.substring(reservation.day.lastIndexOf('-') + 1, reservation.day.length);
-            if (resYear >= year && resMonth >= month && resDay >= day && reservation.from_hour >= hour) {
+            let resDay = parseInt(reservation.day.substring(0, reservation.day.indexOf('-')));
+            let resMonth = parseInt(reservation.day.substring(reservation.day.indexOf('-') + 1, reservation.day.lastIndexOf('-')));
+            let resYear = parseInt(reservation.day.substring(reservation.day.lastIndexOf('-') + 1, reservation.day.length));
+            if ((resYear == year && resMonth == month && resDay == day && reservation.to_hour > hour) || (resYear > year) || (resYear == year && resMonth > month) || (resYear == year && resMonth == month && resDay > day)) {
                 reservationsToSend.push(reservation);
             }
         });
