@@ -24,7 +24,7 @@ export class StudentsProvider {
         .subscribe(data => {
           resolve(data);
         }, (err) => {
-          reject(err);
+          reject(err.json());
         });
     });
   }
@@ -39,7 +39,7 @@ export class StudentsProvider {
           .subscribe(data => {
             resolve(data);
           }, (err) => {
-            reject(err);
+            reject(err.json());
           });
       });
     }
@@ -52,7 +52,7 @@ export class StudentsProvider {
       this.http.delete("http://localhost:3000/deleteReservation/" + reservationId, {headers: headers}).subscribe((res) => {
         resolve(res);
       }, (err) => {
-        reject(err);
+        reject(err.json());
       });
 
     });
@@ -65,7 +65,7 @@ export class StudentsProvider {
       this.http.delete("http://localhost:3000/deleteUser/" + user_id, {headers: headers}).subscribe((res) => {
         resolve(res);
       }, (err) => {
-        reject(err);
+        reject(err.json());
       });
 
     });

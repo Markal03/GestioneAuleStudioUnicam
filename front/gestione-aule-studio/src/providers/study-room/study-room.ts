@@ -27,7 +27,7 @@ export class StudyRoomProvider {
         .subscribe(data => {
           resolve(data);
         }, (err) => {
-          reject(err);
+          reject(err.json());
         });
     });
   }
@@ -42,7 +42,7 @@ export class StudyRoomProvider {
           .subscribe(res=> {
             resolve(res);
           }, (err)=>{
-            reject(err);
+            reject(err.json());
           });
     });
   }
@@ -54,7 +54,7 @@ export class StudyRoomProvider {
         this.http.delete('http://localhost:3000/deleteStudyRoom/' + name , {headers: headers}).subscribe((res) => {
           resolve(res);
       }, (err) => {
-          reject(err);
+          reject(err.json());
       });
     });
   }
@@ -72,7 +72,7 @@ export class StudyRoomProvider {
             resolve(res);
             console.log(res);
           }, (err)=>{
-            reject(err);
+            reject(err.json());
           });
     });
   }

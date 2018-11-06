@@ -76,7 +76,7 @@ export class RegisterPage {
         this.loading.dismiss();
         let alert = this.alertCtrl.create({
           title: 'Oooops!',
-          message: 'C\'è stato un errore, registrazione non effettuata',
+          message: err.message,
           buttons: ['Ok']
         });
         console.log(err);

@@ -26,7 +26,7 @@ export class ProfileProvider {
         .subscribe( data => {
           resolve(data);
         }, (err)=> {
-          reject(err);
+          reject(err.json());
         });
     });
 
@@ -42,7 +42,7 @@ export class ProfileProvider {
         console.log(res);
         resolve(res);
       }, (err) => {
-        reject(err);
+        reject(err.json());
       });
 
     });
@@ -58,7 +58,7 @@ export class ProfileProvider {
         console.log(res);
         resolve(res);
       }, (err) => {
-        reject(err);
+        reject(err.json());
       });
     });
   }
