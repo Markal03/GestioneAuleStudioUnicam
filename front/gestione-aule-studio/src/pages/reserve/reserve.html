@@ -36,7 +36,7 @@
               <ion-label color="primary"> Giorno: </ion-label>
             </ion-col>
             <ion-col col-8 align="right">
-              <ion-datetime min="{{minday}}" max="{{maxday}}" [(ngModel)]="reservationDay"displayFormat="DDDD, DD MMM. YY" doneText="OK" cancelText="Indietro" monthShortNames="Gen,Feb,Mar,Apr,Mag,Giu,Lug,Ago,Set,Ott,Nov,Dic" dayNames="Domenica,Luned&igrave;,Marted&igrave;, Mercoled&igrave;, Gioved&igrave;, Venerd&igrave;, Sabato"></ion-datetime> 
+              <ion-datetime (ionChange)="resetHours()" min="{{minday}}" max="{{maxday}}" [(ngModel)]="reservationDay"displayFormat="DDDD, DD MMM. YY" doneText="OK" cancelText="Indietro" monthShortNames="Gen,Feb,Mar,Apr,Mag,Giu,Lug,Ago,Set,Ott,Nov,Dic" dayNames="Domenica,Luned&igrave;,Marted&igrave;, Mercoled&igrave;, Gioved&igrave;, Venerd&igrave;, Sabato"></ion-datetime> 
             </ion-col>
           </ion-row>
         <ion-row>
@@ -44,14 +44,14 @@
               <ion-label color="primary"> Da: </ion-label>
           </ion-col>
           <ion-col align="right">
-              <ion-datetime  (tap)="checkReservationDay()"(ionChange)="setAvailableFromHours($event)" [(ngModel)]="hourFrom" displayFormat="HH:mm" doneText="OK" cancelText="Indietro" minuteValues="0" placeholder="{{studyRoom.hours_open.from}}" min="{{minFrom}}" max="{{maxFrom}}"></ion-datetime>
+              <ion-datetime  (tap)="checkReservationDay()" (ionChange)="setAvailableFromHours($event)" [(ngModel)]="hourFrom" displayFormat="HH:mm" doneText="OK" cancelText="Indietro" minuteValues="0" placeholder="{{studyRoom.hours_open.from}}" min="{{minFrom}}" max="{{maxFrom}}"></ion-datetime>
           </ion-col>
           <ion-col col-1></ion-col>
           <ion-col col-2> 
               <ion-label color="primary"> A: </ion-label>
           </ion-col>
           <ion-col align="right">
-              <ion-datetime (tap)="checkReservationFrom()" (ionChange) ="setAvailableToHours($event)" [(ngModel)]="hourTo" displayFormat="HH:mm" doneText="OK" cancelText="Indietro" minuteValues="0" placeholder="{{studyRoom.hours_open.to}}" min="{{minTo}}" max="{{maxTo}}"></ion-datetime>
+              <ion-datetime (tap)="checkReservationFrom()" (ionChange)="setAvailableToHours($event)" [(ngModel)]="hourTo" displayFormat="HH:mm" doneText="OK" cancelText="Indietro" minuteValues="0" placeholder="{{studyRoom.hours_open.to}}" min="{{minTo}}" max="{{maxTo}}"></ion-datetime>
           </ion-col>
         </ion-row>
       </ion-grid>

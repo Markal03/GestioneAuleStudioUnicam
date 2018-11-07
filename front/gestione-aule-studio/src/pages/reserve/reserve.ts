@@ -69,7 +69,7 @@ export class ReservePage {
       });
       alert.present();
     } else {
-      if (!this.isBookableOnDay) {
+      if (!this.isBookableOnDay()) {  
         let alert = this.alertCtrl.create({
           title: 'Oooops!',
           message: 'L\'aula studio non è aperta nel giorno selezionato!',
@@ -103,7 +103,7 @@ export class ReservePage {
           this.loading.dismiss();
           let errorAlert = this.alertCtrl.create({
             title: "Ooooops!",
-            message: "C'è stato un errore durante la prenotazione dell'aula studio",
+            message: err.message,
             buttons: [
               {
                 text: "Indietro",
@@ -167,7 +167,9 @@ export class ReservePage {
   setAvailableFromHours(ev) {
     let pickedDate: string;
       pickedDate = this.formatIonicDate(this.reservationDay);
+      console.log(pickedDate);
       if (pickedDate === this.dateAndTime.day && this.dateAndTime.time > this.studyRoom.hours_open.from) {
+        console.log("Ehi sono qua, ciaooooooooooooooo")
         this.minFrom = this.dateAndTime.time.substring(0, 2) + ":00";
         if (!this.hourTo) {
           this.maxFrom = this.setToHour(this.studyRoom.hours_open.to);
@@ -230,7 +232,28 @@ export class ReservePage {
       });
       alert.present();
       return;
+    } else {
+      let pickedDate: string;
+      pickedDate = this.formatIonicDate(this.reservationDay);
+      console.log(pickedDate);
+      if (pickedDate === this.dateAndTime.day && this.dateAndTime.time > this.studyRoom.hours_open.from) {
+        console.log("Ehi sono qua, ciaooooooooooooooo")
+        this.minFrom = this.dateAndTime.time.substring(0, 2) + ":00";
+      }
     }
+  }
+  
+  resetHours() {
+    let pickedDate: string;
+    pickedDate = this.formatIonicDate(this.reservationDay);
+    console.log(pickedDate);
+    if (pickedDate === this.dateAndTime.day && this.dateAndTime.time > this.studyRoom.hours_open.from) {
+      console.log("Ehi sono qua, ciaooooooooooooooo")
+      this.hourFrom = this.dateAndTime.time.substring(0, 2) + ":00";
+    } else {
+      this.hourFrom = this.studyRoom.hours_open.from;
+    }
+    this.hourTo=  this.studyRoom.hours_open.to;
   }
 
   checkReservationFrom() {

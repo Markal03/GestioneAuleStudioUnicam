@@ -59,7 +59,7 @@ export class MainPage {
               position: 'middle'
             });
             toast.onDidDismiss(() => {
-              this.getUserReservations();
+              this.navCtrl.setRoot(MainPage);
             });
             toast.present();
           }, (err) => {

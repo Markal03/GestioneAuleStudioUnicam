@@ -10,6 +10,14 @@
 
 <ion-content padding>
     <ion-list>
+            <ion-card  *ngIf="reservations?.length === 0">
+                    <ion-card-content>
+                      <ion-card-title>
+                        <h2> <b> Prenotazione </b> </h2>
+                      </ion-card-title>
+                      Non hai ancora effettuato alcuna prenotazione
+                    </ion-card-content>
+                  </ion-card>
         <ion-item-sliding detail-push *ngFor="let reservation of reservations">
 
           <ion-item>
