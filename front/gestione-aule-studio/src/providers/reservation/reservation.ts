@@ -97,6 +97,19 @@ export class ReservationProvider {
 
   }
 
-  
+  getReservations(student){
+    return new Promise((resolve, reject) =>{
+      let headers = new Headers();
+      let id = student._id;
+      headers.append('Authorization', this.authService.token);
+      this.http.get('http://localhost:3000/getAdminReservations/' + id, {headers: headers })
+        .map(res => res.json())
+        .subscribe(data => {
+          resolve(data);
+        }, (err) => {
+          reject(err.json());
+        });
+    });
+  }
 
 }

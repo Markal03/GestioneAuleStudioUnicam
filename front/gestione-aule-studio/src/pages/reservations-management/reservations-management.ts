@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { StudentsProvider } from '../../providers/students/students';
+import { ReservationProvider } from '../../providers/reservation/reservation';
 
 /**
  * Generated class for the ReservationsManagementPage page.
@@ -19,12 +20,12 @@ export class ReservationsManagementPage {
   reservations;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public studentsService: StudentsProvider, public alertCtrl: AlertController,
-    public toastCtrl: ToastController) {
+    public toastCtrl: ToastController, public reservationsService: ReservationProvider) {
     this.student = navParams.get('data');
   }
 
   ionViewWillEnter(){
-    this.studentsService.getReservations(this.student).then((data) => {
+    this.reservationsService.getReservations(this.student).then((data) => {
       this.reservations = data;
       console.log(this.reservations);
     }, (err) => {
