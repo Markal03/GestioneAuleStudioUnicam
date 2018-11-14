@@ -122,6 +122,7 @@ export class ReservePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReservePage');    
     console.log(this.studyRoom);
+    console.log(this.formatServerDateToIonic("14-11-2018"));
   }
 
   getServerDateTime() {
@@ -288,7 +289,7 @@ export class ReservePage {
 
   formatServerDateToIonic(stringDate) {
     let day = stringDate.substring(0, stringDate.indexOf("-"));
-    let month = stringDate.substring(2, stringDate.lastIndexOf("-"));
+    let month = stringDate.substring(stringDate.indexOf("-") + 1, stringDate.lastIndexOf("-"));
     let year = stringDate.substring(stringDate.lastIndexOf("-") + 1, stringDate.length);
 
     if (day.length < 2) {
@@ -313,8 +314,7 @@ export class ReservePage {
     this.getDays();
     this.setBaseHours();
     this.getServerDateTime();
-    }
-
+  }
 
 }
 
