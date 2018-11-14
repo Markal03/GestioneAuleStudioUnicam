@@ -112,4 +112,18 @@ export class ReservationProvider {
     });
   }
 
+    
+  deleteStudentReservation(reservation){
+    return new Promise ((resolve, reject) => {
+      let headers = new Headers();
+      let reservationId = reservation._id;
+      headers.append('Authorization', this.authService.token);
+      this.http.delete("http://localhost:3000/deleteReservation/" + reservationId, {headers: headers}).subscribe((res) => {
+        resolve(res);
+      }, (err) => {
+        reject(err.json());
+      });
+
+    });
+  }
 }

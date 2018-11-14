@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, ToastController } from 'ionic-angular';
-import { StudentsProvider } from '../../providers/students/students';
 import { ReservationProvider } from '../../providers/reservation/reservation';
 
 /**
@@ -19,7 +18,7 @@ export class ReservationsManagementPage {
   student;
   reservations;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public studentsService: StudentsProvider, public alertCtrl: AlertController,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
     public toastCtrl: ToastController, public reservationsService: ReservationProvider) {
     this.student = navParams.get('data');
   }
@@ -49,7 +48,7 @@ export class ReservationsManagementPage {
 
         {
           text: "Conferma",
-          handler: () => {this.studentsService.deleteReservation(reservation).then((result) => {
+          handler: () => {this.reservationsService.deleteStudentReservation(reservation).then((result) => {
           let toast = this.toastCtrl.create({
               message: 'Eliminazione prenotazione',
               duration: 1000,
