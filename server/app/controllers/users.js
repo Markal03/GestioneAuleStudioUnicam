@@ -48,7 +48,7 @@ exports.modifyPassword = (req, res) => {
         
         user.comparePasswords(req.body.oldPassword, user.hashed_password, function (err, isMatch) {
             if(err){
-                console.log("Meeeenghia, nn o cpt");
+                console.log("Non ho capito");
                 return res.status(400).json(err);
             }
 

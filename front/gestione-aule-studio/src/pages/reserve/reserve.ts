@@ -170,7 +170,6 @@ export class ReservePage {
       pickedDate = this.formatIonicDate(this.reservationDay);
       console.log(pickedDate);
       if (pickedDate === this.dateAndTime.day && this.dateAndTime.time > this.studyRoom.hours_open.from) {
-        console.log("Ehi sono qua, ciaooooooooooooooo")
         this.minFrom = this.dateAndTime.time.substring(0, 2) + ":00";
         if (!this.hourTo) {
           this.maxFrom = this.setToHour(this.studyRoom.hours_open.to);
@@ -238,7 +237,6 @@ export class ReservePage {
       pickedDate = this.formatIonicDate(this.reservationDay);
       console.log(pickedDate);
       if (pickedDate === this.dateAndTime.day && this.dateAndTime.time > this.studyRoom.hours_open.from) {
-        console.log("Ehi sono qua, ciaooooooooooooooo")
         this.minFrom = this.dateAndTime.time.substring(0, 2) + ":00";
       }
     }
@@ -249,7 +247,6 @@ export class ReservePage {
     pickedDate = this.formatIonicDate(this.reservationDay);
     console.log(pickedDate);
     if (pickedDate === this.dateAndTime.day && this.dateAndTime.time > this.studyRoom.hours_open.from) {
-      console.log("Ehi sono qua, ciaooooooooooooooo")
       this.hourFrom = this.dateAndTime.time.substring(0, 2) + ":00";
     } else {
       this.hourFrom = this.studyRoom.hours_open.from;
